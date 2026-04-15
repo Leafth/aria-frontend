@@ -1,9 +1,5 @@
-function App() {
-  return (
-    <>
-      <h1 className="">Hello Word</h1>
-    </>
-  );
-}
+import { AppRoutes } from "./routes";
 
-export default App;
+export default function App() {
+  return <AppRoutes />;
+}
