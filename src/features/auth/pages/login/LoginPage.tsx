@@ -1,7 +1,6 @@
-import { Button } from "../../../../shared/components/ui/button";
-import { InputField } from "../../../../shared/components/ui/input";
 import Logo from "../../../../assets/icons/Logo.svg";
-import ImgLogo from "../../../../assets/img/imgLogin.svg"
+import ImgLogo from "../../../../assets/img/imgLogin.svg";
+import { LoginForm } from "../../components/LoginForm";
 
 export default function LoginPage() {
   return (
@@ -15,25 +14,12 @@ export default function LoginPage() {
               Acesse sua conta
             </h1>
           </header>
-
-          <form className="w-full flex flex-col gap-4">
-            <InputField label="Email" />
-
-            <div className="flex flex-col gap-2">
-              <InputField label="Senha" type="password" showPasswordToggle />
-
-              <span className="text-sm text-text-secondary text-right text-text-primary cursor-pointer">
-                Esqueci minha senha
-              </span>
-            </div>
-
-            <Button className="w-full">Entrar</Button>
-          </form>
+          <LoginForm />
         </div>
       </div>
       <aside className="hidden lg:flex flex-col items-center justify-center mr-30 my-2">
         <div className="flex justify-center items-center bg-linear-to-b from-[#03809B] to-[#012C35] h-120 w-full rounded-t-2xl">
-          <img src={ImgLogo} alt="" className="w-100 h-100"/>
+          <img src={ImgLogo} alt="" className="w-100 h-100" />
         </div>
         <div className="flex flex-col justify-center bg-white h-3/10 w-full rounded-b-2xl px-10">
           <header className="flex items-center">
