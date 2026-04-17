@@ -1,5 +1,5 @@
 import Logo from "../../../../assets/icons/logo.svg";
-import { ResetPasswordForm } from "../../components/ResetPasswordForm";
+import { ResetPasswordForm } from "../../components";
 
 export default function ResetPasswordPage() {
   return (

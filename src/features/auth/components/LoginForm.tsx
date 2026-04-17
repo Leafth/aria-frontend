@@ -1,8 +1,7 @@
-import { Button } from "../../../shared/components/ui/button";
-import { Form } from "../../../shared/components/ui/form/Form";
-import { InputField } from "../../../shared/components/ui/input";
-import { useLoginForm } from "../hooks/useLoginForm.tsx";
 import { useNavigate } from "react-router-dom";
+import { Button, InputField } from "../../../shared/components/ui";
+import { Form } from "../../../shared/components/ui/form/Form";
+import { useLoginForm } from "../hooks";
 
 export function LoginForm() {
   const { register, handleSubmit, errors, onSubmit } = useLoginForm();

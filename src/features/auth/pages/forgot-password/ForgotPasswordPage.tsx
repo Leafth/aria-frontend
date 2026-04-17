@@ -1,6 +1,5 @@
 import Logo from "../../../../assets/icons/Logo.svg";
-
-import { ForgotPasswordForm } from "../../components/ForgotPasswordForm";
+import { ForgotPasswordForm } from "../../components";
 
 export default function ForgotPasswordPage() {
   return (

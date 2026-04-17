@@ -1,8 +1,7 @@
-import { Button } from "../../../shared/components/ui/button";
-import { Form } from "../../../shared/components/ui/form/Form";
-import { InputField } from "../../../shared/components/ui/input";
-import { useResetPasswordForm } from "../hooks/useResetPasswordForm.tsx";
 import { ChevronLeft } from "lucide-react";
+import { Button, InputField } from "../../../shared/components/ui";
+import { Form } from "../../../shared/components/ui/form/Form";
+import { useResetPasswordForm } from "../hooks";
 
 export function ResetPasswordForm() {
   const { register, handleSubmit, errors, onSubmit } = useResetPasswordForm();

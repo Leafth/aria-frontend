@@ -1,9 +1,8 @@
-import { Button } from "../../../shared/components/ui/button";
-import { Form } from "../../../shared/components/ui/form/Form";
-import { InputField } from "../../../shared/components/ui/input";
-import { useForgotPasswordForm } from "../hooks/useForgotPasswordForm";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
+import { Button, InputField } from "../../../shared/components/ui";
+import { Form } from "../../../shared/components/ui/form/Form";
+import { useForgotPasswordForm } from "../hooks";
 
 export function ForgotPasswordForm() {
   const { register, handleSubmit, errors, onSubmit } = useForgotPasswordForm();

@@ -1,11 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  forgotPasswordSchema,
-  type ForgotPasswordSchemaData,
-} from "../schemas/forgotPassword.schema";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { forgotPasswordSchema, type ForgotPasswordSchemaData } from "../schemas";
 
 export function useForgotPasswordForm() {
   const {
