@@ -1,8 +1,5 @@
-// Buttons
 export * from "./button";
-
-// Inputs
 export * from "./input";
-
-// Forms
+export * from "./toast"
 export { Form } from "./form/Form";
+
