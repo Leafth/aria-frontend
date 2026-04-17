@@ -1,1 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #022733;
+  --color-secondary: #04394b;
+
+  --color-background-primary: #f4f4f5;
+  --color-surface: #ffffff;
+
+  --color-border: #e4e4e7;
+  --color-text-primary: #18181b;
+
+  --color-success: #10b981;
+  --color-red: #ef4444;
+
+  --font-sans: "Host Grotesk", system-ui, sans-serif;
+}
+
+.dark {
+  --color-bg: #09090b;
+  --color-surface: #18181b;
+
+  --color-text: #ffffff;
+  --color-text-secondary: #a1a1aa;
+
+  --color-border: #27272a;
+
+  --color-success: #10b981;
+  --color-error: #ef4444;
+}
+
+html {
+  font-family: var(--font-sans);
+}
