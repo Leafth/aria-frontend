@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LoginPage from "../features/auth/pages/login/LoginPage";
-import { AuthLayout } from "../layout/AuthLayout";
-import { MainLayout } from "../layout/MainLayout";
+import { AuthLayout } from "../shared/components/layout/AuthLayout";
+import { MainLayout } from "../shared/components/layout/MainLayout";
 
 export function AppRoutes() {
   return (
