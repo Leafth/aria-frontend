@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { InputFieldProps } from "./InputField.types";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, CircleX } from "lucide-react";
 
 import {
   container,
@@ -45,7 +45,12 @@ export function InputField({
         )}
       </div>
 
-      {error && <span className="text-red-500 text-xs">{error}</span>}
+      {error && (
+        <span className="flex items-center gap-1 text-red-500 text-xs font-medium">
+          <CircleX className="w-5 h-5"/>
+          <p>{error}</p>
+        </span>
+      )}
     </div>
   );
 }
