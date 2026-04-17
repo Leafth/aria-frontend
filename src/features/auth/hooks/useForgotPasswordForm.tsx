@@ -2,7 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { forgotPasswordSchema, type ForgotPasswordSchemaData } from "../schemas";
+import {
+  forgotPasswordSchema,
+  type ForgotPasswordSchemaData,
+} from "../schemas";
+import { ToastContent } from "../../../shared";
 
 export function useForgotPasswordForm() {
   const {
@@ -19,17 +23,11 @@ export function useForgotPasswordForm() {
     console.log("RECUPERAR:", data);
 
     toast.custom(() => (
-      <div className="bg-white rounded-2xl shadow-lg px-6 py-4 flex flex-col gap-1">
-        
-        <span className="text-green-600 font-semibold">
-          Sucesso!
-        </span>
-
-        <span className="text-gray-500 text-sm">
-          Enviamos o link de recuperação para o seu e-mail
-        </span>
-
-      </div>
+      <ToastContent
+        title="Sucesso!"
+        description="Enviamos o link de recuperação para o seu e-mail"
+        variant="success"
+      />
     ));
 
     navigate("/login");
