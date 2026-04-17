@@ -22,7 +22,7 @@ export function ForgotPasswordForm() {
       </Button>
 
       <span
-        className="flex gap-2 justify-center items-center text-sm cursor-pointer"
+        className="flex gap-2 justify-center items-center text-sm text-text-primary cursor-pointer"
         onClick={() => navigate("/")}
       >
         <ChevronLeft /> Voltar para login
