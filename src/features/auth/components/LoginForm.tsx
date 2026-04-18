@@ -33,7 +33,11 @@ export function LoginForm() {
         </span>
       </div>
 
-      <Button type="submit" className="w-full">
+      <Button
+        type="submit"
+        className="w-full"
+        onClick={() => navigate("/dashboard")}
+      >
         Entrar
       </Button>
     </Form>
