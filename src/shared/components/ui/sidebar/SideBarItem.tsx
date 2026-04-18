@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import type { SidebarItemType } from "./Sidebar.types";
+import type { SidebarItemType } from "./SideBar.types";
 import { item, itemActive, itemInactive } from "./SideBar.styles";
 
 export function SidebarItem({ label, icon: Icon, path }: SidebarItemType) {
