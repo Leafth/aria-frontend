@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
+    "composite": true,
     "paths": {
+      "@/*": [
+        "./src/*"
+      ],
       "@app/*": [
         "./src/app/*"
       ]
