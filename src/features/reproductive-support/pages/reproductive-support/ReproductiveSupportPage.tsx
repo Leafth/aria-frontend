@@ -1,6 +1,7 @@
-import { Button, Header } from "../../../../shared";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { Button, Header } from "../../../../shared";
+import { InvoicesTable } from "../../../../shared/components/ui/invoices-table";
 import { ModalForm } from "../../components/ModalForm";
 
 export default function ReproductiveSupportPage() {
@@ -33,6 +34,8 @@ export default function ReproductiveSupportPage() {
       {open && (
         <ModalForm open={open} onClose={() => setOpen(false)}/>
       )}
+
+      <InvoicesTable />
     </div>
   );
 }
