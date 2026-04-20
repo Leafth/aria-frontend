@@ -1,3 +1,5 @@
+import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
+
 import {
   Table,
   TableBody,
@@ -7,10 +9,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { invoices } from "./data"
+} from "@/components/ui/table";
+import { invoices } from "./data";
 
 export function InvoicesTable() {
+  const table = useReactTable({
+    data: invoices,
+    columns: [
+      { accessorKey: 'invoice' },
+      { accessorKey: 'paymentStatus' },
+      { accessorKey: 'paymentMethod' },
+      { accessorKey: 'totalAmount' },
+    ],
+    getCoreRowModel: getCoreRowModel()
+  });
+
+  console.log(table)
+
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
