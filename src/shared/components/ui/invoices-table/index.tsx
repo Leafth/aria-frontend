@@ -1,58 +1,45 @@
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { invoices } from "./data";
+import { type Invoice } from '@/shared/entities/Invoice';
+import { useState } from 'react';
+import { DataTable } from '../table';
+import { DataTableColumnsVisibilityDropdown } from '../table/DataTableColumnsVisibilityDropdown';
+import { DataTableContent } from '../table/DataTableContent';
+import { DataTableFacetedFilter } from '../table/DataTableFacetedFilter';
+import { DataTablePagination } from '../table/DataTablePagination';
+import { DataTableTextFilter } from '../table/DataTableTextFilter';
+import { columns } from './columns';
+import { invoices } from './data';
 
 export function InvoicesTable() {
-  const table = useReactTable({
-    data: invoices,
-    columns: [
-      { accessorKey: 'invoice' },
-      { accessorKey: 'paymentStatus' },
-      { accessorKey: 'paymentMethod' },
-      { accessorKey: 'totalAmount' },
-    ],
-    getCoreRowModel: getCoreRowModel()
-  });
+  const [, setSelectedRows] = useState<Invoice[]>([]);
 
-  console.log(table)
+  const [data] = useState(invoices);
 
   return (
-    <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-25">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
-  )
+    <DataTable
+      data={data}
+      columns={columns}
+      onSelectRow={selectedRows => {
+        setSelectedRows(selectedRows);
+      }}
+      pagination={{
+        pageIndex: 0,
+        pageSize: 6,
+      }}
+    >
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <DataTableTextFilter
+          placeholder="Search..."
+          column="paymentStatus"
+        />
+        <DataTableFacetedFilter column="paymentStatus" />
+        <DataTableColumnsVisibilityDropdown />
+      </div>
+
+      <DataTableContent />
+
+      <div className="flex justify-end items-center mt-4">
+        <DataTablePagination />
+      </div>
+    </DataTable>
+  );
 }
