@@ -7,6 +7,7 @@ import {
 } from "../features/auth/pages";
 import { DashboardPage } from "../features/dashboard/pages";
 import { ReproductiveSupportPage } from "../features/reproductive-support";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export function AppRoutes() {
   return (
@@ -18,10 +19,14 @@ export function AppRoutes() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Route>
-
-        <Route element={<MainLayout />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/reproductive-support" element={<ReproductiveSupportPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route
+              path="/reproductive-support"
+              element={<ReproductiveSupportPage />}
+            />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
