@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginSchemaData } from "../schemas";
-//import { login } from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { login } from "../services/auth.service";
 
 export function useLoginForm() {
   const navigate = useNavigate();
@@ -17,12 +17,14 @@ export function useLoginForm() {
   });
 
   const onSubmit = async (data: LoginSchemaData) => {
-    if (data.email === "teste@teste.com" && data.password === "12345678") {
-      //await login(data);
+    try {
+      await login(data);
 
       navigate("/dashboard");
-    } else {
-      toast.error("Email ou senha inválidos");
+    } catch (err: any) {
+      toast.error(
+        err?.response?.data?.error || "Email ou senha inválidos"
+      );
     }
   };
 
