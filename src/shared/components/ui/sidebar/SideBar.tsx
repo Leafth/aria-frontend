@@ -14,12 +14,12 @@ import {
   toggleButton,
 } from "./SideBar.styles";
 import { sections } from "./SideBarItems";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useLogout } from "@/features/auth/hooks/useLogout";
 
 export function Sidebar() {
-  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { handleLogout } = useLogout();
 
   return (
     <aside className={`${isCollapsed ? containerCollapsed : container} relative`}>
@@ -50,7 +50,7 @@ export function Sidebar() {
         ))}
       </div>
 
-      <div className={footer} onClick={() => navigate("/login")}>
+      <div className={footer} onClick={handleLogout}>
         <LogOut size={18} />
         {!isCollapsed && <span>Sair</span>}
       </div>
