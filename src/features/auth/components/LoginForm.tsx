@@ -4,7 +4,8 @@ import { Form } from "../../../shared/components/ui/form/Form";
 import { useLoginForm } from "../hooks";
 
 export function LoginForm() {
-  const { register, handleSubmit, errors, onSubmit } = useLoginForm();
+  const { register, handleSubmit, errors, onSubmit, isSubmitting } =
+    useLoginForm();
 
   const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ export function LoginForm() {
       <Button
         type="submit"
         className="w-full"
-        onClick={() => navigate("/dashboard")}
+        disabled={isSubmitting}
       >
         Entrar
       </Button>
