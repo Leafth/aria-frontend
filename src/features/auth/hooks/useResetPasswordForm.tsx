@@ -1,39 +1,43 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-import { resetPasswordSchema, type ResetPasswordSchemaData } from "../schemas";
 import { toast } from "sonner";
-import { ToastContent } from "../../../shared";
+import { resetPassword } from "../services/auth.service";
+import type { ResetPasswordData } from "../types/auth.types";
+import { resetPasswordSchema } from "../schemas";
+import { useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function useResetPasswordForm() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const reset_password_token = searchParams.get("token");
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<ResetPasswordSchemaData>({
+    formState: { errors, isSubmitting },
+  } = useForm({
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  const navigate = useNavigate();
+  const onSubmit = async (data: ResetPasswordData) => {
+    if (!reset_password_token) {
+      toast.error("Token inválido ou expirado");
+      navigate("/forgot-password");
+      return;
+    }
 
-  const onSubmit = (data: ResetPasswordSchemaData) => {
-    console.log("RESET:", data);
+    try {
+      await resetPassword({
+        ...data,
+        reset_password_token,
+      });
 
-    toast.custom(() => (
-      <ToastContent
-        title="Senha redefinida!"
-        description="Agora você já pode fazer login"
-        variant="success"
-      />
-    ));
-
-    navigate("/login");
+      toast.success("Senha redefinida com sucesso");
+      navigate("/login");
+    } catch {
+      toast.error("Erro ao redefinir senha");
+    }
   };
 
-  return {
-    register,
-    handleSubmit,
-    errors,
-    onSubmit,
-  };
+  return { register, handleSubmit, errors, onSubmit, isSubmitting };
 }
