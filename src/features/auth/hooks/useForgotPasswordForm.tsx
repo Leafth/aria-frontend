@@ -7,30 +7,41 @@ import {
   type ForgotPasswordSchemaData,
 } from "../schemas";
 import { ToastContent } from "../../../shared";
+import { forgotPassword } from "../services/auth.service";
 
 export function useForgotPasswordForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordSchemaData>({
     resolver: zodResolver(forgotPasswordSchema),
   });
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: ForgotPasswordSchemaData) => {
-    console.log("RECUPERAR:", data);
+  const onSubmit = async (data: ForgotPasswordSchemaData) => {
+    try {
+      await forgotPassword(data.email);
 
-    toast.custom(() => (
-      <ToastContent
-        title="Sucesso!"
-        description="Enviamos o link de recuperação para o seu e-mail"
-        variant="success"
-      />
-    ));
+      toast.custom(() => (
+        <ToastContent
+          title="Sucesso!"
+          description="Se o email existir, enviamos instruções para recuperação"
+          variant="success"
+        />
+      ));
 
-    navigate("/login");
+      navigate("/login");
+    } catch {
+      toast.custom(() => (
+        <ToastContent
+          title="Erro"
+          description="Erro ao solicitar recuperação de senha"
+          variant="error"
+        />
+      ));
+    }
   };
 
   return {
@@ -38,5 +49,6 @@ export function useForgotPasswordForm() {
     handleSubmit,
     errors,
     onSubmit,
+    isSubmitting,
   };
 }
