@@ -6,6 +6,8 @@ import { ModalForm } from "../../components/ModalForm";
 
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);
+  const [type, setType] = useState<"bull" | "company">("bull");
+
   return (
     <div className="flex flex-col gap-6 p-4 w-full">
       <Header
@@ -17,25 +19,38 @@ export default function ReproductiveSupportPage() {
           <span className="text-sm text-text-primary">Tipo:</span>
 
           <div className="flex gap-3">
-            <button className="px-4 py-2 rounded-lg bg-gray-200 text-sm">
+            <button
+              onClick={() => setType("bull")}
+              className={`px-4 py-2 rounded-lg cursor-pointer text-sm ${
+                type === "bull" ? "bg-primary text-white" : "bg-gray-200"
+              }`}
+            >
               Touro
             </button>
 
-            <button className="px-4 py-2 rounded-lg bg-primary text-white text-sm">
+            <button
+              onClick={() => setType("company")}
+              className={`px-4 py-2 rounded-lg text-sm cursor-pointer ${
+                type === "company" ? "bg-primary text-white" : "bg-gray-200"
+              }`}
+            >
               Empresa
             </button>
           </div>
         </div>
-        <Button className="w-full flex items-center justify-center gap-2 lg:w-auto" onClick={() => setOpen(true)}>
+        <Button
+          className="w-full flex items-center justify-center gap-2 lg:w-auto"
+          onClick={() => setOpen(true)}
+        >
           <Plus size={18} />
-          Cadastrar Empresa
+          {type === "bull" ? "Cadastrar Touro" : "Cadastrar Empresa"}
         </Button>
       </div>
       {open && (
-        <ModalForm open={open} onClose={() => setOpen(false)}/>
+        <ModalForm open={open} onClose={() => setOpen(false)} type={type} />
       )}
 
-      <InvoicesTable />
+      <InvoicesTable/>
     </div>
   );
 }
