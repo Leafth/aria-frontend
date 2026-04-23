@@ -1,9 +1,17 @@
 import { api } from "@/lib/api";
 import type { CompanyDTO } from "../types/reproductive-support.types";
+import type { PaginatedResponse } from "../types/paginated";
 
-export async function getCompanies() {
-  const response = await api.get("/companies");
-  return response.data;
+export async function getCompanies(params: {
+  page?: number;
+  per_page?: number;
+  q?: string;
+}) {
+  const res = await api.get<PaginatedResponse<CompanyDTO>>("/companies", {
+    params,
+  });
+
+  return res.data;
 }
 
 export async function createCompany(data: CompanyDTO) {
