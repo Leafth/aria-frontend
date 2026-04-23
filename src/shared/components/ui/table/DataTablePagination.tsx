@@ -9,7 +9,7 @@ export function DataTablePagination() {
   return (
     <div className="flex items-center gap-14">
       <div className="flex items-center gap-2">
-        <small>Rows per page</small>
+        <small>Linhas por página</small>
         <Select
           value={String(table.getState().pagination.pageSize)}
           onValueChange={value => {
@@ -36,7 +36,7 @@ export function DataTablePagination() {
       </div>
 
       <small>
-        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
       </small>
 
       <div className="space-x-2">
