@@ -3,10 +3,10 @@ import { Button, InputField, Modal } from "../../../shared";
 import { useCreateCompany } from "../hooks/useCreateCompany";
 import { useUpdateCompany } from "../hooks/useUpdateCompany";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { companySchema, type CompanyFormData } from "../schemas/company.schema";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { companySchema, type CompanyFormData } from "../schemas/company.schema";
 
 interface Props {
   open: boolean;
@@ -75,11 +75,13 @@ export function ModalForm({ open, onClose, type, initialData }: Props) {
         <>
           <InputField
             label="Nome da Empresa*"
+            placeholder="Taurus"
             {...register("name")}
             error={errors.name?.message}
           />
           <InputField
             label="Descrição"
+            placeholder="ex: Empresa de Santa Catarina"
             {...register("description")}
             error={errors.description?.message}
           />
