@@ -16,3 +16,7 @@ export async function updateBull(id: number, data: Omit<BullDTO, "id" | "company
   const response = await api.put(`/bulls/${id}`, { bull: data });
   return response.data;
 }
+
+export async function deleteBull(id: number) {
+  await api.delete(`/bulls/${id}`);
+}
