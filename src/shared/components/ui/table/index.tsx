@@ -1,20 +1,34 @@
-import { type ColumnDef, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, type PaginationState, useReactTable } from '@tanstack/react-table';
+import { type ColumnDef, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getSortedRowModel, type PaginationState, useReactTable } from '@tanstack/react-table';
 
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { DataTableContext } from './DataTableContext';
 
 interface IDataTableProps<TData> {
   data: TData[];
-  columns: ColumnDef<TData>[];
+  columns: ColumnDef<TData, any>[];
   children: React.ReactNode;
   pagination?: PaginationState;
+  pageCount?: number;
+  onPaginationChange?: (pagination: PaginationState) => void;
   onSelectRow?: (selectedRows: TData[]) => void;
 }
 
-export function DataTable<TData>({ columns, data, children, pagination, onSelectRow }: IDataTableProps<TData>) {
+export function DataTable<TData>({ columns, data, children, pagination, pageCount, onPaginationChange, onSelectRow }: IDataTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
+    pageCount: pageCount,
+    manualPagination: true,
+    state: {
+      pagination,
+    },
+    onPaginationChange: (updater) => {
+      if (typeof updater === 'function' && pagination) {
+        onPaginationChange?.(updater(pagination));
+      } else if (typeof updater !== 'function') {
+        onPaginationChange?.(updater);
+      }
+    },
     columnResizeMode: 'onChange',
     defaultColumn: {
       size: 100,
@@ -30,7 +44,7 @@ export function DataTable<TData>({ columns, data, children, pagination, onSelect
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    // getPaginationRowModel: getPaginationRowModel(),
   });
 
   const selectedRow = useMemo(() => (
