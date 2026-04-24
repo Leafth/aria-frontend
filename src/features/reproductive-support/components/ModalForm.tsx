@@ -75,7 +75,7 @@ export function ModalForm({ open, onClose, type, initialData }: Props) {
         <>
           <InputField
             label="Nome da Empresa*"
-            placeholder="Taurus"
+            placeholder="ex: Taurus"
             {...register("name")}
             error={errors.name?.message}
           />
