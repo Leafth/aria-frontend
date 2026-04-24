@@ -1,5 +1,5 @@
 import { InvoicesTable } from "@/shared/components/ui/invoices-table";
-import type { PaginationState } from "@tanstack/react-table";
+import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "../../../../shared";
@@ -83,7 +83,14 @@ export default function ReproductiveSupportPage() {
         <ModalForm open={open} onClose={() => setOpen(false)} type={type} />
       )}
 
-      <InvoicesTable />
+      <InvoicesTable
+        data={tableData}
+        columns={columns as ColumnDef<typeof tableData[0], any>[]}
+        pageCount={pageCount}
+        pagination={pagination}
+        onPaginationChange={setPagination}
+        searchColumn="name"
+      />
     </div>
   );
 }
