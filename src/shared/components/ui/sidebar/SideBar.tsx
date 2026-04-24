@@ -18,7 +18,7 @@ import { useState } from "react";
 import { useLogout } from "@/features/auth/hooks/useLogout";
 
 export function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const { handleLogout } = useLogout();
 
   return (
