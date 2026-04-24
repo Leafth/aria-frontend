@@ -21,15 +21,24 @@ export function getCompanyColumns(
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Nome" />
       ),
+      meta: { nameInFilters: 'Nome' },
     },
     {
       accessorKey: "description",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Descrição" />
       ),
+      meta: { nameInFilters: 'Descrição' },
     },
     {
       id: "actions",
+      size: 80,
+      enableColumnFilter: false,
+      enableGlobalFilter: false,
+      enableHiding: false,
+      enableResizing: false,
+      enableMultiSort: false,
+      enableSorting: false,
       cell: ({ row }) => {
         const company = row.original;
 
