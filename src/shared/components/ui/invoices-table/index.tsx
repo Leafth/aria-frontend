@@ -38,7 +38,7 @@ export function InvoicesTable<TData>({
           column={searchColumn}
         />
         <div className='flex justify-center items-center gap-2'>
-          <DataTableFacetedFilter column="name" />
+          <DataTableFacetedFilter column={searchColumn ?? 'name'} />
           <DataTableColumnsVisibilityDropdown />
         </div>
       </div>
