@@ -1,19 +1,19 @@
-import { Home, BarChart } from "lucide-react";
-import type { SidebarSection } from "./Sidebar.types";
+import { ChartColumnIncreasing, HeartPulse, Home, RefreshCw, Tags, TestTube } from "lucide-react";
+import type { SidebarSection } from "./SideBar.types";
 
 export const sections: SidebarSection[] = [
   {
     title: "PRINCIPAL",
     items: [
       { label: "Dashboard", icon: Home, path: "/dashboard" },
-      { label: "Rebanho", icon: Home, path: "/rebanho" },
+      { label: "Rebanho", icon: Tags, path: "/rebanho" },
     ],
   },
   {
     title: "REPRODUÇÃO",
     items: [
-      { label: "Ciclo Reprodutivo", icon: Home, path: "/ciclo" },
-      { label: "Parto e Lactação", icon: Home, path: "/parto" },
+      { label: "Ciclo Reprodutivo", icon: RefreshCw, path: "/ciclo" },
+      { label: "Parto e Lactação", icon: HeartPulse, path: "/parto" },
     ],
   },
   {
@@ -21,7 +21,7 @@ export const sections: SidebarSection[] = [
     items: [
       {
         label: "Apoios Reprodutivos",
-        icon: Home,
+        icon: TestTube,
         path: "/reproductive-support",
       },
     ],
@@ -29,7 +29,7 @@ export const sections: SidebarSection[] = [
   {
     title: "ANÁLISES",
     items: [
-      { label: "Relatórios", icon: BarChart, path: "/relatorios" },
+      { label: "Relatórios", icon: ChartColumnIncreasing, path: "/relatorios" },
     ],
   },
 ];
