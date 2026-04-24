@@ -1,20 +1,29 @@
+// components/ModalForm.tsx
 import { Button, InputField, Modal } from "../../../shared";
 import { useCreateCompany } from "../hooks/useCreateCompany";
+import { useUpdateCompany } from "../hooks/useUpdateCompany";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { companySchema, type CompanyFormData } from "../schemas/company.schema";
+import { useEffect } from "react";
 
-interface ModalFormProps {
+interface Props {
   open: boolean;
   onClose: () => void;
   type: "bull" | "company";
+  initialData?: (CompanyFormData & { id?: number }) | null;
 }
 
-export function ModalForm({ open, onClose, type }: ModalFormProps) {
+export function ModalForm({ open, onClose, type, initialData }: Props) {
   const isCompany = type === "company";
+  const isEditing = !!initialData;
 
-  const { mutateAsync, isPending } = useCreateCompany(onClose);
+  const { mutateAsync: createFn, isPending: creating } =
+    useCreateCompany(onClose);
+
+  const { mutateAsync: updateFn, isPending: updating } =
+    useUpdateCompany(onClose);
 
   const {
     register,
@@ -25,15 +34,24 @@ export function ModalForm({ open, onClose, type }: ModalFormProps) {
     resolver: zodResolver(companySchema),
   });
 
+  useEffect(() => {
+    if (initialData) reset(initialData);
+    else reset();
+  }, [initialData]);
+
   const onSubmit = async (data: CompanyFormData) => {
     if (!isCompany) return;
 
-    await mutateAsync(data);
+    if (isEditing && initialData?.id) {
+      await updateFn({ id: initialData.id, data });
+    } else {
+      await createFn(data);
+    }
+
     reset();
   };
 
-  const title = isCompany ? "Cadastrar Empresa" : "Cadastrar Touro";
-  const buttonLabel = isCompany ? "Cadastrar Empresa" : "Cadastrar Touro";
+  const isPending = creating || updating;
 
   return (
     <Modal
@@ -42,38 +60,29 @@ export function ModalForm({ open, onClose, type }: ModalFormProps) {
         reset();
         onClose();
       }}
-      title={title}
+      title={isEditing ? "Editar Empresa" : "Cadastrar Empresa"}
       footerContent={
         <Button
           className="w-full"
           onClick={handleSubmit(onSubmit)}
           disabled={isPending}
         >
-          {isPending ? "Salvando..." : buttonLabel}
+          {isPending ? "Salvando..." : "Salvar"}
         </Button>
       }
     >
-      {isCompany ? (
+      {isCompany && (
         <>
           <InputField
             label="Nome da Empresa*"
-            placeholder="ex: Strong Taurus"
             {...register("name")}
             error={errors.name?.message}
           />
-
           <InputField
             label="Descrição"
-            placeholder="ex: Empresa da Santa Catarina"
             {...register("description")}
             error={errors.description?.message}
           />
-        </>
-      ) : (
-        <>
-          <InputField label="Número do Brinco*" />
-          <InputField label="Nome do Touro*" />
-          <InputField label="Raça*" />
         </>
       )}
     </Modal>
