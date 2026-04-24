@@ -3,10 +3,12 @@ import { Sidebar } from "../ui/sidebar";
 
 export function MainLayout() {
   return (
-    <div>
-      <main className="flex bg-background-primary gap-2">
+    <div className="h-dvh overflow-hidden">
+      <main className="flex h-full bg-background-primary gap-2 overflow-hidden">
         <Sidebar />
-        <Outlet />
+        <div className="flex-1 min-w-0 overflow-y-auto overflow-x-auto">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

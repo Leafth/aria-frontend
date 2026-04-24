@@ -84,41 +84,39 @@ export default function ReproductiveSupportPage() {
         description="Touros e empresas fornecedoras de sêmen"
       />
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-          <span className="text-sm text-text-primary">Tipo:</span>
+      <div className="flex flex-col gap-3">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setType("bull")}
+            className={`px-3 py-1.5 rounded-lg cursor-pointer text-sm ${
+              type === "bull" ? "bg-primary text-white" : "bg-gray-200"
+            }`}
+          >
+            Touro
+          </button>
 
-          <div className="flex gap-3">
-            <button
-              onClick={() => setType("bull")}
-              className={`px-4 py-2 rounded-lg cursor-pointer ${
-                type === "bull" ? "bg-primary text-white" : "bg-gray-200"
-              }`}
-            >
-              Touro
-            </button>
-
-            <button
-              onClick={() => setType("company")}
-              className={`px-4 py-2 rounded-lg cursor-pointer ${
-                type === "company" ? "bg-primary text-white" : "bg-gray-200"
-              }`}
-            >
-              Empresa
-            </button>
-          </div>
+          <button
+            onClick={() => setType("company")}
+            className={`px-3 py-1.5 rounded-lg cursor-pointer text-sm ${
+              type === "company" ? "bg-primary text-white" : "bg-gray-200"
+            }`}
+          >
+            Empresa
+          </button>
         </div>
 
         <Button
+          className="flex items-center gap-2 w-full sm:w-auto"
           onClick={() => {
             setEditingCompany(null);
             setOpen(true);
           }}
         >
-          <Plus size={18} />
+          <Plus size={16} />
           {type === "bull" ? "Cadastrar Touro" : "Cadastrar Empresa"}
         </Button>
       </div>
+
       {open && (
         <ModalForm
           open={open}
