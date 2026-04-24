@@ -13,11 +13,22 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401) {
+    const originalRequest = error.config;
+
+    const isAuthRoute =
+      originalRequest.url?.includes("/auth/login") ||
+      originalRequest.url?.includes("/auth/refresh");
+
+    if (isAuthRoute) {
+      return Promise.reject(error);
+    }
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       try {
         await api.post("/auth/refresh");
-
-        return api(error.config); // tenta de novo
+        return api(originalRequest);
       } catch {
         window.location.href = "/login";
       }
