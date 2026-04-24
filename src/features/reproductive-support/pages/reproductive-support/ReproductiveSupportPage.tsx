@@ -1,4 +1,5 @@
 import { InvoicesTable } from "@/shared/components/ui/invoices-table";
+import type { PaginationState } from "@tanstack/react-table";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "../../../../shared";
@@ -7,6 +8,16 @@ import { ModalForm } from "../../components/ModalForm";
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<"bull" | "company">("bull");
+
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  const filters = {
+    page: pagination.pageIndex + 1,
+    per_page: pagination.pageSize,
+  };
 
   return (
     <div className="flex flex-col gap-6 p-4 w-full">
