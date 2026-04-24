@@ -4,6 +4,8 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "../../../../shared";
 import { ModalForm } from "../../components/ModalForm";
+import { useBulls } from "../../hooks/useBulls";
+import { useCompanies } from "../../hooks/useCompanies";
 
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);
@@ -18,6 +20,14 @@ export default function ReproductiveSupportPage() {
     page: pagination.pageIndex + 1,
     per_page: pagination.pageSize,
   };
+
+  const { data: companiesResponse } = useCompanies(filters, {
+    enabled: type === "company",
+  });
+
+  const { data: bullsResponse } = useBulls(filters, {
+    enabled: type === "bull",
+  });
 
   return (
     <div className="flex flex-col gap-6 p-4 w-full">
@@ -61,7 +71,7 @@ export default function ReproductiveSupportPage() {
         <ModalForm open={open} onClose={() => setOpen(false)} type={type} />
       )}
 
-      <InvoicesTable/>
+      <InvoicesTable />
     </div>
   );
 }
