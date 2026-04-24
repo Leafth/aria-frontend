@@ -1,37 +1,43 @@
-import { type Invoice } from '@/shared/entities/Invoice';
-import { useState } from 'react';
+import type { ColumnDef, PaginationState } from '@tanstack/react-table';
 import { DataTable } from '../table';
 import { DataTableColumnsVisibilityDropdown } from '../table/DataTableColumnsVisibilityDropdown';
 import { DataTableContent } from '../table/DataTableContent';
 import { DataTableFacetedFilter } from '../table/DataTableFacetedFilter';
 import { DataTablePagination } from '../table/DataTablePagination';
 import { DataTableTextFilter } from '../table/DataTableTextFilter';
-import { columns } from './columns';
-import { invoices } from './data';
 
-export function InvoicesTable() {
-  const [, setSelectedRows] = useState<Invoice[]>([]);
+interface InvoicesTableProps<TData> {
+  data: TData[];
+  columns: ColumnDef<TData, any>[];
+  pageCount: number;
+  pagination: PaginationState;
+  onPaginationChange: (pagination: PaginationState) => void;
+  searchColumn?: string;
+}
 
-  const [data] = useState(invoices);
+export function InvoicesTable<TData>({
+  data,
+  columns,
+  pageCount,
+  pagination,
+  onPaginationChange,
+  searchColumn
+}: InvoicesTableProps<TData>) {
 
   return (
     <DataTable
       data={data}
       columns={columns}
-      onSelectRow={selectedRows => {
-        setSelectedRows(selectedRows);
-      }}
-      pagination={{
-        pageIndex: 0,
-        pageSize: 6,
-      }}
+      pageCount={pageCount}
+      pagination={pagination}
+      onPaginationChange={onPaginationChange}
     >
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <DataTableTextFilter
-          placeholder="Search..."
-          column="paymentStatus"
+          placeholder="Pesquisar..."
+          column={searchColumn}
         />
-        <DataTableFacetedFilter column="paymentStatus" />
+        <DataTableFacetedFilter column="name" />
         <DataTableColumnsVisibilityDropdown />
       </div>
 
