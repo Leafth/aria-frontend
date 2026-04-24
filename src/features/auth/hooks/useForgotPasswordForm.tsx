@@ -27,7 +27,7 @@ export function useForgotPasswordForm() {
       toast.custom(() => (
         <ToastContent
           title="Sucesso!"
-          description="Se o email existir, enviamos instruções para recuperação"
+          description="Enviamos um e-mail para recuperação de senha"
           variant="success"
         />
       ));
