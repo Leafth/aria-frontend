@@ -3,6 +3,8 @@ import type { PaginationState } from "@tanstack/react-table";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "../../../../shared";
+import { bullColumns } from "../../components/columns/bull-columns";
+import { companyColumns } from "../../components/columns/company-columns";
 import { ModalForm } from "../../components/ModalForm";
 import { useBulls } from "../../hooks/useBulls";
 import { useCompanies } from "../../hooks/useCompanies";
@@ -28,6 +30,16 @@ export default function ReproductiveSupportPage() {
   const { data: bullsResponse } = useBulls(filters, {
     enabled: type === "bull",
   });
+
+  const tableData = type === "company"
+    ? (companiesResponse?.data ?? [])
+    : (bullsResponse?.data ?? []);
+
+  const pageCount = type === "company"
+    ? (companiesResponse?.meta?.total_pages ?? 0)
+    : (bullsResponse?.meta?.total_pages ?? 0);
+
+  const columns = type === "company" ? companyColumns : bullColumns;
 
   return (
     <div className="flex flex-col gap-6 p-4 w-full">
