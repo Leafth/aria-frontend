@@ -24,7 +24,7 @@ export function ForgotPasswordForm() {
       </Button>
       <span
         className="flex gap-2 justify-center items-center text-sm text-text-primary cursor-pointer"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/login")}
       >
         <ChevronLeft /> Voltar para login
       </span>

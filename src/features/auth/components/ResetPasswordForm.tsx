@@ -2,9 +2,12 @@ import { ChevronLeft } from "lucide-react";
 import { Button, InputField } from "../../../shared/components/ui";
 import { Form } from "../../../shared/components/ui/form/Form";
 import { useResetPasswordForm } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 export function ResetPasswordForm() {
   const { register, handleSubmit, errors, onSubmit } = useResetPasswordForm();
+
+  const navigate = useNavigate();
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -28,7 +31,10 @@ export function ResetPasswordForm() {
         Redefinir senha
       </Button>
 
-      <span className="flex gap-2 justify-center items-center text-sm cursor-pointer">
+      <span
+        className="flex gap-2 justify-center items-center text-sm cursor-pointer"
+        onClick={() => navigate("/login")}
+      >
         <ChevronLeft /> Voltar para login
       </span>
     </Form>
