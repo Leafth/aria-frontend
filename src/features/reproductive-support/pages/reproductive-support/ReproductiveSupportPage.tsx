@@ -5,12 +5,12 @@ import { useState } from "react";
 import { Button, Header } from "../../../../shared";
 import { bullColumns } from "../../components/columns/bull-columns";
 import { getCompanyColumns } from "../../components/columns/company-columns";
-import { ModalForm } from "../../components/ModalForm";
 import { ConfirmDeleteModal } from "../../components/ConfirmDeleteModal";
+import { ModalForm } from "../../components/ModalForm";
 import { useBulls } from "../../hooks/useBulls";
 import { useCompanies } from "../../hooks/useCompanies";
-import type { CompanyDTO } from "../../types/reproductive-support.types";
 import { useDeleteCompany } from "../../hooks/useDeleteCompany";
+import type { CompanyDTO } from "../../types/reproductive-support.types";
 
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);
@@ -135,7 +135,7 @@ export default function ReproductiveSupportPage() {
         pageCount={pageCount}
         pagination={pagination}
         onPaginationChange={setPagination}
-        searchColumn="name"
+        searchColumn={type === 'bull' ? 'breed' : 'name'}
       />
 
       <ConfirmDeleteModal
