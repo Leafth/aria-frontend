@@ -5,7 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export function ForgotPasswordForm() {
-  const { register, handleSubmit, onSubmit, isSubmitting } =
+  const { register, errors, handleSubmit, onSubmit, isSubmitting } =
     useForgotPasswordForm();
 
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ export function ForgotPasswordForm() {
         label="Email"
         type="email"
         {...register("email", { required: "Email é obrigatório" })}
+        error={errors.email?.message}
       />
 
       <Button type="submit" className="w-full" disabled={isSubmitting}>
