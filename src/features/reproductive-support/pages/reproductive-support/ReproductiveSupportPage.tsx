@@ -84,7 +84,7 @@ export default function ReproductiveSupportPage() {
         description="Touros e empresas fornecedoras de sêmen"
       />
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-2">
           <button
             onClick={() => setType("bull")}
