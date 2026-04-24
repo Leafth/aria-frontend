@@ -16,7 +16,7 @@ export function DataTableFacetedFilter({ column }: IDataTableFacetedFilterProps)
   return (
     <Select onValueChange={value => tableColumn?.setFilterValue(value)}>
       <SelectTrigger className="w-45">
-        <SelectValue placeholder="Select..." />
+        <SelectValue placeholder="Selecione" />
       </SelectTrigger>
 
       <SelectContent>

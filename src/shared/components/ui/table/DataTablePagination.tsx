@@ -24,14 +24,14 @@ export function DataTablePagination() {
         <small>Linhas por página</small>
         <Select
           value={String(table.getState().pagination.pageSize)}
-          onValueChange={value => table.setPageSize(Number(value))}
+          onValueChange={(value) => table.setPageSize(Number(value))}
         >
           <SelectTrigger className="w-20 h-8">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {[2, 4, 6, 8, 10].map(option => (
+              {[2, 4, 6, 8, 10].map((option) => (
                 <SelectItem key={option} value={String(option)}>
                   {option}
                 </SelectItem>
@@ -41,9 +41,10 @@ export function DataTablePagination() {
         </Select>
       </div>
 
-      <div className="flex flex-col gap-2 sm:items-center">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
         <small>
-          Página {table.getState().pagination.pageIndex + 1} de {table.getPageCount()}
+          Página {table.getState().pagination.pageIndex + 1} de{" "}
+          {table.getPageCount()}
         </small>
 
         <div className="space-x-2">
