@@ -11,3 +11,8 @@ export async function createBull(data: Omit<BullDTO, "id" | "company">) {
   const response = await api.post("/bulls", { bull: data });
   return response.data;
 }
+
+export async function updateBull(id: number, data: Omit<BullDTO, "id" | "company">) {
+  const response = await api.put(`/bulls/${id}`, { bull: data });
+  return response.data;
+}
