@@ -1,6 +1,6 @@
 import type { PaginationState } from "@tanstack/react-table";
-import { useCompanies } from "./companies/useCompanies";
-import { useBulls } from "./bulls/useBulls";
+import { useCompanies } from "@/features/reproductive-support/hooks/companies";
+import { useBulls } from "@/features/reproductive-support/hooks/bulls";
 
 export function useReproductiveSupport(
   type: "bull" | "company",

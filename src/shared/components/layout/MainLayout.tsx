@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../ui/sidebar";
+import { Sidebar } from "@/shared/components/ui/sidebar";
 
 export function MainLayout() {
   return (

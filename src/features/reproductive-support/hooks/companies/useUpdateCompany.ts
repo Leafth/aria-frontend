@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateCompany } from "../../services/company.service";
+import { updateCompany } from "@/features/reproductive-support/services";
 
 export function useUpdateCompany(onSuccess?: () => void) {
   const queryClient = useQueryClient();

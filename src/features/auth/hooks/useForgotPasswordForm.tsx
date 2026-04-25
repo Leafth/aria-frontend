@@ -5,9 +5,9 @@ import { toast } from "sonner";
 import {
   forgotPasswordSchema,
   type ForgotPasswordSchemaData,
-} from "../schemas";
-import { ToastContent } from "../../../shared";
-import { forgotPassword } from "../services/auth.service";
+} from "@/features/auth/schemas";
+import { ToastContent } from "@/shared";
+import { forgotPassword } from "@/features/auth/services";
 
 export function useForgotPasswordForm() {
   const {

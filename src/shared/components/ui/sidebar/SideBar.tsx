@@ -1,4 +1,4 @@
-import Logo from "../../../../assets/icons/logo.svg";
+import Logo from "@/assets/icons/logo.svg";
 import { LogOut, ChevronLeft, ChevronRight } from "lucide-react";
 import { SidebarItem } from "./SideBarItem";
 import {
@@ -15,7 +15,7 @@ import {
 } from "./SideBar.styles";
 import { sections } from "./SideBarItems";
 import { useState } from "react";
-import { useLogout } from "@/features/auth/hooks/useLogout";
+import { useLogout } from "@/features/auth/hooks";
 
 export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true);

@@ -9,7 +9,7 @@ import {
 import { DataTableColumnHeader } from "@/shared/components/ui/table/DataTableColumnHeader";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Edit2Icon, EllipsisIcon, Trash2Icon } from "lucide-react";
-import type { CompanyDTO } from "../../types/reproductive-support.types";
+import type { CompanyDTO } from "@/features/reproductive-support/types";
 
 export function getCompanyColumns(
   onDeleteClick: (company: CompanyDTO) => void,

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, Outlet } from "react-router-dom";
-import { getMe } from "../features/auth/services/auth.service";
+import { getMe } from "@/features/auth/services";
 
 export function ProtectedRoute() {
   const { data, isLoading, isError } = useQuery({

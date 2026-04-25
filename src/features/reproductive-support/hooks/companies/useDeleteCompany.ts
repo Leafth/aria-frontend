@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCompany } from "../../services/company.service";
+import { deleteCompany } from "@/features/reproductive-support/services";
 
 export function useDeleteCompany() {
   const queryClient = useQueryClient();

@@ -1,6 +1,5 @@
-import { useForgotPasswordForm } from "../hooks";
-import { Button, InputField } from "../../../shared/components/ui";
-import { Form } from "../../../shared/components/ui/form/Form";
+import { useForgotPasswordForm } from "@/features/auth/hooks";
+import { Button, InputField, Form } from "@/shared/components/ui";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 

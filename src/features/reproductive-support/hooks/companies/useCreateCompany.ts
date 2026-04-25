@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCompany } from "../../services/company.service";
+import { createCompany } from "@/features/reproductive-support/services";
 import { toast } from "sonner";
 
 export function useCreateCompany(onSuccessClose?: () => void) {

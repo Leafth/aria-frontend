@@ -2,14 +2,11 @@ import { InvoicesTable } from "@/shared/components/ui/invoices-table";
 import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { Button, Header } from "../../../../shared";
-import { bullColumns } from "../../components/columns/bull-columns";
-import { getCompanyColumns } from "../../components/columns/company-columns";
-import { ConfirmDeleteModal } from "../../components/modals/ConfirmDeleteModal";
-import { RenderModal } from "../../components/modals/RenderModal";
-import { useReproductiveSupport } from "../../hooks/useReproductiveSupport";
-import { useDeleteCompanyHandler } from "../../hooks/companies/useDeleteCompanyHandler";
-import type { CompanyDTO } from "../../types/reproductive-support.types";
+import { Button, Header } from "@/shared";
+import { bullColumns, getCompanyColumns } from "@/features/reproductive-support/components/columns";
+import { ConfirmDeleteModal, RenderModal } from "@/features/reproductive-support/components/modals";
+import { useReproductiveSupport, useDeleteCompanyHandler } from "@/features/reproductive-support/hooks";
+import type { CompanyDTO } from "@/features/reproductive-support/types";
 
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);

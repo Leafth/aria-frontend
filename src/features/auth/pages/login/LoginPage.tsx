@@ -1,6 +1,6 @@
-import Logo from "../../../../assets/icons/logo.svg";
-import ImgLogo from "../../../../assets/img/imgLogin.svg";
-import { LoginForm } from "../../components";
+import Logo from "@/assets/icons/logo.svg";
+import ImgLogo from "@/assets/img/imgLogin.svg";
+import { LoginForm } from "@/features/auth/components";
 
 export default function LoginPage() {
   return (

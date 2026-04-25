@@ -1,4 +1,4 @@
-import type { CompanyDTO } from "../../types/reproductive-support.types";
+import type { CompanyDTO } from "@/features/reproductive-support/types";
 import { CompanyModalForm } from "./CompanyModalForm";
 
 type ModalType = "bull" | "company";

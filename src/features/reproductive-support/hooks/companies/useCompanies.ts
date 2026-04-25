@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCompanies } from "../../services/company.service";
+import { getCompanies } from "@/features/reproductive-support/services";
 
 export function useCompanies(
   params: { page: number; per_page: number; q?: string },

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { logout } from "../services/auth.service";
+import { logout } from "@/features/auth/services";
 
 export function useLogout() {
   const navigate = useNavigate();

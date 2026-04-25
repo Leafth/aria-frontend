@@ -1,5 +1,5 @@
-import { api } from "../../../lib/api";
-import type { AuthData, ResetPasswordData } from "../types/auth.types";
+import { api } from "@/lib/api";
+import type { AuthData, ResetPasswordData } from "@/features/auth/types";
 
 export async function login(data: AuthData) {
   const res = await api.post("/auth/login", {

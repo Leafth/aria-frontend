@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Modal } from "@/shared/components/ui/modal/Modal";
+import { Modal } from "@/shared/components/ui/modal";
 
 type ConfirmDeleteModalProps = {
   open: boolean;

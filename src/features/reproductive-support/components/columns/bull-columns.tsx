@@ -3,7 +3,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { DataTableColumnHeader } from '@/shared/components/ui/table/DataTableColumnHeader';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Edit2Icon, EllipsisIcon, Trash2Icon } from 'lucide-react';
-import { type BullDTO } from '../../types/reproductive-support.types';
+import { type BullDTO } from '@/features/reproductive-support/types';
 
 const originLabel: Record<BullDTO['origin'], string> = {
   local: 'Local',

@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthLayout, MainLayout } from "../shared/components/layout";
+import { AuthLayout, MainLayout } from "@/shared/components/layout";
 import {
   LoginPage,
   ForgotPasswordPage,
   ResetPasswordPage,
-} from "../features/auth/pages";
-import { DashboardPage } from "../features/dashboard/pages";
-import { ReproductiveSupportPage } from "../features/reproductive-support";
+} from "@/features/auth/pages";
+import { DashboardPage } from "@/features/dashboard/pages";
+import { ReproductiveSupportPage } from "@/features/reproductive-support/pages";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export function AppRoutes() {

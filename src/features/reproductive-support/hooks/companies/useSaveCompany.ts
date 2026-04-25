@@ -1,4 +1,4 @@
-import type { CompanyFormData } from "../../schemas/company.schema";
+import type { CompanyFormData } from "@/features/reproductive-support/schemas";
 import { useCreateCompany } from "./useCreateCompany";
 import { useUpdateCompany } from "./useUpdateCompany";
 

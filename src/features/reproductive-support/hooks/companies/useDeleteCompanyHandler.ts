@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { CompanyDTO } from "../../types/reproductive-support.types";
+import type { CompanyDTO } from "@/features/reproductive-support/types";
 import { useDeleteCompany } from "./useDeleteCompany";
 
 export function useDeleteCompanyHandler() {

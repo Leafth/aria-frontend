@@ -1,6 +1,6 @@
 import { Navigate, useSearchParams } from "react-router-dom";
-import Logo from "../../../../assets/icons/logo.svg";
-import { ResetPasswordForm } from "../../components";
+import Logo from "@/assets/icons/logo.svg";
+import { ResetPasswordForm } from "@/features/auth/components";
 
 export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams();

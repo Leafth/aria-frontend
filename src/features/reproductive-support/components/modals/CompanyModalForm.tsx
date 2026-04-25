@@ -1,5 +1,5 @@
-import { Button, InputField, Modal } from "../../../../shared";
-import { useSaveCompany } from "../../hooks/companies/useSaveCompany";
+import { Button, InputField, Modal } from "@/shared";
+import { useSaveCompany } from "@/features/reproductive-support/hooks/companies";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import {
   companySchema,
   type CompanyFormData,
-} from "../../schemas/company.schema";
+} from "@/features/reproductive-support/schemas";
 
 interface Props {
   open: boolean;

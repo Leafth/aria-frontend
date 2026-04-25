@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { Button, InputField } from "../../../shared/components/ui";
-import { Form } from "../../../shared/components/ui/form/Form";
-import { useLoginForm } from "../hooks";
+import { Button, InputField, Form } from "@/shared/components/ui";
+import { useLoginForm } from "@/features/auth/hooks";
 
 export function LoginForm() {
   const { register, handleSubmit, errors, onSubmit, isSubmitting } =
