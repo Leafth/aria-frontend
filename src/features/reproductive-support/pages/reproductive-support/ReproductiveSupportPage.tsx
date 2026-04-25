@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "@/shared";
 import {
-  bullColumns,
+  getBullColumns,
   getCompanyColumns,
 } from "@/features/reproductive-support/components/columns";
 import {
@@ -16,11 +16,14 @@ import {
   useDeleteCompanyHandler,
 } from "@/features/reproductive-support/hooks";
 import type { CompanyDTO } from "@/features/reproductive-support/types";
+import { useDeleteBullHandler } from "@/features/reproductive-support/hooks/bulls/useDeleteBullHandler";
+import type { BullDTO } from "@/features/reproductive-support/types";
 
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<"bull" | "company">("bull");
   const [editingCompany, setEditingCompany] = useState<CompanyDTO | null>(null);
+  const [editingBull, setEditingBull] = useState<BullDTO | null>(null);
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -32,15 +35,27 @@ export default function ReproductiveSupportPage() {
   const { selected, setSelected, handleDeleteClick, handleConfirmDelete } =
     useDeleteCompanyHandler();
 
-  const handleEditClick = (company: CompanyDTO) => {
-    setEditingCompany(company);
+  const {
+    selected: selectedBull,
+    setSelected: setSelectedBull,
+    handleDeleteClick: handleDeleteBullClick,
+    handleConfirmDelete: handleConfirmDeleteBull,
+  } = useDeleteBullHandler();
+
+  const handleEditClick = (item: CompanyDTO | BullDTO) => {
+    if (type === "company") {
+      setEditingCompany(item as CompanyDTO);
+    } else {
+      setEditingBull(item as BullDTO);
+    }
+
     setOpen(true);
   };
 
   const columns =
     type === "company"
       ? getCompanyColumns(handleDeleteClick, handleEditClick)
-      : bullColumns;
+      : getBullColumns(handleDeleteBullClick, handleEditClick);
 
   return (
     <div className="flex flex-col gap-6 p-4 w-full">
@@ -88,8 +103,10 @@ export default function ReproductiveSupportPage() {
         onClose={() => {
           setOpen(false);
           setEditingCompany(null);
+          setEditingBull(null);
         }}
         editingCompany={editingCompany}
+        editingBull={editingBull}
       />
 
       <InvoicesTable
@@ -102,10 +119,14 @@ export default function ReproductiveSupportPage() {
       />
 
       <ConfirmDeleteModal
-        open={!!selected}
-        onClose={() => setSelected(null)}
-        onConfirm={handleConfirmDelete}
-        itemName={selected?.name}
+        open={type === "company" ? !!selected : !!selectedBull}
+        onClose={() =>
+          type === "company" ? setSelected(null) : setSelectedBull(null)
+        }
+        onConfirm={
+          type === "company" ? handleConfirmDelete : handleConfirmDeleteBull
+        }
+        itemName={type === "company" ? selected?.name : selectedBull?.name}
       />
     </div>
   );
