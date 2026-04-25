@@ -14,7 +14,7 @@ export async function getCompanies(params: {
   return res.data;
 }
 
-export async function createCompany(data: CompanyDTO) {
+export async function createCompany(data: Omit<CompanyDTO, "id">) {
   const response = await api.post("/companies", {
     company: data,
   });
