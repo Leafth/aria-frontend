@@ -5,7 +5,8 @@ import { useResetPasswordForm } from "../hooks";
 import { useNavigate } from "react-router-dom";
 
 export function ResetPasswordForm() {
-  const { register, handleSubmit, errors, onSubmit } = useResetPasswordForm();
+  const { register, handleSubmit, errors, onSubmit, isSubmitting } =
+    useResetPasswordForm();
 
   const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ export function ResetPasswordForm() {
         showPasswordToggle
         {...register("password")}
         error={errors.password?.message}
+        disabled={isSubmitting}
       />
 
       <InputField
@@ -25,10 +27,11 @@ export function ResetPasswordForm() {
         showPasswordToggle
         {...register("confirmPassword")}
         error={errors.confirmPassword?.message}
+        disabled={isSubmitting}
       />
 
-      <Button type="submit" className="w-full">
-        Redefinir senha
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        {isSubmitting ? "Redefinindo..." : "Redefinir senha"}
       </Button>
 
       <span

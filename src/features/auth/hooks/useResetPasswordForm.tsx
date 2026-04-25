@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { resetPassword } from "../services/auth.service";
 import type { ResetPasswordData } from "../types/auth.types";
-import { resetPasswordSchema } from "../schemas";
+import { resetPasswordSchema, type ResetPasswordSchemaData } from "../schemas";
 import { useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,11 +15,11 @@ export function useResetPasswordForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<ResetPasswordSchemaData>({
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  const onSubmit = async (data: ResetPasswordData) => {
+  const onSubmit = async (data: ResetPasswordSchemaData) => {
     if (!reset_password_token) {
       toast.error("Token inválido ou expirado");
       navigate("/forgot-password");
@@ -27,10 +27,13 @@ export function useResetPasswordForm() {
     }
 
     try {
-      await resetPassword({
-        ...data,
+      const payload: ResetPasswordData = {
+        password: data.password,
+        password_confirmation: data.confirmPassword,
         reset_password_token,
-      });
+      };
+
+      await resetPassword(payload);
 
       toast.success("Senha redefinida com sucesso");
       navigate("/login");
