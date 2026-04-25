@@ -5,71 +5,30 @@ import { useState } from "react";
 import { Button, Header } from "../../../../shared";
 import { bullColumns } from "../../components/columns/bull-columns";
 import { getCompanyColumns } from "../../components/columns/company-columns";
-import { ConfirmDeleteModal } from "../../components/ConfirmDeleteModal";
-import { ModalForm } from "../../components/ModalForm";
-import { useBulls } from "../../hooks/useBulls";
-import { useCompanies } from "../../hooks/useCompanies";
-import { useDeleteCompany } from "../../hooks/useDeleteCompany";
+import { ConfirmDeleteModal } from "../../components/modals/ConfirmDeleteModal";
+import { RenderModal } from "../../components/modals/RenderModal";
+import { useReproductiveSupport } from "../../hooks/useReproductiveSupport";
+import { useDeleteCompanyHandler } from "../../hooks/companies/useDeleteCompanyHandler";
 import type { CompanyDTO } from "../../types/reproductive-support.types";
 
 export default function ReproductiveSupportPage() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<"bull" | "company">("bull");
-
-  const [selectedCompany, setSelectedCompany] = useState<CompanyDTO | null>(
-    null,
-  );
-
   const [editingCompany, setEditingCompany] = useState<CompanyDTO | null>(null);
-
-  const { mutateAsync: deleteCompanyFn } = useDeleteCompany();
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const filters = {
-    page: pagination.pageIndex + 1,
-    per_page: pagination.pageSize,
-  };
+  const { data, pageCount } = useReproductiveSupport(type, pagination);
 
-  const { data: companiesResponse } = useCompanies(filters, {
-    enabled: type === "company",
-  });
-
-  const { data: bullsResponse } = useBulls(filters, {
-    enabled: type === "bull",
-  });
-
-  const tableData =
-    type === "company"
-      ? (companiesResponse?.data ?? [])
-      : (bullsResponse?.data ?? []);
-
-  const pageCount =
-    type === "company"
-      ? (companiesResponse?.meta?.total_pages ?? 0)
-      : (bullsResponse?.meta?.total_pages ?? 0);
-
-  const handleDeleteClick = (company: CompanyDTO) => {
-    setSelectedCompany(company);
-  };
+  const { selected, setSelected, handleDeleteClick, handleConfirmDelete } =
+    useDeleteCompanyHandler();
 
   const handleEditClick = (company: CompanyDTO) => {
     setEditingCompany(company);
     setOpen(true);
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!selectedCompany) return;
-
-    try {
-      await deleteCompanyFn(selectedCompany.id);
-      setSelectedCompany(null);
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const columns =
@@ -88,7 +47,7 @@ export default function ReproductiveSupportPage() {
         <div className="flex gap-2">
           <button
             onClick={() => setType("bull")}
-            className={`px-3 py-1.5 rounded-lg cursor-pointer text-sm ${
+            className={`px-3 py-1.5 rounded-lg text-sm ${
               type === "bull" ? "bg-primary text-white" : "bg-gray-200"
             }`}
           >
@@ -97,7 +56,7 @@ export default function ReproductiveSupportPage() {
 
           <button
             onClick={() => setType("company")}
-            className={`px-3 py-1.5 rounded-lg cursor-pointer text-sm ${
+            className={`px-3 py-1.5 rounded-lg text-sm ${
               type === "company" ? "bg-primary text-white" : "bg-gray-200"
             }`}
           >
@@ -117,32 +76,30 @@ export default function ReproductiveSupportPage() {
         </Button>
       </div>
 
-      {open && (
-        <ModalForm
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            setEditingCompany(null);
-          }}
-          type={type}
-          initialData={editingCompany}
-        />
-      )}
+      <RenderModal
+        type={type}
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          setEditingCompany(null);
+        }}
+        editingCompany={editingCompany}
+      />
 
       <InvoicesTable
-        data={tableData}
+        data={data}
         columns={columns as ColumnDef<any>[]}
         pageCount={pageCount}
         pagination={pagination}
         onPaginationChange={setPagination}
-        searchColumn={type === 'bull' ? 'breed' : 'name'}
+        searchColumn={type === "bull" ? "breed" : "name"}
       />
 
       <ConfirmDeleteModal
-        open={!!selectedCompany}
-        onClose={() => setSelectedCompany(null)}
+        open={!!selected}
+        onClose={() => setSelected(null)}
         onConfirm={handleConfirmDelete}
-        itemName={selectedCompany?.name}
+        itemName={selected?.name}
       />
     </div>
   );
