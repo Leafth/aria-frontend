@@ -3,9 +3,18 @@ import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "@/shared";
-import { bullColumns, getCompanyColumns } from "@/features/reproductive-support/components/columns";
-import { ConfirmDeleteModal, RenderModal } from "@/features/reproductive-support/components/modals";
-import { useReproductiveSupport, useDeleteCompanyHandler } from "@/features/reproductive-support/hooks";
+import {
+  bullColumns,
+  getCompanyColumns,
+} from "@/features/reproductive-support/components/columns";
+import {
+  ConfirmDeleteModal,
+  RenderModal,
+} from "@/features/reproductive-support/components/modals";
+import {
+  useReproductiveSupport,
+  useDeleteCompanyHandler,
+} from "@/features/reproductive-support/hooks";
 import type { CompanyDTO } from "@/features/reproductive-support/types";
 
 export default function ReproductiveSupportPage() {
@@ -44,7 +53,7 @@ export default function ReproductiveSupportPage() {
         <div className="flex gap-2">
           <button
             onClick={() => setType("bull")}
-            className={`px-3 py-1.5 rounded-lg text-sm ${
+            className={`px-3 py-1.5 rounded-lg text-sm cursor-pointer ${
               type === "bull" ? "bg-primary text-white" : "bg-gray-200"
             }`}
           >
@@ -53,7 +62,7 @@ export default function ReproductiveSupportPage() {
 
           <button
             onClick={() => setType("company")}
-            className={`px-3 py-1.5 rounded-lg text-sm ${
+            className={`px-3 py-1.5 rounded-lg text-sm cursor-pointer ${
               type === "company" ? "bg-primary text-white" : "bg-gray-200"
             }`}
           >
