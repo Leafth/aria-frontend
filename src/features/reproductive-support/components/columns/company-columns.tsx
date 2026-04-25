@@ -55,7 +55,7 @@ export function getCompanyColumns(
                 onSelect={() => onEditClick(company)}
                 className="cursor-pointer"
               >
-                <Edit2Icon className="size-4" /> Edit
+                <Edit2Icon className="size-4" /> Edite
               </DropdownMenuItem>
 
               <DropdownMenuItem
