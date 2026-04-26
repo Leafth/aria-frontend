@@ -15,7 +15,7 @@ export function DataTableFacetedFilter({ column }: IDataTableFacetedFilterProps)
 
   return (
     <Select onValueChange={value => tableColumn?.setFilterValue(value)}>
-      <SelectTrigger className="w-45">
+      <SelectTrigger className="w-45 cursor-pointer">
         <SelectValue placeholder="Selecione" />
       </SelectTrigger>
 
@@ -25,6 +25,7 @@ export function DataTableFacetedFilter({ column }: IDataTableFacetedFilterProps)
             <SelectItem
               key={option}
               value={option}
+              className="cursor-pointer"
             >
               {option} ({facet?.get(option)})
             </SelectItem>
