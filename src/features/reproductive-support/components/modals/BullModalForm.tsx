@@ -72,32 +72,36 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
       title={initialData ? "Editar Touro" : "Cadastrar Touro"}
       footerContent={
         <Button className="w-full" onClick={handleSubmit(onSubmit)}>
-          Salvar
+          {initialData ? "Editar" : "Cadastrar"}
         </Button>
       }
     >
       <div className="flex flex-col gap-1">
         <span className="text-xs text-text-primary">Origem:</span>
 
-        <div className="flex gap-2">
+        <div className="flex bg-gray-300 rounded-full p-1 w-fit">
           <button
             type="button"
             onClick={() => setValue("origin", "local")}
-            className={`px-3 py-1.5 rounded-lg text-sm ${
-              origin === "local" ? "bg-primary text-white" : "bg-gray-200"
+            className={`px-4 py-1.5 text-sm rounded-full transition-all cursor-pointer ${
+              origin === "local"
+                ? "bg-white text-black shadow"
+                : "text-gray-700"
             }`}
           >
-            Local
+            Touro Próprio
           </button>
 
           <button
             type="button"
             onClick={() => setValue("origin", "company")}
-            className={`px-3 py-1.5 rounded-lg text-sm ${
-              origin === "company" ? "bg-primary text-white" : "bg-gray-200"
+            className={`px-4 py-1.5 text-sm rounded-full transition-all cursor-pointer ${
+              origin === "company"
+                ? "bg-white text-black shadow"
+                : "text-gray-700"
             }`}
           >
-            Empresa
+            Touro Empresa
           </button>
         </div>
       </div>
@@ -105,17 +109,20 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
         label="Nome*"
         {...register("name")}
         error={errors.name?.message}
+        placeholder="ex: Tauros"
       />
       <InputField
         label="Raça*"
         {...register("breed")}
         error={errors.breed?.message}
+        placeholder="ex: Nelore"
       />
       {origin === "local" && (
         <InputField
           label="Brinco*"
           {...register("ear_tag")}
           error={errors.ear_tag?.message}
+          placeholder="ex: #BRC-001"
         />
       )}
       {origin === "company" && (
@@ -126,7 +133,7 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
 
           <select
             {...register("company_id")}
-            className="w-full pt-6 pb-1 px-4 rounded-lg border border-gray-400 bg-white text-sm outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-200"
+            className="w-full pt-6 pb-1 px-3 rounded-lg border border-gray-400 bg-white text-sm outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-200"
           >
             <option value="">Selecione uma empresa</option>
             {companies.map((company) => (
