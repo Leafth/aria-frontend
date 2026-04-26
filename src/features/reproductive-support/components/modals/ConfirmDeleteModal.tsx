@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import { Modal } from "@/shared/components/ui/modal";
+import { Trash } from "lucide-react";
 
 type ConfirmDeleteModalProps = {
   open: boolean;
@@ -18,22 +19,28 @@ export function ConfirmDeleteModal({
     <Modal
       open={open}
       onClose={onClose}
-      title="Confirmar exclusão"
+      title="Excluir"
       footerContent={
-        <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={onClose} className="cursor-pointer">
-            Cancelar
-          </Button>
-          <Button variant="destructive" onClick={onConfirm} className="cursor-pointer">
+        <div className="flex flex-col justify-end gap-2">
+          <Button variant="danger" onClick={onConfirm}>
             Excluir
+          </Button>
+          <Button variant="ghost" onClick={onClose}>
+            Cancelar
           </Button>
         </div>
       }
     >
-      <p>
-        Tem certeza que deseja excluir{" "}
-        <strong>{itemName ?? "este item"}</strong>?
-      </p>
+      <div className="flex flex-col justify-center items-center gap-6 my-6">
+        <div className="flex justify-center items-center rounded-full bg-red-50 h-15 w-15 text-red">
+          <Trash />
+        </div>
+        <p className="text-center font-semibold text-gray-800">
+          Tem certeza que deseja
+          <br />
+          excluir <strong>{itemName}</strong>?
+        </p>
+      </div>
     </Modal>
   );
 }
