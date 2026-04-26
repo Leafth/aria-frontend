@@ -17,7 +17,7 @@
   /* Cores Customizadas (Suas) */
   --color-surface: var(--surface);
   --color-success: #10b981;
-  --color-red: #ef4444;
+  --color-red: #C92A2A;
 
   /* Mapeamento Shadcn (Essencial para o hover:bg-muted funcionar) */
   --color-background: var(--background);
