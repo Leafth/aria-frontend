@@ -1,12 +1,12 @@
 import type { ButtonVariant, ButtonSize } from "./Button.types";
 
 export const baseStyles =
-  "flex items-center justify-center gap-2 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
+  "flex items-center justify-center gap-2 transition-all rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
 
 export const variants: Record<ButtonVariant, string> = {
   primary: "bg-primary text-white hover:bg-blue-900",
-  danger: "bg-red text-white hover:bg-red-600",
-  ghost: "bg-transparent text-blue-600 hover:bg-blue-50",
+  danger: "bg-red text-white hover:bg-red-800",
+  ghost: "bg-transparent border-1 border-black  hover:bg-gray-200",
 };
 
 export const sizes: Record<ButtonSize, string> = {
