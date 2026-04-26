@@ -1,6 +1,6 @@
 import { InvoicesTable } from "@/shared/components/ui/invoices-table";
 import type { ColumnDef, PaginationState } from "@tanstack/react-table";
-import { Plus } from "lucide-react";
+import { CirclePlus } from "lucide-react";
 import { useState } from "react";
 import { Button, Header } from "@/shared";
 import {
@@ -65,7 +65,8 @@ export default function ReproductiveSupportPage() {
       />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2">
+        <div className="flex items-center gap-4">
+          <p>Tipo:</p>
           <button
             onClick={() => setType("bull")}
             className={`px-3 py-1.5 rounded-lg text-sm cursor-pointer ${
@@ -92,7 +93,7 @@ export default function ReproductiveSupportPage() {
             setOpen(true);
           }}
         >
-          <Plus size={16} />
+          <CirclePlus size={20} />
           {type === "bull" ? "Cadastrar Touro" : "Cadastrar Empresa"}
         </Button>
       </div>
