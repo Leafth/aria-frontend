@@ -55,14 +55,14 @@ export function getCompanyColumns(
                 onSelect={() => onEditClick(company)}
                 className="cursor-pointer"
               >
-                <Edit2Icon className="size-4" /> Edite
+                <Edit2Icon className="size-4" /> Editar
               </DropdownMenuItem>
 
               <DropdownMenuItem
                 onSelect={() => onDeleteClick(company)}
                 className="cursor-pointer"
               >
-                <Trash2Icon className="size-4" /> Delete
+                <Trash2Icon className="size-4" /> Deletar
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

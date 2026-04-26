@@ -85,14 +85,14 @@ export function getBullColumns(
                   onSelect={() => onEditClick(bull)}
                   className="cursor-pointer"
                 >
-                  <Edit2Icon className="size-4" /> Edite
+                  <Edit2Icon className="size-4" /> Editar
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
                   onSelect={() => onDeleteClick(bull)}
                   className="cursor-pointer"
                 >
-                  <Trash2Icon className="size-4" /> Delete
+                  <Trash2Icon className="size-4" /> Deletar
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
