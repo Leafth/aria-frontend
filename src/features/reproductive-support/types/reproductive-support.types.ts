@@ -12,7 +12,7 @@ export interface BullDTO {
   breed: string;
   origin: BullOrigin;
   ear_tag: string | null;
-  company_id: number | null;
+  company_id: string | null;
   company?: {
     id: number;
     name: string;
@@ -24,7 +24,7 @@ export interface BullParams {
   per_page?: number;
   q?: string;
   origin?: BullOrigin;
-  company_id?: number;
+  company_id?: string;
   sort_by?: "name" | "breed" | "created_at";
   sort_dir?: "asc" | "desc";
 }
