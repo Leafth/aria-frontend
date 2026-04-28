@@ -20,7 +20,7 @@ export function useSaveBull(onClose?: () => void) {
             name: data.name,
             breed: data.breed,
             origin: "company" as const,
-            company_id: data.company_id ? Number(data.company_id) : null,
+            company_id: data.company_id ?? null,
             ear_tag: null,
           };
 
