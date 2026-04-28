@@ -6,7 +6,7 @@ export const sections: SidebarSection[] = [
     title: "PRINCIPAL",
     items: [
       { label: "Dashboard", icon: Home, path: "/dashboard" },
-      { label: "Rebanho", icon: Tags, path: "/rebanho" },
+      { label: "Rebanho", icon: Tags, path: "/flock" },
     ],
   },
   {
