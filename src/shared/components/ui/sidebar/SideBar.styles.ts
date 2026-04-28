@@ -1,8 +1,8 @@
 export const container =
-  "w-72 h-dvh sticky top-0 bg-white flex flex-col justify-between transition-[width] duration-300 ease-in-out will-change-[width]";
+  "w-64 h-dvh sticky top-0 bg-white flex flex-col justify-between transition-[width] duration-300 ease-in-out will-change-[width]";
 
 export const containerCollapsed =
-  "w-20 h-dvh sticky top-0 bg-white flex flex-col justify-between transition-[width] duration-300 ease-in-out will-change-[width]";
+  "w-18 h-dvh sticky top-0 bg-white flex flex-col justify-between transition-[width] duration-300 ease-in-out will-change-[width]";
 
 export const header = "flex items-center gap-3 px-4 py-3 border-b border-gray-200";
 
