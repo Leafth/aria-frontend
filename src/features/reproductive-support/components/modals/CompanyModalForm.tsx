@@ -53,7 +53,7 @@ export function CompanyModalForm({ open, onClose, initialData }: Props) {
           onClick={handleSubmit(onSubmit)}
           disabled={isPending}
         >
-          {isPending ? "Salvando..." : "Salvar"}
+          {isEditing ? "Editar" : "Cadastrar"}
         </Button>
       }
     >
