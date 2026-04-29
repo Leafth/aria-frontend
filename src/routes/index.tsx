@@ -5,7 +5,12 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
 } from "@/features/auth/pages";
-import { DashboardPage, ReproductiveSupportPage, FlockPage } from "@/features";
+import {
+  DashboardPage,
+  ReproductiveSupportPage,
+  FlockPage,
+  IndividualRecordPage,
+} from "@/features";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export function AppRoutes() {
@@ -22,6 +27,10 @@ export function AppRoutes() {
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/flock" element={<FlockPage />} />
+            <Route
+              path="/flock/individual/:id"
+              element={<IndividualRecordPage />}
+            />
             <Route
               path="/reproductive-support"
               element={<ReproductiveSupportPage />}
