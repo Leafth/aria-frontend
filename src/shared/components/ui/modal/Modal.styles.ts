@@ -9,6 +9,6 @@ export const title = "text-lg font-semibold text-gray-800";
 
 export const closeButton = "cursor-pointer text-gray-500 hover:text-gray-700";
 
-export const content = "flex flex-col gap-4";
+export const content = "flex flex-col gap-4 max-h-[60vh] overflow-y-auto";
 
-export const footer = "mt-4";
+export const footer = "mt-4 w-full px-10";

@@ -9,6 +9,7 @@ import {
   content,
   footer,
 } from "./Modal.styles";
+import { twMerge } from "tailwind-merge";
 
 export function Modal({
   open,
@@ -16,12 +17,13 @@ export function Modal({
   title: modalTitle,
   children,
   footerContent,
+  className
 }: ModalProps) {
   if (!open) return null;
 
   return (
     <div className={overlay}>
-      <div className={modal} onClick={(e) => e.stopPropagation()}>
+      <div className={twMerge(modal, className)} onClick={(e) => e.stopPropagation()}>
         <div className={header}>
           <button className={closeButton} onClick={onClose}>
             <X size={20} />
