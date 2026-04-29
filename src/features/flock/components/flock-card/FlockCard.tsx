@@ -1,12 +1,11 @@
 import {
   Calendar,
   Weight,
-  AlertTriangle,
   ArrowRight,
   CircleAlert,
-  History,
 } from "lucide-react";
 import { type FlockCardProps } from "./flock-card.type";
+import { useNavigate } from "react-router-dom";
 
 export function FlockCard({
   name,
@@ -15,19 +14,16 @@ export function FlockCard({
   phase,
   age,
   weight,
-  alerts,
   goal,
-  currentWeight,
   goalWeight,
-  lastWeighing,
-  events,
   colorCard,
 }: FlockCardProps) {
-  const progress = Math.round((currentWeight / goalWeight) * 100);
+
+  const navigate = useNavigate()
 
   return (
     <div
-      className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-[320px]"
+      className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-87.5"
       style={{ borderTopColor: colorCard }}
     >
       <div className="flex justify-between items-start">
@@ -45,23 +41,17 @@ export function FlockCard({
         </span>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 text-center">
-        <div className="bg-gray-100 rounded-lg p-2 flex flex-col items-center">
-          <Calendar size={16} />
-          <span className="text-xs mt-1">{age}</span>
+      <div className="grid grid-cols-2 gap-2 bg-gray-100 rounded-lg justify-around divide-x divide-gray-300">
+        <div className="p-2 flex flex-col items-center">
+          <Calendar size={16} className="font-bold"/>
+          <span className="text-xs mt-1 font-bold">{age}</span>
           <span className="text-[10px] text-gray-500">Idade</span>
         </div>
 
         <div className="bg-gray-100 rounded-lg p-2 flex flex-col items-center">
-          <Weight size={16} />
-          <span className="text-xs mt-1">{weight}</span>
+          <Weight size={16} className="font-bold"/>
+          <span className="text-xs mt-1 font-bold">{weight}</span>
           <span className="text-[10px] text-gray-500">Peso</span>
-        </div>
-
-        <div className="bg-gray-100 rounded-lg p-2 flex flex-col items-center text-red-500">
-          <AlertTriangle size={16} />
-          <span className="text-xs mt-1">{alerts}</span>
-          <span className="text-[10px]">Alerta</span>
         </div>
       </div>
 
@@ -70,39 +60,13 @@ export function FlockCard({
         <span className="font-medium">{goalWeight}kg</span>
       </div>
 
-      <div className="flex justify-between text-sm">
-        <span className="text-gray-500">● Última pesagem</span>
-        <span className="text-green-600">{lastWeighing}</span>
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <div className="flex justify-between text-xs text-gray-500">
-          <span>PESO</span>
-          <span>
-            {currentWeight}/{goalWeight} KG - {progress}%
-          </span>
-        </div>
-
-        <div className="w-full bg-gray-200 h-2 rounded-full">
-          <div
-            className="bg-blue-600 h-2 rounded-full"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-
-      <div className="bg-orange-100 text-orange-600 text-sm p-3 rounded-lg flex items-center gap-2">
-        <CircleAlert size={16} />
+      <div className="bg-orange-100 text-orange-600 border-l-4 border-orange-600 text-sm p-4 rounded-lg flex items-center gap-2">
+        <CircleAlert size={20} />
         <span>Próxima da meta. Pese regularmente.</span>
       </div>
 
-      <div className="flex justify-between items-center text-sm text-gray-600">
-        <div className="flex items-center gap-1">
-          <History size={14} />
-          {events} eventos
-        </div>
-
-        <div className="flex items-center gap-1 cursor-pointer hover:text-black">
+      <div className="flex justify-end items-center text-sm text-gray-600 mt-8">
+        <div className="flex items-center gap-1 cursor-pointer hover:text-black" onClick={() => navigate(`/flock/individual/${code}`)}>
           Ver detalhes <ArrowRight size={14} />
         </div>
       </div>

@@ -38,12 +38,8 @@ export default function FlockPage() {
                 phase={flock.phase}
                 age={flock.age}
                 weight={flock.weight}
-                alerts={flock.alerts}
                 goal={flock.goal}
-                currentWeight={flock.currentWeight}
                 goalWeight={flock.goalWeight}
-                lastWeighing={flock.lastWeighing}
-                events={flock.events}
                 colorCard={flock.colorCard}
               />
             ))}

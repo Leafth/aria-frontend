@@ -5,11 +5,7 @@ export interface FlockCardProps {
   phase: string;
   age: string;
   weight: string;
-  alerts: number;
   goal: string;
-  currentWeight: number;
   goalWeight: number;
-  lastWeighing: string;
-  events: number;
   colorCard: string;
 }
