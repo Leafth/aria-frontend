@@ -22,7 +22,7 @@ export const flocksMock = [
     age: "2a",
     weight: "180kg",
     alerts: 0,
-    goal: "Premípara",
+    goal: "Primípara",
     currentWeight: 180,
     goalWeight: 200,
     lastWeighing: "02/12/2026",
