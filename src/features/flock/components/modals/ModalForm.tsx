@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// depois você pode criar um schema de verdade
 import { z } from "zod";
+import { SelectField } from "@/shared/components/ui/select/SelectField";
 
 const flockSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
@@ -44,6 +44,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
 
   return (
     <Modal
+      className="max-w-2xl"
       open={open}
       onClose={() => {
         reset();
@@ -56,30 +57,81 @@ export function ModalForm({ open, onClose, initialData }: Props) {
           onClick={handleSubmit(onSubmit)}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Salvando..." : "Salvar"}
+          {isEditing ? "Editar" : "Cadastrar"}
         </Button>
       }
     >
-      <InputField
-        label="Nome*"
-        placeholder="ex: Matuê"
-        {...register("name")}
-        error={errors.name?.message}
-      />
+      <div className="flex items-center gap-2">
+        <span className="flex justify-center items-center text-sm h-5 w-5 bg-black rounded-full text-white">
+          1
+        </span>
+        <label>Identificação*</label>
+      </div>
+      <div className="grid grid-cols-2 gap-6">
+        <InputField
+          label="Nome*"
+          placeholder="ex: Matuê"
+          {...register("name")}
+          error={errors.name?.message}
+        />
 
-      <InputField
-        label="Código*"
-        placeholder="ex: BR-044"
-        {...register("code")}
-        error={errors.code?.message}
-      />
+        <InputField
+          label="Código*"
+          placeholder="ex: BR-044"
+          {...register("code")}
+          error={errors.code?.message}
+        />
+      </div>
 
-      <InputField
-        label="Raça*"
-        placeholder="ex: Nelore"
-        {...register("breed")}
-        error={errors.breed?.message}
-      />
+      <div className="flex items-center gap-2">
+        <span className="flex justify-center items-center text-sm h-5 w-5 bg-black rounded-full text-white">
+          2
+        </span>
+        <label>Dados Básicos*</label>
+      </div>
+      <div className="grid grid-cols-2 gap-6">
+        <InputField
+          label="Raça*"
+          placeholder="ex: Nelore"
+          {...register("breed")}
+          error={errors.breed?.message}
+        />
+        <InputField
+          label="Raça*"
+          placeholder="ex: Nelore"
+          {...register("breed")}
+          error={errors.breed?.message}
+        />
+        <InputField
+          label="Raça*"
+          placeholder="ex: Nelore"
+          {...register("breed")}
+          error={errors.breed?.message}
+        />
+      </div>
+
+      <div className="flex items-center gap-2">
+        <span className="flex justify-center items-center text-sm h-5 w-5 bg-black rounded-full text-white">
+          3
+        </span>
+        <label>Fase e Etapa do Animal</label>
+      </div>
+      <div className="grid grid-cols-2 gap-6">
+        <SelectField
+          label="Selecione a raça"
+          options={[
+            { label: "Nelore", value: "nelore" },
+            { label: "Angus", value: "angus" },
+          ]}
+        />
+        <SelectField
+          label="Selecione a raça"
+          options={[
+            { label: "Nelore", value: "nelore" },
+            { label: "Angus", value: "angus" },
+          ]}
+        />
+      </div>
     </Modal>
   );
 }
