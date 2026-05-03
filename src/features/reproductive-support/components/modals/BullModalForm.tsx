@@ -7,6 +7,7 @@ import { useSaveBull } from "../../hooks/bulls/useSaveBull";
 import { useEffect } from "react";
 import type { BullDTO } from "../../types";
 import { CircleX } from "lucide-react";
+import { ToggleField } from "@/shared/components/ui/toggle/ToggleField";
 
 interface Props {
   open: boolean;
@@ -58,7 +59,9 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
         company_id: initialData.company_id?.toString() ?? undefined,
       });
     } else {
-      reset();
+      reset({
+        origin: "local",
+      });
     }
   }, [initialData, reset]);
 
@@ -76,35 +79,15 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
         </Button>
       }
     >
-      <div className="flex flex-col gap-1">
-        <span className="text-xs text-text-primary">Origem:</span>
-
-        <div className="flex bg-gray-300 rounded-full p-1 w-fit">
-          <button
-            type="button"
-            onClick={() => setValue("origin", "local")}
-            className={`px-4 py-1.5 text-sm rounded-full transition-all cursor-pointer ${
-              origin === "local"
-                ? "bg-white text-black shadow"
-                : "text-gray-700"
-            }`}
-          >
-            Touro Próprio
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setValue("origin", "company")}
-            className={`px-4 py-1.5 text-sm rounded-full transition-all cursor-pointer ${
-              origin === "company"
-                ? "bg-white text-black shadow"
-                : "text-gray-700"
-            }`}
-          >
-            Touro Empresa
-          </button>
-        </div>
-      </div>
+      <ToggleField
+        label="Origem:"
+        value={origin}
+        onChange={(val) => setValue("origin", val)}
+        options={[
+          { label: "Touro Próprio", value: "local" },
+          { label: "Touro Empresa", value: "company" },
+        ]}
+      />
       <InputField
         label="Nome*"
         {...register("name")}
