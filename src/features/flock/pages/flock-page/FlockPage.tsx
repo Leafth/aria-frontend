@@ -21,9 +21,9 @@ export default function FlockPage() {
         </Button>
       </header>
       <section className="flex flex-col gap-7">
-        <DataTableTextFilter placeholder="Pesquisar..." />
+        <DataTableTextFilter placeholder="Buscar por nome ou brinco..." />
         <ItemsFilter value={filter} onChange={setFilter} />
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ml-8">
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {flocksMock
             .filter((flock) => {
               if (filter === "Todas") return true;
