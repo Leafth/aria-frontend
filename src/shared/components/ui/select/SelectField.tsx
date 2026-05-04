@@ -1,34 +1,29 @@
-import { useState } from "react";
 import { ChevronDown, CircleX } from "lucide-react";
-import type { SelectFieldProps } from "./selectField.types";
+import type { SelectFieldProps } from "./SelectField.types";
 import {
   container,
   selectWrapper,
   selectBase,
   selectError,
   icon,
-} from "./selectField.styles";
+} from "./SelectField.styles";
 
 export function SelectField({
   label,
   error,
   options,
   className = "",
+  value,
+  onChange,
   ...props
 }: SelectFieldProps) {
-  const [value, setValue] = useState("");
-
   return (
     <div className={container}>
       <div className={selectWrapper}>
         <select
-          value={value}
+          value={value ?? ""}
           className={`${selectBase} ${error ? selectError : ""} ${className}`}
-          onChange={(e) => {
-            const val = e.target.value;
-            setValue(val);
-            props.onChange?.(e);
-          }}
+          onChange={(e) => onChange?.(e.target.value)}
           {...props}
         >
           <option value="" hidden>
@@ -41,6 +36,7 @@ export function SelectField({
             </option>
           ))}
         </select>
+
         <ChevronDown className={icon} size={18} />
       </div>
 

@@ -1,12 +1,11 @@
-import type { SelectHTMLAttributes } from "react";
-
-export interface Option {
+export interface SelectFieldProps
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "onChange"> {
   label: string;
-  value: string;
-}
-
-export interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
   error?: string;
-  options: Option[];
+  options: {
+    label: string;
+    value: string;
+  }[];
+  value?: string;
+  onChange?: (value: string) => void;
 }
