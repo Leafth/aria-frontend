@@ -1,14 +1,15 @@
 import { Button, Header } from "@/shared";
-import { DataTableTextFilter } from "@/shared/components/ui/table/DataTableTextFilter";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, Search } from "lucide-react";
 import { ItemsFilter } from "../../components/cards-filter/ItemsFilter";
 import { FlockCard } from "../../components/flock-card/FlockCard";
 import { flocksMock } from "../../components/flock-card/itemsFlock.mock";
 import { useState } from "react";
 import { ModalForm } from "../../components/modals/ModalForm";
+import { Input } from "@/components/ui/input";
 
 export default function FlockPage() {
   const [filter, setFilter] = useState("Todas");
+  const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -21,13 +22,27 @@ export default function FlockPage() {
         </Button>
       </header>
       <section className="flex flex-col gap-7">
-        <DataTableTextFilter placeholder="Buscar por nome ou brinco..." />
+        <div className="relative w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+
+          <Input
+            placeholder="Buscar por nome ou brinco..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="pl-10"
+          />
+        </div>
         <ItemsFilter value={filter} onChange={setFilter} />
         <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {flocksMock
             .filter((flock) => {
-              if (filter === "Todas") return true;
-              return flock.phase === filter;
+              const matchesPhase = filter === "Todas" || flock.phase === filter;
+
+              const matchesSearch =
+                flock.name.toLowerCase().includes(search.toLowerCase()) ||
+                flock.code.toLowerCase().includes(search.toLowerCase());
+
+              return matchesPhase && matchesSearch;
             })
             .map((flock) => (
               <FlockCard
