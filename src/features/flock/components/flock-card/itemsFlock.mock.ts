@@ -63,7 +63,7 @@ export const flocksMock = [
     name: "Safira",
     code: "BR-056",
     breed: "Gir",
-    phase: "Premípara",
+    phase: "Primípara",
     age: "3a",
     weight: "190kg",
     alerts: 1,
