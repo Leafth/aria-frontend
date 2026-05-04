@@ -5,11 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
 import { SelectField } from "@/shared/components/ui/select/SelectField";
+import { AdditionalInformation } from "./additional_information/AdditionalInformation";
 
 const flockSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
   code: z.string().min(1, "Código é obrigatório"),
+  birthDate: z.string().min(1, "Data de nascimento é obrigatória"),
   breed: z.string().min(1, "Raça é obrigatória"),
+  initialWeight: z
+    .string()
+    .min(1, "Peso inicial é obrigatório")
+    .refine((val) => !isNaN(Number(val)), {
+      message: "Peso deve ser um número",
+    }),
+
+  stage: z.string().optional(),
 });
 
 type FlockFormData = z.infer<typeof flockSchema>;
@@ -28,6 +38,8 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    watch,
+    setValue,
   } = useForm<FlockFormData>({
     resolver: zodResolver(flockSchema),
   });
@@ -41,6 +53,8 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     console.log(data);
     onClose();
   };
+
+  const stage = watch("stage");
 
   return (
     <Modal
@@ -69,14 +83,14 @@ export function ModalForm({ open, onClose, initialData }: Props) {
       </div>
       <div className="grid grid-cols-2 gap-6">
         <InputField
-          label="Nome*"
-          placeholder="ex: Matuê"
+          label="Nome"
+          placeholder="ex: Princesa"
           {...register("name")}
           error={errors.name?.message}
         />
 
         <InputField
-          label="Código*"
+          label="Código"
           placeholder="ex: BR-044"
           {...register("code")}
           error={errors.code?.message}
@@ -91,22 +105,24 @@ export function ModalForm({ open, onClose, initialData }: Props) {
       </div>
       <div className="grid grid-cols-2 gap-6">
         <InputField
-          label="Raça*"
-          placeholder="ex: Nelore"
+          label="Data Nascimento"
+          type="date"
+          {...register("birthDate")}
+          error={errors.birthDate?.message}
+        />
+
+        <InputField
+          label="Raça"
+          placeholder="ex: Holandesa"
           {...register("breed")}
           error={errors.breed?.message}
         />
+
         <InputField
-          label="Raça*"
-          placeholder="ex: Nelore"
-          {...register("breed")}
-          error={errors.breed?.message}
-        />
-        <InputField
-          label="Raça*"
-          placeholder="ex: Nelore"
-          {...register("breed")}
-          error={errors.breed?.message}
+          label="Peso Inicial (kg)"
+          placeholder="ex: 120"
+          {...register("initialWeight")}
+          error={errors.initialWeight?.message}
         />
       </div>
 
@@ -118,20 +134,30 @@ export function ModalForm({ open, onClose, initialData }: Props) {
       </div>
       <div className="grid grid-cols-2 gap-6">
         <SelectField
-          label="Selecione a raça"
+          label="Fase do Animal"
           options={[
-            { label: "Nelore", value: "nelore" },
-            { label: "Angus", value: "angus" },
+            { label: "Bezerra", value: "bezerra" },
+            { label: "Garrota", value: "garrota" },
+            { label: "Novilha", value: "novilha" },
+            { label: "Primípara", value: "primípara" },
+            { label: "Multiparta", value: "Multiparta" },
           ]}
         />
         <SelectField
-          label="Selecione a raça"
+          label="Etapa do Animal"
           options={[
-            { label: "Nelore", value: "nelore" },
-            { label: "Angus", value: "angus" },
+            { label: "Padrão", value: "padrao" },
+            { label: "Cio registrado", value: "cio_registrado" },
+            { label: "Cobertura registrada", value: "cobertura_registrada" },
+            { label: "Em Confirmar Cobertura", value: "confirmar_cobertura" },
+            { label: "Confirmar Prenhez", value: "prenhez" },
+            { label: "Parto registrado", value: "parto_registrado" },
           ]}
+          value={watch("stage")}
+          onChange={(value) => setValue("stage", value)}
         />
       </div>
+      <AdditionalInformation stage={stage} />
     </Modal>
   );
 }
