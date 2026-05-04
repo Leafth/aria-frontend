@@ -1,5 +1,6 @@
 import { Button } from "@/shared";
-import { Beef, Weight, Sprout, CirclePlus } from "lucide-react";
+import { Weight, Sprout, CirclePlus } from "lucide-react";
+import iconCow from "@/assets/icons/iconCow.svg"
 
 interface Props {
   status: string;
@@ -20,7 +21,7 @@ export function AnimalStatusCard({
     <div className="w-full bg-white rounded-2xl flex overflow-hidden">
       <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
         <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-200">
-          <Beef className="text-green-700" />
+          <img src={iconCow} alt="" className="h-7"/>
         </div>
 
         <div>
@@ -34,7 +35,7 @@ export function AnimalStatusCard({
 
       <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
         <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-200">
-          <Weight className="text-green-700" />
+          <Weight className="text-green-700"/>
         </div>
 
         <div className="flex-1">
@@ -45,7 +46,7 @@ export function AnimalStatusCard({
           </p>
 
           <Button variant="ghost" className="h-10 mt-3">
-            <CirclePlus size={16} />
+            <CirclePlus size={16} className="font-bold"/>
             Registrar Peso
           </Button>
         </div>
