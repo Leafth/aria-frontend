@@ -4,7 +4,7 @@ export interface SelectFieldProps
   error?: string;
   options: {
     label: string;
-    value: string;
+    value: string | number;
   }[];
   value?: string;
   onChange?: (value: string) => void;
