@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { TextareaHTMLAttributes } from "react";
 import {
   container,
@@ -9,10 +8,15 @@ import {
   counter,
 } from "./TextareaField.styles";
 
-interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface Props extends Omit<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
+  "onChange"
+> {
   label?: string;
   error?: string;
   maxLength?: number;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 export function TextareaField({
@@ -20,10 +24,10 @@ export function TextareaField({
   error,
   maxLength = 200,
   className = "",
+  value = "",
+  onChange,
   ...props
 }: Props) {
-  const [value, setValue] = useState("");
-
   return (
     <div className={container}>
       <div className={textareaWrapper}>
@@ -33,10 +37,7 @@ export function TextareaField({
           className={`${textareaBase} ${
             error ? textareaError : ""
           } ${className}`}
-          onChange={(e) => {
-            setValue(e.target.value);
-            props.onChange?.(e);
-          }}
+          onChange={(e) => onChange?.(e.target.value)}
           {...props}
         />
 
