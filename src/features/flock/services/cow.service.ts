@@ -6,6 +6,7 @@ import type {
   UpdateCowDTO,
   CowFilters,
   PaginatedCowsResponse,
+  InactivateCowDTO,
 } from "../types/cow.types";
 
 export async function getCows(params?: CowFilters) {
@@ -40,4 +41,15 @@ export async function updateCow(id: string, data: UpdateCowDTO) {
 
 export async function deleteCow(id: string) {
   await api.delete(`/cows/${id}`);
+}
+
+export async function inactivateCow(id: string, data: InactivateCowDTO) {
+  const response = await api.post(`/cows/${id}/events`, {
+    event: {
+      event_type: "inactivation",
+      data,
+    },
+  });
+
+  return response.data;
 }
