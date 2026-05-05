@@ -3,7 +3,7 @@ import { SquarePen, Pen, Trash2 } from "lucide-react";
 import { AnimalStatusCard } from "../../components/individual-record/AnimalStatusCard";
 import { IndividualForm } from "../../components/forms/individual/IndividualForm";
 import { RecentHistoryCard } from "../../components/individual-record/RecentHistoryCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,24 +11,81 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useCowById } from "../../hooks/useCowById";
+import type { CowPhase } from "../../types/cow.types";
+
+function getPhaseLabel(phase: CowPhase) {
+  const labels: Record<CowPhase, string> = {
+    calf: "Bezerra",
+    heifer: "Garrota",
+    young: "Novilha",
+    primiparous: "Primípara",
+    multiparous: "Multiparta",
+  };
+
+  return labels[phase];
+}
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("pt-BR", {
+    timeZone: "UTC",
+  });
+}
+
+function getStatus(active: boolean) {
+  return active ? "Ativa" : "Inativa";
+}
+
 export default function IndividualRecordPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { data: cow, isLoading, isError } = useCowById(id);
+
+  if (isLoading) {
+    return (
+      <main className="flex flex-col gap-6 p-4 w-full">
+        <p className="text-sm text-gray-500">Carregando dados da vaca...</p>
+      </main>
+    );
+  }
+
+  if (isError || !cow) {
+    return (
+      <main className="flex flex-col gap-6 p-4 w-full">
+        <p className="text-sm text-red-500">
+          Erro ao carregar os dados da vaca.
+        </p>
+
+        <Button onClick={() => navigate("/flock")}>
+          Voltar para o rebanho
+        </Button>
+      </main>
+    );
+  }
 
   return (
     <main className="flex flex-col gap-6 p-4 w-full">
       <div>
         <p className="text-gray-500 text-sm">
-          <span className="cursor-pointer hover:text-black" onClick={() => navigate("/flock")}>
+          <span
+            className="cursor-pointer hover:text-black"
+            onClick={() => navigate("/flock")}
+          >
             Rebanho
           </span>{" "}
-          {">"} Estrela
+          {">"} {cow.name}
         </p>
       </div>
+
       <header className="flex justify-between items-center">
         <Header
-          title="Estrela"
-          description="Brinco: #BRC-044 Nasc: 12/03/2026"
+          title={cow.name}
+          description={`Brinco: #${cow.ear_tag} Nasc: ${formatDate(
+            cow.birth_date,
+          )}`}
         />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost">
@@ -47,7 +104,7 @@ export default function IndividualRecordPage() {
             </DropdownMenuItem>
 
             <DropdownMenuItem
-              onSelect={() => alert("Excluir")}
+              onSelect={() => alert("Inativar")}
               className="cursor-pointer"
             >
               <Trash2 size={16} />
@@ -56,16 +113,19 @@ export default function IndividualRecordPage() {
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
+
       <section>
         <AnimalStatusCard
-          status="Aguardando Cio"
-          nextDate="04/07/2027"
-          weight="542 kg"
-          lastWeigh="04/07/2027"
-          phase="Bezerra"
+          status={getStatus(cow.active)}
+          nextDate="-"
+          weight={`${cow.weight}kg`}
+          lastWeigh="-"
+          phase={getPhaseLabel(cow.phase)}
         />
+
         <div className="flex justify-between mt-5">
           <IndividualForm />
+
           <RecentHistoryCard
             items={[
               {
