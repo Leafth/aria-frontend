@@ -30,7 +30,7 @@ export async function createCow(data: CreateCowDTO) {
   return response.data;
 }
 
-export async function updateCow(id: number, data: UpdateCowDTO) {
+export async function updateCow(id: string, data: UpdateCowDTO) {
   const response = await api.patch<Cow>(`/cows/${id}`, {
     cow: data,
   });
@@ -38,6 +38,6 @@ export async function updateCow(id: number, data: UpdateCowDTO) {
   return response.data;
 }
 
-export async function deleteCow(id: number) {
+export async function deleteCow(id: string) {
   await api.delete(`/cows/${id}`);
 }
