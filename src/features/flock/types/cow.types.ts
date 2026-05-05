@@ -4,6 +4,8 @@ export type CowPhase =
   | "young"
   | "primiparous"
   | "multiparous";
+  
+export type InactivationReason = "sale" | "death";
 
 export interface Cow {
   id: string;
@@ -33,6 +35,11 @@ export interface UpdateCowDTO {
   ear_tag?: string;
   birth_date?: string;
   breed?: string;
+}
+
+export interface InactivateCowDTO {
+  reason: InactivationReason;
+  observation?: string;
 }
 
 export interface CowFilters {
