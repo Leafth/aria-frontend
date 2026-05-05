@@ -1,6 +1,8 @@
 import { Button } from "@/shared";
 import { Weight, Sprout, CirclePlus } from "lucide-react";
 import iconCow from "@/assets/icons/iconCow.svg";
+import { useState } from "react";
+import { EditWeightModal } from "../modals/individual-modal/EditWeightModal";
 
 interface Props {
   status: string;
@@ -17,6 +19,7 @@ export function AnimalStatusCard({
   lastWeigh,
   phase,
 }: Props) {
+  const [openWeightModal, setOpenWeightModal] = useState(false);
   return (
     <div className="w-full bg-white rounded-2xl flex overflow-hidden">
       <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
@@ -45,7 +48,11 @@ export function AnimalStatusCard({
             Última Pesagem: {lastWeigh}
           </p>
 
-          <Button variant="ghost" className="h-10 mt-3">
+          <Button
+            variant="ghost"
+            className="h-10 mt-3"
+            onClick={() => setOpenWeightModal(true)}
+          >
             <CirclePlus size={16} className="font-bold" />
             Registrar Peso
           </Button>
@@ -72,6 +79,13 @@ export function AnimalStatusCard({
           </select>
         </div>
       </div>
+      <EditWeightModal
+        open={openWeightModal}
+        onClose={() => setOpenWeightModal(false)}
+        onSubmit={(data) => {
+          console.log("Peso registrado:", data);
+        }}
+      />
     </div>
   );
 }
