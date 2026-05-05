@@ -1,0 +1,120 @@
+import { Button, InputField, Modal } from "@/shared";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const editCowSchema = z.object({
+  name: z.string().min(1, "Nome é obrigatório"),
+  code: z.string().min(1, "Código é obrigatório"),
+  birthDate: z.string().min(1, "Data de nascimento é obrigatória"),
+  breed: z.string().min(1, "Raça é obrigatória"),
+});
+
+export type EditCowFormData = z.infer<typeof editCowSchema>;
+
+interface Props {
+  open: boolean;
+  onClose: () => void;
+  initialData?: EditCowFormData | null;
+  onSubmit?: (data: EditCowFormData) => void | Promise<void>;
+}
+
+export function EditCowModal({ open, onClose, initialData, onSubmit }: Props) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<EditCowFormData>({
+    resolver: zodResolver(editCowSchema),
+    defaultValues: {
+      name: "",
+      code: "",
+      birthDate: "",
+      breed: "",
+    },
+  });
+
+  useEffect(() => {
+    if (open && initialData) {
+      reset(initialData);
+    }
+  }, [open, initialData, reset]);
+
+  const handleFormSubmit = async (data: EditCowFormData) => {
+    await onSubmit?.(data);
+
+    reset();
+    onClose();
+  };
+
+  return (
+    <Modal
+      className="max-w-2xl"
+      open={open}
+      onClose={() => {
+        reset(initialData ?? undefined);
+        onClose();
+      }}
+      title="Editar Dados do Animal"
+      footerContent={
+        <Button
+          className="w-full"
+          onClick={handleSubmit(handleFormSubmit)}
+          disabled={isSubmitting}
+        >
+          Salvar Alterações
+        </Button>
+      }
+    >
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center gap-2">
+          <span className="flex justify-center items-center text-sm h-5 w-5 bg-black rounded-full text-white">
+            1
+          </span>
+          <label>Identificação*</label>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <InputField
+            label="Nome"
+            placeholder="ex: Princesa"
+            {...register("name")}
+            error={errors.name?.message}
+          />
+
+          <InputField
+            label="Código"
+            placeholder="ex: BR-044"
+            {...register("code")}
+            error={errors.code?.message}
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span className="flex justify-center items-center text-sm h-5 w-5 bg-black rounded-full text-white">
+            2
+          </span>
+          <label>Dados Básicos*</label>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <InputField
+            label="Data Nascimento"
+            type="date"
+            {...register("birthDate")}
+            error={errors.birthDate?.message}
+          />
+
+          <InputField
+            label="Raça"
+            placeholder="ex: Holandesa"
+            {...register("breed")}
+            error={errors.breed?.message}
+          />
+        </div>
+      </div>
+    </Modal>
+  );
+}
