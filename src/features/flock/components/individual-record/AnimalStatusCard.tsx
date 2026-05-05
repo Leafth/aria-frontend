@@ -63,14 +63,12 @@ export function AnimalStatusCard({
           <p className="text-xs text-gray-400 mt-1">Sugestão: Fase adequada</p>
 
           <select className="mt-3 w-full border border-gray-400 rounded-lg px-3 py-2 text-sm bg-white cursor-pointer">
-            <div>
-              <option>Alterar fase</option>
-              <option>Bezerra</option>
-              <option>Novilha</option>
-              <option>Garrota</option>
-              <option>Prímipara</option>
-              <option>Multiparta</option>
-            </div>
+            <option>Alterar fase</option>
+            <option>Bezerra</option>
+            <option>Novilha</option>
+            <option>Garrota</option>
+            <option>Prímipara</option>
+            <option>Multiparta</option>
           </select>
         </div>
       </div>
