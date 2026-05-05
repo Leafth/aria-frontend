@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { SelectField } from "@/shared/components/ui/select/SelectField";
 import { AdditionalInformation } from "./additional_information/AdditionalInformation";
+import { useCreateCow } from "../../hooks/useCreateCow";
+import type { CowPhase } from "../../types/cow.types";
 
 const flockSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
@@ -18,8 +20,7 @@ const flockSchema = z.object({
     .refine((val) => !isNaN(Number(val)), {
       message: "Peso deve ser um número",
     }),
-
-  stage: z.string().optional(),
+  phase: z.string().min(1, "Fase é obrigatória"),
 });
 
 type FlockFormData = z.infer<typeof flockSchema>;
@@ -33,6 +34,8 @@ interface Props {
 export function ModalForm({ open, onClose, initialData }: Props) {
   const isEditing = !!initialData;
 
+  const { mutateAsync: createCow } = useCreateCow();
+
   const {
     register,
     handleSubmit,
@@ -42,6 +45,14 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     setValue,
   } = useForm<FlockFormData>({
     resolver: zodResolver(flockSchema),
+    defaultValues: {
+      name: "",
+      code: "",
+      birthDate: "",
+      breed: "",
+      initialWeight: "",
+      phase: "",
+    },
   });
 
   useEffect(() => {
@@ -49,12 +60,22 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     else reset();
   }, [initialData, reset]);
 
+  const phase = watch("phase");
+
   const onSubmit = async (data: FlockFormData) => {
-    console.log(data);
+    await createCow({
+      name: data.name,
+      ear_tag: data.code,
+      birth_date: data.birthDate,
+      breed: data.breed,
+      weight: Number(data.initialWeight),
+      phase: data.phase as CowPhase,
+      active: true,
+    });
+
+    reset();
     onClose();
   };
-
-  const stage = watch("stage");
 
   return (
     <Modal
@@ -81,6 +102,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
         </span>
         <label>Identificação*</label>
       </div>
+
       <div className="grid grid-cols-2 gap-6">
         <InputField
           label="Nome"
@@ -103,6 +125,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
         </span>
         <label>Dados Básicos*</label>
       </div>
+
       <div className="grid grid-cols-2 gap-6">
         <InputField
           label="Data Nascimento"
@@ -132,32 +155,42 @@ export function ModalForm({ open, onClose, initialData }: Props) {
         </span>
         <label>Fase e Etapa do Animal</label>
       </div>
+
       <div className="grid grid-cols-2 gap-6">
         <SelectField
           label="Fase do Animal"
+          value={watch("phase")}
+          onChange={(value) =>
+            setValue("phase", value, { shouldValidate: true })
+          }
+          error={errors.phase?.message}
           options={[
-            { label: "Bezerra", value: "bezerra" },
-            { label: "Garrota", value: "garrota" },
-            { label: "Novilha", value: "novilha" },
-            { label: "Primípara", value: "primípara" },
-            { label: "Multiparta", value: "Multiparta" },
+            { label: "Bezerra", value: "calf" },
+            { label: "Garrota", value: "heifer" },
+            { label: "Novilha", value: "young" },
+            { label: "Primípara", value: "primiparous" },
+            { label: "Multípara", value: "multiparous" },
           ]}
         />
+
         <SelectField
-          label="Etapa do Animal"
+          label="Fase do Animal"
+          value={watch("phase")}
+          onChange={(value) =>
+            setValue("phase", value, { shouldValidate: true })
+          }
+          error={errors.phase?.message}
           options={[
-            { label: "Padrão", value: "padrao" },
-            { label: "Cio registrado", value: "cio_registrado" },
-            { label: "Cobertura registrada", value: "cobertura_registrada" },
-            { label: "Em Confirmar Cobertura", value: "confirmar_cobertura" },
-            { label: "Confirmar Prenhez", value: "prenhez" },
-            { label: "Parto registrado", value: "parto_registrado" },
+            { label: "Bezerra", value: "calf" },
+            { label: "Garrota", value: "heifer" },
+            { label: "Novilha", value: "young" },
+            { label: "Primípara", value: "primiparous" },
+            { label: "Multípara", value: "multiparous" },
           ]}
-          value={watch("stage")}
-          onChange={(value) => setValue("stage", value)}
         />
       </div>
-      <AdditionalInformation stage={stage} />
+
+      <AdditionalInformation stage={phase} />
     </Modal>
   );
 }
