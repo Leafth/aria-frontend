@@ -4,6 +4,7 @@ import { AnimalStatusCard } from "../../components/individual-record/AnimalStatu
 import { IndividualForm } from "../../components/forms/individual/IndividualForm";
 import { RecentHistoryCard } from "../../components/individual-record/RecentHistoryCard";
 import { useNavigate, useParams } from "react-router-dom";
+import { useUpdateCow } from "../../hooks/useUpdateCow";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +48,8 @@ export default function IndividualRecordPage() {
   const [openInactiveModal, setOpenInactiveModal] = useState(false);
 
   const { data: cow, isLoading, isError } = useCowById(id);
+
+  const { mutateAsync: updateCow } = useUpdateCow();
 
   if (isLoading) {
     return (
@@ -171,8 +174,16 @@ export default function IndividualRecordPage() {
           birthDate: cow.birth_date,
           breed: cow.breed,
         }}
-        onSubmit={(data) => {
-          console.log("Dados editados:", data);
+        onSubmit={async (data) => {
+          await updateCow({
+            id: cow.id,
+            data: {
+              name: data.name,
+              ear_tag: data.code,
+              birth_date: data.birthDate,
+              breed: data.breed,
+            },
+          });
         }}
       />
       <InactiveCowModal
