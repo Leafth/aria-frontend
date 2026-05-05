@@ -13,6 +13,9 @@ import {
 
 import { useCowById } from "../../hooks/useCowById";
 import type { CowPhase } from "../../types/cow.types";
+import { useState } from "react";
+import { EditCowModal } from "../../components/modals/individual-modal/EditCowModal";
+import { InactiveCowModal } from "../../components/modals/individual-modal/InactiveCow";
 
 function getPhaseLabel(phase: CowPhase) {
   const labels: Record<CowPhase, string> = {
@@ -39,6 +42,9 @@ function getStatus(active: boolean) {
 export default function IndividualRecordPage() {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openInactiveModal, setOpenInactiveModal] = useState(false);
 
   const { data: cow, isLoading, isError } = useCowById(id);
 
@@ -96,7 +102,7 @@ export default function IndividualRecordPage() {
 
           <DropdownMenuContent align="end">
             <DropdownMenuItem
-              onSelect={() => alert("Editar")}
+              onSelect={() => setOpenEditModal(true)}
               className="cursor-pointer"
             >
               <Pen size={16} />
@@ -104,7 +110,7 @@ export default function IndividualRecordPage() {
             </DropdownMenuItem>
 
             <DropdownMenuItem
-              onSelect={() => alert("Inativar")}
+              onSelect={() => setOpenInactiveModal(true)}
               className="cursor-pointer"
             >
               <Trash2 size={16} />
@@ -156,6 +162,26 @@ export default function IndividualRecordPage() {
           />
         </div>
       </section>
+      <EditCowModal
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+        initialData={{
+          name: cow.name,
+          code: cow.ear_tag,
+          birthDate: cow.birth_date,
+          breed: cow.breed,
+        }}
+        onSubmit={(data) => {
+          console.log("Dados editados:", data);
+        }}
+      />
+      <InactiveCowModal
+        open={openInactiveModal}
+        onClose={() => setOpenInactiveModal(false)}
+        onConfirm={(data) => {
+          console.log("Dados para inativar:", data);
+        }}
+      />
     </main>
   );
 }
