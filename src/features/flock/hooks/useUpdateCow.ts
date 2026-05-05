@@ -4,7 +4,7 @@ import { updateCow } from "../services/cow.service";
 import type { UpdateCowDTO } from "../types/cow.types";
 
 interface UpdateCowParams {
-  id: number;
+  id: string;
   data: UpdateCowDTO;
 }
 
@@ -13,9 +13,14 @@ export function useUpdateCow() {
 
   return useMutation({
     mutationFn: ({ id, data }: UpdateCowParams) => updateCow(id, data),
-    onSuccess: () => {
+
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["cows"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["cow", variables.id],
       });
     },
   });
