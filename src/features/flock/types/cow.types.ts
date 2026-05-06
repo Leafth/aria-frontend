@@ -42,6 +42,11 @@ export interface InactivateCowDTO {
   observation?: string;
 }
 
+export interface RegisterCowWeightDTO {
+  weight: number;
+  occurred_at: string;
+}
+
 export interface CowFilters {
   page?: number;
   per_page?: number;
