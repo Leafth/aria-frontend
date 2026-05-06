@@ -13,24 +13,23 @@ const editWeightSchema = z.object({
     .refine((value) => Number(value) > 0, {
       message: "Peso deve ser maior que zero",
     }),
-
-  date: z.string().min(1, "Data é obrigatória"),
+  occurred_at: z.string().min(1, "Data é obrigatória"),
 });
 
-type EditWeightFormData = z.infer<typeof editWeightSchema>;
+export type EditWeightFormData = z.infer<typeof editWeightSchema>;
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  initialData?: Partial<EditWeightFormData> | null;
-  onSubmit?: (data: EditWeightFormData) => void | Promise<void>;
+  onSubmit: (data: EditWeightFormData) => void | Promise<void>;
+  isLoading?: boolean;
 }
 
 export function EditWeightModal({
   open,
   onClose,
-  initialData,
   onSubmit,
+  isLoading = false,
 }: Props) {
   const {
     register,
@@ -40,13 +39,13 @@ export function EditWeightModal({
   } = useForm<EditWeightFormData>({
     resolver: zodResolver(editWeightSchema),
     defaultValues: {
-      weight: initialData?.weight ?? "",
-      date: initialData?.date ?? "",
+      weight: "",
+      occurred_at: "",
     },
   });
 
   const handleFormSubmit = async (data: EditWeightFormData) => {
-    await onSubmit?.(data);
+    await onSubmit(data);
 
     reset();
     onClose();
@@ -65,17 +64,17 @@ export function EditWeightModal({
         <Button
           className="w-full"
           onClick={handleSubmit(handleFormSubmit)}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isLoading}
         >
-          Cadastrar
+          {isSubmitting || isLoading ? "Salvando..." : "Salvar Peso"}
         </Button>
       }
     >
-      <div className="flex flex-col gap-5 mt-5">
+      <div className="flex flex-col gap-5">
         <InputField
-          label="Peso (kg)"
+          label="Peso"
           type="number"
-          placeholder="ex: 120"
+          placeholder="ex: 180"
           {...register("weight")}
           error={errors.weight?.message}
         />
@@ -83,8 +82,8 @@ export function EditWeightModal({
         <InputField
           label="Data da Pesagem"
           type="date"
-          {...register("date")}
-          error={errors.date?.message}
+          {...register("occurred_at")}
+          error={errors.occurred_at?.message}
         />
       </div>
     </Modal>
