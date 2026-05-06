@@ -96,6 +96,9 @@ export default function IndividualRecordPage() {
           description={`Brinco: #${cow.ear_tag} Nasc: ${formatDate(
             cow.birth_date,
           )}`}
+          active={getStatus(cow.active)}
+          breed={cow.breed}
+          page="individual"
         />
 
         <DropdownMenu>
