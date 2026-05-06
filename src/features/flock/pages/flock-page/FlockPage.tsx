@@ -88,10 +88,15 @@ export default function FlockPage() {
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
+  const selectedPhase = filterToPhase(filter);
+
+  const activeFilter =
+    filter === "Inativa" ? false : selectedPhase ? true : undefined;
+
   const { data, isLoading, isError } = useCows({
     q: search,
-    phase: filterToPhase(filter),
-    active: filter === "Inativa" ? false : undefined,
+    phase: selectedPhase,
+    active: activeFilter,
     page: 1,
     per_page: 20,
   });
