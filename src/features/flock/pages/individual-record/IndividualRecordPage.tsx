@@ -17,6 +17,7 @@ import type { CowPhase } from "../../types/cow.types";
 import { useState } from "react";
 import { EditCowModal } from "../../components/modals/individual-modal/EditCowModal";
 import { InactiveCowModal } from "../../components/modals/individual-modal/InactiveCow";
+import { useInactivateCow } from "../../hooks/useInactivateCow";
 
 function getPhaseLabel(phase: CowPhase) {
   const labels: Record<CowPhase, string> = {
@@ -50,6 +51,8 @@ export default function IndividualRecordPage() {
   const { data: cow, isLoading, isError } = useCowById(id);
 
   const { mutateAsync: updateCow } = useUpdateCow();
+  const { mutateAsync: inactivateCow, isPending: isInactivating } =
+    useInactivateCow();
 
   if (isLoading) {
     return (
@@ -189,8 +192,12 @@ export default function IndividualRecordPage() {
       <InactiveCowModal
         open={openInactiveModal}
         onClose={() => setOpenInactiveModal(false)}
-        onConfirm={(data) => {
-          console.log("Dados para inativar:", data);
+        isLoading={isInactivating}
+        onConfirm={async (data) => {
+          await inactivateCow({
+            id: cow.id,
+            data,
+          });
         }}
       />
     </main>
