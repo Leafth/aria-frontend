@@ -7,6 +7,7 @@ import type {
   CowFilters,
   PaginatedCowsResponse,
   InactivateCowDTO,
+  RegisterCowWeightDTO,
 } from "../types/cow.types";
 
 export async function getCows(params?: CowFilters) {
@@ -48,6 +49,23 @@ export async function inactivateCow(id: string, data: InactivateCowDTO) {
     event: {
       event_type: "inactivation",
       data,
+    },
+  });
+
+  return response.data;
+}
+
+export async function registerCowWeight(
+  id: string,
+  data: RegisterCowWeightDTO,
+) {
+  const response = await api.post(`/cows/${id}/events`, {
+    event: {
+      event_type: "weighing",
+      occurred_at: data.occurred_at,
+      data: {
+        weight: data.weight,
+      },
     },
   });
 
