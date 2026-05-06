@@ -1,4 +1,5 @@
 import { Button, Header } from "@/shared";
+import { EditWeightModal } from "../../components/modals/individual-modal/EditWeightModal";
 import { SquarePen, Pen, Trash2 } from "lucide-react";
 import { AnimalStatusCard } from "../../components/individual-record/AnimalStatusCard";
 import { IndividualForm } from "../../components/forms/individual/IndividualForm";
@@ -18,6 +19,7 @@ import { useState } from "react";
 import { EditCowModal } from "../../components/modals/individual-modal/EditCowModal";
 import { InactiveCowModal } from "../../components/modals/individual-modal/InactiveCow";
 import { useInactivateCow } from "../../hooks/useInactivateCow";
+import { useRegisterCowWeight } from "../../hooks/useRegisterCowWeight";
 
 function getPhaseLabel(phase: CowPhase) {
   const labels: Record<CowPhase, string> = {
@@ -49,10 +51,13 @@ export default function IndividualRecordPage() {
   const [openInactiveModal, setOpenInactiveModal] = useState(false);
 
   const { data: cow, isLoading, isError } = useCowById(id);
+  const [openWeightModal, setOpenWeightModal] = useState(false);
 
   const { mutateAsync: updateCow } = useUpdateCow();
   const { mutateAsync: inactivateCow, isPending: isInactivating } =
     useInactivateCow();
+  const { mutateAsync: registerCowWeight, isPending: isRegisteringWeight } =
+    useRegisterCowWeight();
 
   if (isLoading) {
     return (
@@ -136,6 +141,7 @@ export default function IndividualRecordPage() {
           weight={`${cow.weight}kg`}
           lastWeigh="-"
           phase={getPhaseLabel(cow.phase)}
+          onRegisterWeight={() => setOpenWeightModal(true)}
         />
 
         <div className="flex justify-between mt-5">
@@ -203,6 +209,20 @@ export default function IndividualRecordPage() {
           });
         }}
       />
+      <EditWeightModal
+        open={openWeightModal}
+        onClose={() => setOpenWeightModal(false)}
+        isLoading={isRegisteringWeight}
+        onSubmit={async (data) => {
+          await registerCowWeight({
+            id: cow.id,
+            data: {
+              weight: Number(data.weight),
+              occurred_at: data.occurred_at,
+            },
+          });
+        }}
+      />  
     </main>
   );
 }
