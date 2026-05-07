@@ -2,23 +2,7 @@ import { Button, InputField, Modal } from "@/shared";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { getTodayDateString } from "@/utils/getTodayDateString";
-
-const editCowSchema = z.object({
-  name: z.string().min(1, "Nome é obrigatório"),
-  code: z.string().min(1, "Número do brinco é obrigatório"),
-  birthDate: z
-    .string()
-    .min(1, "Data de nascimento é obrigatória")
-    .refine((value) => value <= getTodayDateString(), {
-      message: "A data de nascimento não pode ser futura",
-    }),
-  breed: z.string().min(1, "Raça é obrigatória"),
-});
-
-export type EditCowFormData = z.infer<typeof editCowSchema>;
-
+import { editCowSchema,type EditCowFormData,} from "../../../schemas/editCow.schema";
 interface Props {
   open: boolean;
   onClose: () => void;
