@@ -1,42 +1,20 @@
 import { Button, InputField, Modal } from "@/shared";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { getTodayDateString } from "@/utils/getTodayDateString";
 
-const editWeightSchema = z.object({
-  weight: z
-    .string()
-    .min(1, "Peso é obrigatório")
-    .refine((value) => !isNaN(Number(value)), {
-      message: "Peso deve ser um número",
-    })
-    .refine((value) => Number(value) > 0, {
-      message: "Peso deve ser maior que zero",
-    }),
-  occurred_at: z
-    .string()
-    .min(1, "Data é obrigatória")
-    .refine((value) => value <= getTodayDateString(), {
-      message: "A data da pesagem não pode ser futura",
-    }),
-});
+import {
+  editWeightSchema,
+  type EditWeightFormData,
+} from "@/features/flock/schemas/editWeight.schema";
 
-export type EditWeightFormData = z.infer<typeof editWeightSchema>;
-
-interface Props {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (data: EditWeightFormData) => void | Promise<void>;
-  isLoading?: boolean;
-}
+import type { EditWeightModalProps } from "./types/cow.types";
+import { useRegisterCowWeightForm } from "@/features/flock/hooks/useRegisterCowWeight";
 
 export function EditWeightModal({
   open,
   onClose,
-  onSubmit,
-  isLoading = false,
-}: Props) {
+  cowId,
+}: EditWeightModalProps) {
   const {
     register,
     handleSubmit,
@@ -50,12 +28,11 @@ export function EditWeightModal({
     },
   });
 
-  const handleFormSubmit = async (data: EditWeightFormData) => {
-    await onSubmit(data);
-
-    reset();
-    onClose();
-  };
+  const { onSubmit, isPending } = useRegisterCowWeightForm({
+    id: cowId,
+    reset,
+    onClose,
+  });
 
   return (
     <Modal
@@ -69,10 +46,10 @@ export function EditWeightModal({
       footerContent={
         <Button
           className="w-full"
-          onClick={handleSubmit(handleFormSubmit)}
-          disabled={isSubmitting || isLoading}
+          onClick={handleSubmit(onSubmit)}
+          disabled={isSubmitting || isPending}
         >
-          {isSubmitting || isLoading ? "Salvando..." : "Salvar Peso"}
+          {isSubmitting || isPending ? "Salvando..." : "Salvar Peso"}
         </Button>
       }
     >
