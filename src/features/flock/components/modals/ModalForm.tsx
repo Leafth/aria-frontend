@@ -11,26 +11,12 @@ import {
   createCowSchema,
   type CreateCowFormData,
 } from "../../schemas/createCow.schema";
+import type {
+  ApiErrorResponse,
+  ModalFormProps,
+} from "./types/modal-form.types";
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-}
-
-type ApiErrorResponse = {
-  errors?: {
-    ear_tag?: string[];
-    name?: string[];
-    birth_date?: string[];
-    breed?: string[];
-    weight?: string[];
-    phase?: string[];
-    active?: string[];
-  };
-};
-
-export function ModalForm({ open, onClose }: Props) {
-
+export function ModalForm({ open, onClose }: ModalFormProps) {
   const { mutateAsync: createCow } = useCreateCow();
 
   const {
