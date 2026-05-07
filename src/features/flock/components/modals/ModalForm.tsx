@@ -3,43 +3,20 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { z } from "zod";
 import { SelectField } from "@/shared/components/ui/select/SelectField";
 import { AdditionalInformation } from "./additional_information/AdditionalInformation";
 import { useCreateCow } from "../../hooks/useCreateCow";
 import type { CowPhase } from "../../types/cow.types";
 import { AxiosError } from "axios";
-import { getTodayDateString } from "@/utils/getTodayDateString";
-
-const flockSchema = z.object({
-  name: z.string().min(1, "Nome é obrigatório"),
-  code: z.string().min(1, "Código é obrigatório"),
-  birthDate: z
-    .string()
-    .min(1, "Data de nascimento é obrigatória")
-    .refine((value) => value <= getTodayDateString(), {
-      message: "A data de nascimento não pode ser futura",
-    }),
-  breed: z.string().min(1, "Raça é obrigatória"),
-  initialWeight: z
-    .string()
-    .min(1, "Peso inicial é obrigatório")
-    .refine((val) => !isNaN(Number(val)), {
-      message: "Peso deve ser um número",
-    })
-    .refine((val) => Number(val) > 0, {
-      message: "Peso deve ser maior que zero",
-    }),
-  phase: z.string().min(1, "Fase é obrigatória"),
-  stage: z.string().optional(),
-});
-
-type FlockFormData = z.infer<typeof flockSchema>;
+import {
+  createCowSchema,
+  type CreateCowFormData,
+} from "../../schemas/createCow.schema";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  initialData?: (FlockFormData & { id?: number }) | null;
+  initialData?: (CreateCowFormData & { id?: string }) | null;
 }
 
 type ApiErrorResponse = {
@@ -67,8 +44,8 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     watch,
     setValue,
     setError,
-  } = useForm<FlockFormData>({
-    resolver: zodResolver(flockSchema),
+  } = useForm<CreateCowFormData>({
+    resolver: zodResolver(createCowSchema),
     defaultValues: {
       name: "",
       code: "",
@@ -87,7 +64,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
 
   const stage = watch("stage");
 
-  const onSubmit = async (data: FlockFormData) => {
+  const onSubmit = async (data: CreateCowFormData) => {
     try {
       await createCow({
         name: data.name,
