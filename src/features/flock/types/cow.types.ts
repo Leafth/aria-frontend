@@ -4,8 +4,12 @@ export type CowPhase =
   | "young"
   | "primiparous"
   | "multiparous";
-  
+
 export type InactivationReason = "sale" | "death";
+
+export interface ChangeCowPhaseDTO {
+  phase: "calf" | "heifer" | "young";
+}
 
 export interface Cow {
   id: string;
