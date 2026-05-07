@@ -1,6 +1,5 @@
 import { Button, InputField, Modal } from "@/shared";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { SelectField } from "@/shared/components/ui/select/SelectField";
@@ -16,7 +15,6 @@ import {
 interface Props {
   open: boolean;
   onClose: () => void;
-  initialData?: (CreateCowFormData & { id?: string }) | null;
 }
 
 type ApiErrorResponse = {
@@ -31,8 +29,7 @@ type ApiErrorResponse = {
   };
 };
 
-export function ModalForm({ open, onClose, initialData }: Props) {
-  const isEditing = !!initialData;
+export function ModalForm({ open, onClose }: Props) {
 
   const { mutateAsync: createCow } = useCreateCow();
 
@@ -56,11 +53,6 @@ export function ModalForm({ open, onClose, initialData }: Props) {
       stage: "",
     },
   });
-
-  useEffect(() => {
-    if (initialData) reset(initialData);
-    else reset();
-  }, [initialData, reset]);
 
   const stage = watch("stage");
 
@@ -106,14 +98,14 @@ export function ModalForm({ open, onClose, initialData }: Props) {
         reset();
         onClose();
       }}
-      title={isEditing ? "Editar Animal" : "Cadastrar Animal"}
+      title={"Cadastrar Animal"}
       footerContent={
         <Button
           className="w-full"
           onClick={handleSubmit(onSubmit)}
           disabled={isSubmitting}
         >
-          {isEditing ? "Editar" : "Cadastrar"}
+          Cadastrar
         </Button>
       }
     >
