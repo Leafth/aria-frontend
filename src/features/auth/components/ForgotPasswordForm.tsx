@@ -13,7 +13,6 @@ export function ForgotPasswordForm() {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <InputField
         label="Email"
-        type="email"
         {...register("email", { required: "Email é obrigatório" })}
         error={errors.email?.message}
       />
