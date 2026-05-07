@@ -80,7 +80,7 @@ export function AnimalStatusCard({
           <p className="text-xs text-gray-400 mt-1">
             {canChangePhase
               ? "Sugestão: Fase adequada"
-              : "Esta fase não pode ser alterada manualmente"}
+              : ""}
           </p>
 
           {canChangePhase && (
