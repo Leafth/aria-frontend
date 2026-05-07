@@ -3,11 +3,17 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { getTodayDateString } from "@/utils/getTodayDateString";
 
 const editCowSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
-  code: z.string().min(1, "Código é obrigatório"),
-  birthDate: z.string().min(1, "Data de nascimento é obrigatória"),
+  code: z.string().min(1, "Número do brinco é obrigatório"),
+  birthDate: z
+    .string()
+    .min(1, "Data de nascimento é obrigatória")
+    .refine((value) => value <= getTodayDateString(), {
+      message: "A data de nascimento não pode ser futura",
+    }),
   breed: z.string().min(1, "Raça é obrigatória"),
 });
 
@@ -78,17 +84,16 @@ export function EditCowModal({ open, onClose, initialData, onSubmit }: Props) {
 
         <div className="grid grid-cols-2 gap-6">
           <InputField
+            label="Número do Brinco"
+            placeholder="ex: BR-044"
+            {...register("code")}
+            error={errors.code?.message}
+          />
+          <InputField
             label="Nome"
             placeholder="ex: Princesa"
             {...register("name")}
             error={errors.name?.message}
-          />
-
-          <InputField
-            label="Código"
-            placeholder="ex: BR-044"
-            {...register("code")}
-            error={errors.code?.message}
           />
         </div>
 

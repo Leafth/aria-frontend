@@ -2,6 +2,7 @@ import { Button, InputField, Modal } from "@/shared";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { getTodayDateString } from "@/utils/getTodayDateString";
 
 const editWeightSchema = z.object({
   weight: z
@@ -13,7 +14,12 @@ const editWeightSchema = z.object({
     .refine((value) => Number(value) > 0, {
       message: "Peso deve ser maior que zero",
     }),
-  occurred_at: z.string().min(1, "Data é obrigatória"),
+  occurred_at: z
+    .string()
+    .min(1, "Data é obrigatória")
+    .refine((value) => value <= getTodayDateString(), {
+      message: "A data da pesagem não pode ser futura",
+    }),
 });
 
 export type EditWeightFormData = z.infer<typeof editWeightSchema>;
