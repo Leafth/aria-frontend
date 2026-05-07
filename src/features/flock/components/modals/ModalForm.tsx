@@ -9,17 +9,26 @@ import { AdditionalInformation } from "./additional_information/AdditionalInform
 import { useCreateCow } from "../../hooks/useCreateCow";
 import type { CowPhase } from "../../types/cow.types";
 import { AxiosError } from "axios";
+import { getTodayDateString } from "@/utils/getTodayDateString";
 
 const flockSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
   code: z.string().min(1, "Código é obrigatório"),
-  birthDate: z.string().min(1, "Data de nascimento é obrigatória"),
+  birthDate: z
+    .string()
+    .min(1, "Data de nascimento é obrigatória")
+    .refine((value) => value <= getTodayDateString(), {
+      message: "A data de nascimento não pode ser futura",
+    }),
   breed: z.string().min(1, "Raça é obrigatória"),
   initialWeight: z
     .string()
     .min(1, "Peso inicial é obrigatório")
     .refine((val) => !isNaN(Number(val)), {
       message: "Peso deve ser um número",
+    })
+    .refine((val) => Number(val) > 0, {
+      message: "Peso deve ser maior que zero",
     }),
   phase: z.string().min(1, "Fase é obrigatória"),
   stage: z.string().optional(),
@@ -141,7 +150,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <InputField
           label="Número do Brinco"
-          placeholder="ex: BR-044"
+          placeholder="ex: 044"
           {...register("code")}
           error={errors.code?.message}
         />
