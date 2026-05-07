@@ -13,34 +13,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useCowById } from "../../hooks/useCowById";
-import type { CowPhase } from "../../types/cow.types";
 import { useState } from "react";
 import { EditCowModal } from "../../components/modals/individual-modal/EditCowModal";
 import { InactiveCowModal } from "../../components/modals/individual-modal/InactiveCow";
 import { useInactivateCow } from "../../hooks/useInactivateCow";
 import { useChangeCowPhase } from "../../hooks/useChangeCowPhase";
-
-function getPhaseLabel(phase: CowPhase) {
-  const labels: Record<CowPhase, string> = {
-    calf: "Bezerra",
-    heifer: "Garrota",
-    young: "Novilha",
-    primiparous: "Primípara",
-    multiparous: "Multiparta",
-  };
-
-  return labels[phase];
-}
-
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString("pt-BR", {
-    timeZone: "UTC",
-  });
-}
-
-function getStatus(active: boolean) {
-  return active ? "Ativa" : "Inativa";
-}
+import { getPhaseLabel } from "../../utils/getPhaseLabel";
+import { getCowStatus } from "../../utils/cowStatus.utils";
+import { formatDate } from "@/utils/formatDate";
 
 export default function IndividualRecordPage() {
   const navigate = useNavigate();
@@ -99,7 +79,7 @@ export default function IndividualRecordPage() {
           description={`Brinco: ${cow.ear_tag} Nasc: ${formatDate(
             cow.birth_date,
           )}`}
-          active={getStatus(cow.active)}
+          active={getCowStatus(cow.active)}
           breed={cow.breed}
           page="individual"
         />
