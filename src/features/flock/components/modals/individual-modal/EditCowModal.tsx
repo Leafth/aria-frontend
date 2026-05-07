@@ -2,15 +2,21 @@ import { Button, InputField, Modal } from "@/shared";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { editCowSchema,type EditCowFormData,} from "../../../schemas/editCow.schema";
-interface Props {
-  open: boolean;
-  onClose: () => void;
-  initialData?: EditCowFormData | null;
-  onSubmit?: (data: EditCowFormData) => void | Promise<void>;
-}
 
-export function EditCowModal({ open, onClose, initialData, onSubmit }: Props) {
+import {
+  editCowSchema,
+  type EditCowFormData,
+} from "../../../schemas/editCow.schema";
+
+import type { EditCowModalProps } from "./types/editCow.types";
+import { useUpdateCowForm } from "../../../hooks/useUpdateCow";
+
+export function EditCowModal({
+  open,
+  onClose,
+  cowId,
+  initialData,
+}: EditCowModalProps) {
   const {
     register,
     handleSubmit,
@@ -26,18 +32,17 @@ export function EditCowModal({ open, onClose, initialData, onSubmit }: Props) {
     },
   });
 
+  const { onSubmit, isPending } = useUpdateCowForm({
+    id: cowId,
+    reset,
+    onClose,
+  });
+
   useEffect(() => {
     if (open && initialData) {
       reset(initialData);
     }
   }, [open, initialData, reset]);
-
-  const handleFormSubmit = async (data: EditCowFormData) => {
-    await onSubmit?.(data);
-
-    reset();
-    onClose();
-  };
 
   return (
     <Modal
@@ -51,10 +56,10 @@ export function EditCowModal({ open, onClose, initialData, onSubmit }: Props) {
       footerContent={
         <Button
           className="w-full"
-          onClick={handleSubmit(handleFormSubmit)}
-          disabled={isSubmitting}
+          onClick={handleSubmit(onSubmit)}
+          disabled={isSubmitting || isPending}
         >
-          Salvar Alterações
+          {isSubmitting || isPending ? "Salvando..." : "Editar"}
         </Button>
       }
     >
@@ -73,6 +78,7 @@ export function EditCowModal({ open, onClose, initialData, onSubmit }: Props) {
             {...register("code")}
             error={errors.code?.message}
           />
+
           <InputField
             label="Nome"
             placeholder="ex: Princesa"
