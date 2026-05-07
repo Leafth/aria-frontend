@@ -21,6 +21,7 @@ const flockSchema = z.object({
       message: "Peso deve ser um número",
     }),
   phase: z.string().min(1, "Fase é obrigatória"),
+  stage: z.string().optional(),
 });
 
 type FlockFormData = z.infer<typeof flockSchema>;
@@ -52,6 +53,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
       breed: "",
       initialWeight: "",
       phase: "",
+      stage: "",
     },
   });
 
@@ -60,7 +62,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     else reset();
   }, [initialData, reset]);
 
-  const phase = watch("phase");
+  const stage = watch("stage");
 
   const onSubmit = async (data: FlockFormData) => {
     await createCow({
@@ -174,23 +176,21 @@ export function ModalForm({ open, onClose, initialData }: Props) {
         />
 
         <SelectField
-          label="Fase do Animal"
-          value={watch("phase")}
-          onChange={(value) =>
-            setValue("phase", value, { shouldValidate: true })
-          }
-          error={errors.phase?.message}
+          label="Etapa do Animal"
           options={[
-            { label: "Bezerra", value: "calf" },
-            { label: "Garrota", value: "heifer" },
-            { label: "Novilha", value: "young" },
-            { label: "Primípara", value: "primiparous" },
-            { label: "Multípara", value: "multiparous" },
+            { label: "Padrão", value: "padrao" },
+            { label: "Cio registrado", value: "cio_registrado" },
+            { label: "Cobertura registrada", value: "cobertura_registrada" },
+            { label: "Em Confirmar Cobertura", value: "confirmar_cobertura" },
+            { label: "Confirmar Prenhez", value: "prenhez" },
+            { label: "Parto registrado", value: "parto_registrado" },
           ]}
+          value={watch("stage")}
+          onChange={(value) => setValue("stage", value)}
         />
       </div>
 
-      <AdditionalInformation stage={phase} />
+      <AdditionalInformation stage={stage} />
     </Modal>
   );
 }
