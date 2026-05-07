@@ -15,7 +15,7 @@ export function useCreateBull(onSuccessClose?: () => void) {
     },
 
     onError: () => {
-      toast.error("Erro ao cadastrar touro");
+      toast.error("Falha: Número do brinco já existe");
     },
   });
 }

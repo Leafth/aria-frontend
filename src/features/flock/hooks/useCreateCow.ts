@@ -7,6 +7,7 @@ import { createCow } from "../services/cow.service";
 import type { CreateCowDTO, CowPhase } from "../types/cow.types";
 import type { ApiErrorResponse } from "../components/modals/types/modal-form.types";
 import type { CreateCowFormData } from "../schemas/createCow.schema";
+import { toast } from "sonner";
 
 interface UseCreateCowFormParams {
   setError: UseFormSetError<CreateCowFormData>;
@@ -28,7 +29,6 @@ export function useCreateCow() {
 }
 
 export function useCreateCowForm({
-  setError,
   reset,
   onClose,
 }: UseCreateCowFormParams) {
@@ -48,6 +48,7 @@ export function useCreateCowForm({
 
       reset();
       onClose();
+      toast.success("Vaca cadastrada com sucesso");
     } catch (error) {
       const axiosError = error as AxiosError<ApiErrorResponse>;
 
@@ -55,10 +56,7 @@ export function useCreateCowForm({
         const apiErrors = axiosError.response.data.errors;
 
         if (apiErrors?.ear_tag) {
-          setError("code", {
-            type: "server",
-            message: "Já existe um animal cadastrado com esse brinco",
-          });
+          toast.error("Falha: Número do brinco já existe");
 
           return;
         }

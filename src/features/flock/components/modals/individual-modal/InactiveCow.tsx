@@ -7,6 +7,7 @@ import { Button } from "@/shared/components/ui/button";
 import { Modal } from "@/shared/components/ui/modal";
 import { ToggleField } from "@/shared/components/ui/toggle/ToggleField";
 import { TextareaField } from "@/shared/components/ui/textarea/Textarea";
+import { toast } from "sonner";
 
 const inactiveCowSchema = z.object({
   reason: z.enum(["sale", "death"]),
@@ -61,6 +62,7 @@ export function InactiveCowModal({
     });
 
     handleClose();
+    toast.success("Vaca inativada com sucesso");
   };
 
   return (

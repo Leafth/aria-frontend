@@ -4,6 +4,7 @@ import type { UseFormReset } from "react-hook-form";
 import { registerCowWeight } from "../services/cow.service";
 import type { RegisterCowWeightDTO } from "../types/cow.types";
 import type { EditWeightFormData } from "../schemas/editWeight.schema";
+import { toast } from "sonner";
 
 interface RegisterCowWeightParams {
   id: string;
@@ -54,6 +55,7 @@ export function useRegisterCowWeightForm({
 
     reset();
     onClose();
+    toast.success("Novo peso registrado com sucesso");
   };
 
   return {

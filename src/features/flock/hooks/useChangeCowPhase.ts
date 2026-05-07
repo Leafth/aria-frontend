@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { changeCowPhase } from "../services/cow.service";
 import type { ChangeCowPhaseDTO } from "../types/cow.types";
+import { toast } from "sonner";
 
 interface ChangeCowPhaseParams {
   id: string;
@@ -23,6 +24,7 @@ export function useChangeCowPhase() {
       queryClient.invalidateQueries({
         queryKey: ["cow", variables.id],
       });
+      toast.success("Fase do animal alterada com sucesso");
     },
   });
 }
