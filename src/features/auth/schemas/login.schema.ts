@@ -3,13 +3,11 @@ import { z } from "zod";
 export const loginSchema = z.object({
   email: z
     .string()
-    .min(1, "Insira seu email para entrar")
-    .email("Informe um email válido"),
+    .min(1, "Insira seu email para entrar"),
 
   password: z
     .string()
-    .min(1, "Insira sua senha para entrar")
-    .min(8, "A senha deve ter pelo menos 8 caracteres"),
+    .min(1, "Insira sua senha para entrar"),
 });
 
 export type LoginSchemaData = z.infer<typeof loginSchema>;
