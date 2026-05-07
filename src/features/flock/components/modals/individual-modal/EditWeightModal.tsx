@@ -9,6 +9,7 @@ import {
 
 import type { EditWeightModalProps } from "./types/cow.types";
 import { useRegisterCowWeightForm } from "@/features/flock/hooks/useRegisterCowWeight";
+import { maskWeight } from "@/utils/masks";
 
 export function EditWeightModal({
   open,
@@ -56,9 +57,21 @@ export function EditWeightModal({
       <div className="flex flex-col gap-5">
         <InputField
           label="Peso"
-          type="number"
+          type="text"
+          inputMode="decimal"
           placeholder="ex: 180"
-          {...register("weight")}
+          {...register("weight", {
+            onChange: (e) => {
+              e.target.value = maskWeight(e.target.value);
+            },
+          })}
+          onBeforeInput={(e) => {
+            const inputEvent = e.nativeEvent as InputEvent;
+
+            if (inputEvent.data && !/^[0-9.,]+$/.test(inputEvent.data)) {
+              e.preventDefault();
+            }
+          }}
           error={errors.weight?.message}
         />
 
