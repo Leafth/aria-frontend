@@ -8,7 +8,7 @@ import {
   type EditCowFormData,
 } from "../../../schemas/editCow.schema";
 
-import type { EditCowModalProps } from "./types/editCow.types";
+import type { EditCowModalProps } from "./types/cow.types";
 import { useUpdateCowForm } from "../../../hooks/useUpdateCow";
 
 export function EditCowModal({
