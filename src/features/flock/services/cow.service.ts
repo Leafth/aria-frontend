@@ -8,6 +8,7 @@ import type {
   PaginatedCowsResponse,
   InactivateCowDTO,
   RegisterCowWeightDTO,
+  ChangeCowPhaseDTO,
 } from "../types/cow.types";
 
 export async function getCows(params?: CowFilters) {
@@ -65,6 +66,19 @@ export async function registerCowWeight(
       occurred_at: data.occurred_at,
       data: {
         weight: data.weight,
+      },
+    },
+  });
+
+  return response.data;
+}
+
+export async function changeCowPhase(id: string, data: ChangeCowPhaseDTO) {
+  const response = await api.post(`/cows/${id}/events`, {
+    event: {
+      event_type: "phase_change",
+      data: {
+        phase: data.phase,
       },
     },
   });
