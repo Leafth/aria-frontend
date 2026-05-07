@@ -1,6 +1,8 @@
 import { Button } from "@/shared";
 import { Weight, Sprout, CirclePlus } from "lucide-react";
 import iconCow from "@/assets/icons/iconCow.svg";
+import { SelectField } from "@/shared/components/ui/select/SelectField";
+import type { CowPhase } from "../../types/cow.types";
 
 interface Props {
   status: string;
@@ -8,7 +10,10 @@ interface Props {
   weight: string;
   lastWeigh: string;
   phase: string;
+  currentPhase: CowPhase;
   onRegisterWeight: () => void;
+  onChangePhase: (phase: "calf" | "heifer" | "young") => void;
+  isChangingPhase?: boolean;
 }
 
 export function AnimalStatusCard({
@@ -17,8 +22,16 @@ export function AnimalStatusCard({
   weight,
   lastWeigh,
   phase,
-  onRegisterWeight
+  currentPhase,
+  onRegisterWeight,
+  onChangePhase,
+  isChangingPhase = false,
 }: Props) {
+  const canChangePhase =
+    currentPhase === "calf" ||
+    currentPhase === "heifer" ||
+    currentPhase === "young";
+
   return (
     <div className="w-full bg-white rounded-2xl flex overflow-hidden">
       <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
@@ -66,16 +79,29 @@ export function AnimalStatusCard({
         <div className="flex-1">
           <p className="text-sm text-gray-500">Fase</p>
           <p className="font-semibold text-gray-800">{phase}</p>
-          <p className="text-xs text-gray-400 mt-1">Sugestão: Fase adequada</p>
+          <p className="text-xs text-gray-400 mt-1">
+            {canChangePhase
+              ? "Sugestão: Fase adequada"
+              : "Esta fase não pode ser alterada manualmente"}
+          </p>
 
-          <select className="mt-3 w-full border border-gray-400 rounded-lg px-3 py-2 text-sm bg-white cursor-pointer">
-            <option>Alterar fase</option>
-            <option>Bezerra</option>
-            <option>Novilha</option>
-            <option>Garrota</option>
-            <option>Prímipara</option>
-            <option>Multiparta</option>
-          </select>
+          {canChangePhase && (
+            <div className="mt-3">
+              <SelectField
+                label="Alterar fase"
+                value={currentPhase}
+                disabled={isChangingPhase}
+                onChange={(value) =>
+                  onChangePhase(value as "calf" | "heifer" | "young")
+                }
+                options={[
+                  { label: "Bezerra", value: "calf" },
+                  { label: "Garrota", value: "heifer" },
+                  { label: "Novilha", value: "young" },
+                ]}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
