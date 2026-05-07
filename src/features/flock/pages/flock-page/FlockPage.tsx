@@ -6,82 +6,8 @@ import { useState } from "react";
 import { ModalForm } from "../../components/modals/ModalForm";
 import { Input } from "@/components/ui/input";
 import { useCows } from "../../hooks/useCow";
-
-import type { Cow, CowPhase } from "../../types/cow.types";
-
-function getPhaseLabel(phase: CowPhase) {
-  const labels: Record<CowPhase, string> = {
-    calf: "Bezerra",
-    heifer: "Garrota",
-    young: "Novilha",
-    primiparous: "Primípara",
-    multiparous: "Multiparta",
-  };
-
-  return labels[phase];
-}
-
-function getPhaseColor(phase: CowPhase, active: boolean) {
-  if (!active) return "#71717A";
-
-  const colors: Record<CowPhase, string> = {
-    calf: "#B32A9A",
-    heifer: "#622BD0",
-    young: "#28C2B0",
-    primiparous: "#0004FF",
-    multiparous: "#FF7700",
-  };
-
-  return colors[phase];
-}
-
-function filterToPhase(filter: string): CowPhase | undefined {
-  const phases: Record<string, CowPhase> = {
-    Bezerra: "calf",
-    Garrota: "heifer",
-    Novilha: "young",
-    Primípara: "primiparous",
-    Multiparta: "multiparous",
-  };
-
-  return phases[filter];
-}
-
-function calculateAge(birthDate: string) {
-  const birth = new Date(birthDate);
-  const today = new Date();
-
-  let years = today.getFullYear() - birth.getFullYear();
-  let months = today.getMonth() - birth.getMonth();
-
-  if (today.getDate() < birth.getDate()) {
-    months--;
-  }
-
-  if (months < 0) {
-    years--;
-    months += 12;
-  }
-
-  if (years > 0) {
-    return `${years}a`;
-  }
-
-  return `${months}m`;
-}
-
-function cowToFlockCard(cow: Cow) {
-  return {
-    id: cow.id,
-    name: cow.name,
-    code: cow.ear_tag,
-    breed: cow.breed,
-    phase: cow.active ? getPhaseLabel(cow.phase) : "Inativa",
-    age: calculateAge(cow.birth_date),
-    weight: `${cow.weight}kg`,
-    colorCard: getPhaseColor(cow.phase, cow.active),
-  };
-}
+import { filterToPhase } from "../../utils/filterToPhase";
+import { cowToFlockCard } from "../../utils/cowToFlockCard";
 
 export default function FlockPage() {
   const [filter, setFilter] = useState("Todas");
