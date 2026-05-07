@@ -10,7 +10,7 @@ export function ChildbirthForm() {
           Registrar os dados do parto realizado
         </p>
       </div>
-      <InputField label="Código*" placeholder="ex: BR-044" />
+      <InputField label="Número do Brinco*" placeholder="ex: 044" />
       <TextareaField
         label="Observações (opcional)"
         placeholder="Adicione informações relevantes sobre o parto..."

@@ -13,7 +13,7 @@ export function CoverageForm() {
           Registrar Cobertura: Monta Natural ou IA
         </p>
       </div>
-      <InputField label="Código*" placeholder="ex: BR-044" />
+      <InputField label="Número do Brinco*" placeholder="ex: 044" />
       <ToggleField
         label="Tipo de Cobertura"
         value={origin}

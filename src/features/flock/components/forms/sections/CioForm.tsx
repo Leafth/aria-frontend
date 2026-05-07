@@ -9,7 +9,7 @@ export function CioForm() {
           Registrar os dados do parto realizado
         </p>
       </div>
-      <InputField label="Código*" placeholder="ex: BR-044" />
+      <InputField label="Número do Brinco*" placeholder="ex: 044" />
       <Button className="w-full">Confirmar Cio</Button>
     </form>
   );

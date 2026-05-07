@@ -102,10 +102,10 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
       />
       {origin === "local" && (
         <InputField
-          label="Brinco*"
+          label="Número do Brinco*"
           {...register("ear_tag")}
           error={errors.ear_tag?.message}
-          placeholder="ex: #BRC-001"
+          placeholder="ex: 001"
         />
       )}
       {origin === "company" && (
