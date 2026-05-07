@@ -5,7 +5,6 @@ import { AnimalStatusCard } from "../../components/individual-record/AnimalStatu
 import { IndividualForm } from "../../components/forms/individual/IndividualForm";
 import { RecentHistoryCard } from "../../components/individual-record/RecentHistoryCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUpdateCow } from "../../hooks/useUpdateCow";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,7 +53,6 @@ export default function IndividualRecordPage() {
   const { data: cow, isLoading, isError } = useCowById(id);
   const [openWeightModal, setOpenWeightModal] = useState(false);
 
-  const { mutateAsync: updateCow } = useUpdateCow();
   const { mutateAsync: inactivateCow, isPending: isInactivating } =
     useInactivateCow();
   const { mutateAsync: registerCowWeight, isPending: isRegisteringWeight } =
@@ -192,22 +190,12 @@ export default function IndividualRecordPage() {
       <EditCowModal
         open={openEditModal}
         onClose={() => setOpenEditModal(false)}
+        cowId={cow.id}
         initialData={{
           name: cow.name,
           code: cow.ear_tag,
           birthDate: cow.birth_date,
           breed: cow.breed,
-        }}
-        onSubmit={async (data) => {
-          await updateCow({
-            id: cow.id,
-            data: {
-              name: data.name,
-              ear_tag: data.code,
-              birth_date: data.birthDate,
-              breed: data.breed,
-            },
-          });
         }}
       />
       <InactiveCowModal
