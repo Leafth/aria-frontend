@@ -1,30 +1,25 @@
 import { Button, InputField, Modal } from "@/shared";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { SelectField } from "@/shared/components/ui/select/SelectField";
+
+import { useForm, useWatch } from "react-hook-form";
+
 import { AdditionalInformation } from "./additional_information/AdditionalInformation";
-import { useCreateCow } from "../../hooks/useCreateCow";
-import type { CowPhase } from "../../types/cow.types";
-import { AxiosError } from "axios";
+
 import {
   createCowSchema,
   type CreateCowFormData,
 } from "../../schemas/createCow.schema";
-import type {
-  ApiErrorResponse,
-  ModalFormProps,
-} from "./types/modal-form.types";
+import type { ModalFormProps } from "./types/modal-form.types";
+import { useCreateCowForm } from "../../hooks/useCreateCow";
 
 export function ModalForm({ open, onClose }: ModalFormProps) {
-  const { mutateAsync: createCow } = useCreateCow();
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-    watch,
+    control,
     setValue,
     setError,
   } = useForm<CreateCowFormData>({
@@ -40,41 +35,21 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
     },
   });
 
-  const stage = watch("stage");
+  const { onSubmit, isPending } = useCreateCowForm({
+    setError,
+    reset,
+    onClose,
+  });
 
-  const onSubmit = async (data: CreateCowFormData) => {
-    try {
-      await createCow({
-        name: data.name,
-        ear_tag: data.code,
-        birth_date: data.birthDate,
-        breed: data.breed,
-        weight: Number(data.initialWeight),
-        phase: data.phase as CowPhase,
-        active: true,
-      });
+  const phase = useWatch({
+    control,
+    name: "phase",
+  });
 
-      reset();
-      onClose();
-    } catch (error) {
-      const axiosError = error as AxiosError<ApiErrorResponse>;
-
-      if (axiosError.response?.status === 422) {
-        const apiErrors = axiosError.response.data.errors;
-
-        if (apiErrors?.ear_tag) {
-          setError("code", {
-            type: "server",
-            message: "Já existe um animal cadastrado com esse brinco",
-          });
-
-          return;
-        }
-      }
-
-      console.error(error);
-    }
-  };
+  const stage = useWatch({
+    control,
+    name: "stage",
+  });
 
   return (
     <Modal
@@ -89,9 +64,9 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
         <Button
           className="w-full"
           onClick={handleSubmit(onSubmit)}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isPending}
         >
-          Cadastrar
+          {isSubmitting || isPending ? "Cadastrando..." : "Cadastrar"}
         </Button>
       }
     >
@@ -157,7 +132,7 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
       <div className="grid grid-cols-2 gap-6">
         <SelectField
           label="Fase do Animal"
-          value={watch("phase")}
+          value={phase}
           onChange={(value) =>
             setValue("phase", value, { shouldValidate: true })
           }
@@ -181,7 +156,7 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
             { label: "Confirmar Prenhez", value: "prenhez" },
             { label: "Parto registrado", value: "parto_registrado" },
           ]}
-          value={watch("stage")}
+          value={stage}
           onChange={(value) => setValue("stage", value)}
         />
       </div>
