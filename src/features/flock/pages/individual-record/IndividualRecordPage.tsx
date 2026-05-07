@@ -18,7 +18,6 @@ import { useState } from "react";
 import { EditCowModal } from "../../components/modals/individual-modal/EditCowModal";
 import { InactiveCowModal } from "../../components/modals/individual-modal/InactiveCow";
 import { useInactivateCow } from "../../hooks/useInactivateCow";
-import { useRegisterCowWeight } from "../../hooks/useRegisterCowWeight";
 import { useChangeCowPhase } from "../../hooks/useChangeCowPhase";
 
 function getPhaseLabel(phase: CowPhase) {
@@ -55,8 +54,6 @@ export default function IndividualRecordPage() {
 
   const { mutateAsync: inactivateCow, isPending: isInactivating } =
     useInactivateCow();
-  const { mutateAsync: registerCowWeight, isPending: isRegisteringWeight } =
-    useRegisterCowWeight();
   const { mutateAsync: changeCowPhase, isPending: isChangingPhase } =
     useChangeCowPhase();
 
@@ -99,7 +96,7 @@ export default function IndividualRecordPage() {
       <header className="flex justify-between items-center">
         <Header
           title={cow.name}
-          description={`Brinco: #${cow.ear_tag} Nasc: ${formatDate(
+          description={`Brinco: ${cow.ear_tag} Nasc: ${formatDate(
             cow.birth_date,
           )}`}
           active={getStatus(cow.active)}
@@ -212,16 +209,7 @@ export default function IndividualRecordPage() {
       <EditWeightModal
         open={openWeightModal}
         onClose={() => setOpenWeightModal(false)}
-        isLoading={isRegisteringWeight}
-        onSubmit={async (data) => {
-          await registerCowWeight({
-            id: cow.id,
-            data: {
-              weight: Number(data.weight),
-              occurred_at: data.occurred_at,
-            },
-          });
-        }}
+        cowId={cow.id}
       />
     </main>
   );
