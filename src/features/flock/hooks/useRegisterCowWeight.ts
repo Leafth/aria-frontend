@@ -1,11 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { UseFormReset } from "react-hook-form";
 
 import { registerCowWeight } from "../services/cow.service";
 import type { RegisterCowWeightDTO } from "../types/cow.types";
+import type { EditWeightFormData } from "../schemas/editWeight.schema";
 
 interface RegisterCowWeightParams {
   id: string;
   data: RegisterCowWeightDTO;
+}
+
+interface UseRegisterCowWeightFormParams {
+  id: string;
+  reset: UseFormReset<EditWeightFormData>;
+  onClose: () => void;
 }
 
 export function useRegisterCowWeight() {
@@ -25,4 +33,31 @@ export function useRegisterCowWeight() {
       });
     },
   });
+}
+
+export function useRegisterCowWeightForm({
+  id,
+  reset,
+  onClose,
+}: UseRegisterCowWeightFormParams) {
+  const { mutateAsync: registerCowWeightMutation, isPending } =
+    useRegisterCowWeight();
+
+  const onSubmit = async (data: EditWeightFormData) => {
+    await registerCowWeightMutation({
+      id,
+      data: {
+        weight: Number(data.weight),
+        occurred_at: data.occurred_at,
+      },
+    });
+
+    reset();
+    onClose();
+  };
+
+  return {
+    onSubmit,
+    isPending,
+  };
 }
