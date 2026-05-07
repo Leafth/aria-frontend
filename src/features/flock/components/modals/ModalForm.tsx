@@ -12,6 +12,7 @@ import {
 } from "../../schemas/createCow.schema";
 import type { ModalFormProps } from "./types/modal-form.types";
 import { useCreateCowForm } from "../../hooks/useCreateCow";
+import { maskEarTag, maskWeight } from "@/utils/masks";
 
 export function ModalForm({ open, onClose }: ModalFormProps) {
   const {
@@ -81,7 +82,19 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
         <InputField
           label="Número do Brinco"
           placeholder="ex: 044"
-          {...register("code")}
+          inputMode="numeric"
+          {...register("code", {
+            onChange: (e) => {
+              e.target.value = maskEarTag(e.target.value);
+            },
+          })}
+          onBeforeInput={(e) => {
+            const inputEvent = e.nativeEvent as InputEvent;
+
+            if (inputEvent.data && !/^\d+$/.test(inputEvent.data)) {
+              e.preventDefault();
+            }
+          }}
           error={errors.code?.message}
         />
         <InputField
@@ -117,7 +130,19 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
         <InputField
           label="Peso Inicial (kg)"
           placeholder="ex: 120"
-          {...register("initialWeight")}
+          inputMode="decimal"
+          {...register("initialWeight", {
+            onChange: (e) => {
+              e.target.value = maskWeight(e.target.value);
+            },
+          })}
+          onBeforeInput={(e) => {
+            const inputEvent = e.nativeEvent as InputEvent;
+
+            if (inputEvent.data && !/^[0-9.,]+$/.test(inputEvent.data)) {
+              e.preventDefault();
+            }
+          }}
           error={errors.initialWeight?.message}
         />
       </div>
@@ -150,11 +175,10 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
           label="Etapa do Animal"
           options={[
             { label: "Padrão", value: "padrao" },
-            { label: "Cio registrado", value: "cio_registrado" },
-            { label: "Cobertura registrada", value: "cobertura_registrada" },
-            { label: "Em Confirmar Cobertura", value: "confirmar_cobertura" },
+            { label: "Registrar Cio", value: "cio_registrado" },
+            { label: "Registrar Cobertura", value: "cobertura_registrada" },
             { label: "Confirmar Prenhez", value: "prenhez" },
-            { label: "Parto registrado", value: "parto_registrado" },
+            { label: "Registrar Parto", value: "parto_registrado" },
           ]}
           value={stage}
           onChange={(value) => setValue("stage", value)}
