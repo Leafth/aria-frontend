@@ -20,6 +20,7 @@ import { EditCowModal } from "../../components/modals/individual-modal/EditCowMo
 import { InactiveCowModal } from "../../components/modals/individual-modal/InactiveCow";
 import { useInactivateCow } from "../../hooks/useInactivateCow";
 import { useRegisterCowWeight } from "../../hooks/useRegisterCowWeight";
+import { useChangeCowPhase } from "../../hooks/useChangeCowPhase";
 
 function getPhaseLabel(phase: CowPhase) {
   const labels: Record<CowPhase, string> = {
@@ -58,6 +59,8 @@ export default function IndividualRecordPage() {
     useInactivateCow();
   const { mutateAsync: registerCowWeight, isPending: isRegisteringWeight } =
     useRegisterCowWeight();
+  const { mutateAsync: changeCowPhase, isPending: isChangingPhase } =
+    useChangeCowPhase();
 
   if (isLoading) {
     return (
@@ -141,7 +144,17 @@ export default function IndividualRecordPage() {
           weight={`${cow.weight}kg`}
           lastWeigh="-"
           phase={getPhaseLabel(cow.phase)}
+          currentPhase={cow.phase}
           onRegisterWeight={() => setOpenWeightModal(true)}
+          isChangingPhase={isChangingPhase}
+          onChangePhase={async (phase) => {
+            await changeCowPhase({
+              id: cow.id,
+              data: {
+                phase,
+              },
+            });
+          }}
         />
 
         <div className="flex justify-between mt-5">
@@ -222,7 +235,7 @@ export default function IndividualRecordPage() {
             },
           });
         }}
-      />  
+      />
     </main>
   );
 }
