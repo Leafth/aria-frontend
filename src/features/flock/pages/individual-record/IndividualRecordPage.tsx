@@ -139,7 +139,6 @@ export default function IndividualRecordPage() {
 
       <section>
         <AnimalStatusCard
-          status={getStatus(cow.active)}
           nextDate="-"
           weight={`${cow.weight}kg`}
           lastWeigh="-"
