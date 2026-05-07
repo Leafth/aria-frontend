@@ -5,7 +5,6 @@ import { SelectField } from "@/shared/components/ui/select/SelectField";
 import type { CowPhase } from "../../types/cow.types";
 
 interface Props {
-  status: string;
   nextDate: string;
   weight: string;
   lastWeigh: string;
@@ -17,7 +16,6 @@ interface Props {
 }
 
 export function AnimalStatusCard({
-  status,
   nextDate,
   weight,
   lastWeigh,
@@ -41,7 +39,7 @@ export function AnimalStatusCard({
 
         <div>
           <p className="text-sm text-gray-500">Status Reprodutivo</p>
-          <p className="font-semibold text-gray-800">{status}</p>
+          <p className="font-semibold text-gray-800">Aguardando Cio</p>
           <p className="text-xs text-gray-400 mt-1">
             Data Prevista: {nextDate}
           </p>
