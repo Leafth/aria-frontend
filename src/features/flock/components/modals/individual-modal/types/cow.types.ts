@@ -6,3 +6,9 @@ export interface EditCowModalProps {
   cowId: string;
   initialData?: EditCowFormData | null;
 }
+
+export interface EditWeightModalProps {
+  open: boolean;
+  onClose: () => void;
+  cowId: string;
+}
