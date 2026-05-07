@@ -8,6 +8,7 @@ import { SelectField } from "@/shared/components/ui/select/SelectField";
 import { AdditionalInformation } from "./additional_information/AdditionalInformation";
 import { useCreateCow } from "../../hooks/useCreateCow";
 import type { CowPhase } from "../../types/cow.types";
+import { AxiosError } from "axios";
 
 const flockSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
@@ -32,6 +33,18 @@ interface Props {
   initialData?: (FlockFormData & { id?: number }) | null;
 }
 
+type ApiErrorResponse = {
+  errors?: {
+    ear_tag?: string[];
+    name?: string[];
+    birth_date?: string[];
+    breed?: string[];
+    weight?: string[];
+    phase?: string[];
+    active?: string[];
+  };
+};
+
 export function ModalForm({ open, onClose, initialData }: Props) {
   const isEditing = !!initialData;
 
@@ -44,6 +57,7 @@ export function ModalForm({ open, onClose, initialData }: Props) {
     reset,
     watch,
     setValue,
+    setError,
   } = useForm<FlockFormData>({
     resolver: zodResolver(flockSchema),
     defaultValues: {
@@ -65,18 +79,37 @@ export function ModalForm({ open, onClose, initialData }: Props) {
   const stage = watch("stage");
 
   const onSubmit = async (data: FlockFormData) => {
-    await createCow({
-      name: data.name,
-      ear_tag: data.code,
-      birth_date: data.birthDate,
-      breed: data.breed,
-      weight: Number(data.initialWeight),
-      phase: data.phase as CowPhase,
-      active: true,
-    });
+    try {
+      await createCow({
+        name: data.name,
+        ear_tag: data.code,
+        birth_date: data.birthDate,
+        breed: data.breed,
+        weight: Number(data.initialWeight),
+        phase: data.phase as CowPhase,
+        active: true,
+      });
 
-    reset();
-    onClose();
+      reset();
+      onClose();
+    } catch (error) {
+      const axiosError = error as AxiosError<ApiErrorResponse>;
+
+      if (axiosError.response?.status === 422) {
+        const apiErrors = axiosError.response.data.errors;
+
+        if (apiErrors?.ear_tag) {
+          setError("code", {
+            type: "server",
+            message: "Já existe um animal cadastrado com esse brinco",
+          });
+
+          return;
+        }
+      }
+
+      console.error(error);
+    }
   };
 
   return (
@@ -107,17 +140,16 @@ export function ModalForm({ open, onClose, initialData }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <InputField
+          label="Número do Brinco"
+          placeholder="ex: BR-044"
+          {...register("code")}
+          error={errors.code?.message}
+        />
+        <InputField
           label="Nome"
           placeholder="ex: Princesa"
           {...register("name")}
           error={errors.name?.message}
-        />
-
-        <InputField
-          label="Código"
-          placeholder="ex: BR-044"
-          {...register("code")}
-          error={errors.code?.message}
         />
       </div>
 
