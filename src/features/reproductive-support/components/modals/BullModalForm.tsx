@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import type { BullDTO } from "../../types";
 import { CircleX } from "lucide-react";
 import { ToggleField } from "@/shared/components/ui/toggle/ToggleField";
+import { maskEarTag } from "@/utils/masks";
 
 interface Props {
   open: boolean;
@@ -103,9 +104,21 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
       {origin === "local" && (
         <InputField
           label="Número do Brinco*"
-          {...register("ear_tag")}
-          error={errors.ear_tag?.message}
+          inputMode="numeric"
           placeholder="ex: 001"
+          {...register("ear_tag", {
+            onChange: (e) => {
+              e.target.value = maskEarTag(e.target.value);
+            },
+          })}
+          onBeforeInput={(e) => {
+            const inputEvent = e.nativeEvent as InputEvent;
+
+            if (inputEvent.data && !/^\d+$/.test(inputEvent.data)) {
+              e.preventDefault();
+            }
+          }}
+          error={errors.ear_tag?.message}
         />
       )}
       {origin === "company" && (

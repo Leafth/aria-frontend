@@ -10,6 +10,7 @@ import {
 
 import type { EditCowModalProps } from "./types/cow.types";
 import { useUpdateCowForm } from "../../../hooks/useUpdateCow";
+import { maskEarTag } from "@/utils/masks";
 
 export function EditCowModal({
   open,
@@ -74,8 +75,20 @@ export function EditCowModal({
         <div className="grid grid-cols-2 gap-6">
           <InputField
             label="Número do Brinco"
-            placeholder="ex: BR-044"
-            {...register("code")}
+            placeholder="ex: 044"
+            inputMode="numeric"
+            {...register("code", {
+              onChange: (e) => {
+                e.target.value = maskEarTag(e.target.value);
+              },
+            })}
+            onBeforeInput={(e) => {
+              const inputEvent = e.nativeEvent as InputEvent;
+
+              if (inputEvent.data && !/^\d+$/.test(inputEvent.data)) {
+                e.preventDefault();
+              }
+            }}
             error={errors.code?.message}
           />
 
