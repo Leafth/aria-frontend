@@ -6,7 +6,6 @@ import type { CowPhase } from "../../types/cow.types";
 import { useState } from "react";
 import { ChangeCowPhaseModal } from "../modals/individual-modal/ChangePhaseConfirmation";
 
-
 const PHASE_LABELS: Record<string, string> = {
   calf: "Bezerra",
   heifer: "Garrota",
@@ -31,6 +30,7 @@ interface Props {
   onRegisterWeight: () => void;
   onChangePhase: (phase: "calf" | "heifer" | "young") => void;
   isChangingPhase?: boolean;
+  isActive?: boolean;
 }
 
 export function AnimalStatusCard({
@@ -42,10 +42,14 @@ export function AnimalStatusCard({
   onRegisterWeight,
   onChangePhase,
   isChangingPhase = false,
+  isActive = true,
 }: Props) {
   const [pendingPhase, setPendingPhase] = useState<
     "calf" | "heifer" | "young" | null
   >(null);
+
+  const iconBg = isActive ? "bg-green-200" : "bg-gray-200";
+  const iconColor = isActive ? "text-green-700" : "text-gray-400";
 
   const phaseOptions = PHASE_OPTIONS[currentPhase] ?? [];
   const canChangePhase = phaseOptions.length > 0;
@@ -65,8 +69,14 @@ export function AnimalStatusCard({
     <>
       <div className="w-full bg-white rounded-2xl flex overflow-hidden">
         <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
-          <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-200">
-            <img src={iconCow} alt="" className="h-7" />
+          <div
+            className={`w-14 h-14 flex items-center justify-center rounded-full ${iconBg}`}
+          >
+            <img
+              src={iconCow}
+              alt=""
+              className={`h-7 ${!isActive && "grayscale opacity-50"}`}
+            />
           </div>
           <div>
             <p className="text-sm text-gray-500">Status Reprodutivo</p>
@@ -77,8 +87,10 @@ export function AnimalStatusCard({
           </div>
         </div>
         <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
-          <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-200">
-            <Weight className="text-green-700" />
+          <div
+            className={`w-14 h-14 flex items-center justify-center rounded-full ${iconBg}`}
+          >
+            <Weight className={iconColor} />
           </div>
           <div className="flex-1">
             <p className="text-sm text-gray-500">Peso Atual</p>
@@ -86,25 +98,29 @@ export function AnimalStatusCard({
             <p className="text-xs text-gray-400 mt-1">
               Última Pesagem: {lastWeigh}
             </p>
-            <Button
-              variant="ghost"
-              className="h-10 mt-3"
-              onClick={onRegisterWeight}
-            >
-              <CirclePlus size={16} className="font-bold" />
-              Registrar Peso
-            </Button>
+            {isActive && (
+              <Button
+                variant="ghost"
+                className="h-10 mt-3"
+                onClick={onRegisterWeight}
+              >
+                <CirclePlus size={16} className="font-bold" />
+                Registrar Peso
+              </Button>
+            )}
           </div>
         </div>
         <div className="flex-1 flex items-center gap-4 p-6">
-          <div className="w-14 h-14 flex items-center justify-center rounded-full bg-green-200">
-            <Sprout className="text-green-700" />
+          <div
+            className={`w-14 h-14 flex items-center justify-center rounded-full ${iconBg}`}
+          >
+            <Sprout className={iconColor} />
           </div>
           <div className="flex-1">
             <p className="text-sm text-gray-500">Fase</p>
             <p className="font-semibold text-gray-800">{phase}</p>
 
-            {canChangePhase && (
+            {canChangePhase && isActive && (
               <div className="mt-3">
                 <SelectField
                   label="Alterar fase"

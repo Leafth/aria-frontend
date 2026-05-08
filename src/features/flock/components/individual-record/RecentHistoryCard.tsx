@@ -10,18 +10,18 @@ interface HistoryItem {
 interface Props {
   items: HistoryItem[];
   onViewAll?: () => void;
+  isActive: boolean;
 }
 
-export function RecentHistoryCard({ items, onViewAll }: Props) {
+export function RecentHistoryCard({ items, onViewAll, isActive }: Props) {
   return (
-    <div className="w-120 bg-white rounded-2xl p-6 flex flex-col gap-4">
+    <div className={`${isActive ? "w-120" : "w-full"} bg-white rounded-2xl p-6 flex flex-col gap-4`}>
       <h2 className="text-lg font-semibold text-gray-800">Histórico Recente</h2>
 
       <div className="flex flex-col">
         {items.map((item, index) => (
           <div key={index}>
             <div className="flex items-start justify-between py-4">
-              {/* Lado esquerdo */}
               <div className="flex gap-3">
                 <div
                   className="w-3 h-3 mt-1 rounded-full"

@@ -83,33 +83,34 @@ export default function IndividualRecordPage() {
           breed={cow.breed}
           page="individual"
         />
+        {cow.active && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">
+                <SquarePen size={20} />
+                Ações
+              </Button>
+            </DropdownMenuTrigger>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
-              <SquarePen size={20} />
-              Ações
-            </Button>
-          </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onSelect={() => setOpenEditModal(true)}
+                className="cursor-pointer"
+              >
+                <Pen size={16} />
+                Editar Dados
+              </DropdownMenuItem>
 
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onSelect={() => setOpenEditModal(true)}
-              className="cursor-pointer"
-            >
-              <Pen size={16} />
-              Editar Dados
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onSelect={() => setOpenInactiveModal(true)}
-              className="cursor-pointer"
-            >
-              <Ban size={16} />
-              Inativar
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              <DropdownMenuItem
+                onSelect={() => setOpenInactiveModal(true)}
+                className="cursor-pointer"
+              >
+                <Ban size={16} />
+                Inativar
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </header>
 
       <section>
@@ -129,10 +130,11 @@ export default function IndividualRecordPage() {
               },
             });
           }}
+          isActive={cow.active}
         />
 
         <div className="flex justify-between mt-5">
-          <IndividualForm />
+          {cow.active && <IndividualForm />}
 
           <RecentHistoryCard
             items={[
@@ -149,6 +151,7 @@ export default function IndividualRecordPage() {
                 color: "#2563eb",
               },
             ]}
+            isActive={cow.active}
           />
         </div>
       </section>
