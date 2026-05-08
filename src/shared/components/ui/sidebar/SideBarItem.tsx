@@ -22,7 +22,8 @@ export function SidebarItem({
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isActive = location.pathname === path;
+  const isActive =
+    location.pathname === path || location.pathname.startsWith(`${path}/`);
 
   const baseClass = isCollapsed ? itemCollapsed : item;
   const activeClass = isCollapsed ? itemActiveCollapsed : itemActive;
