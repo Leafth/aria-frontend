@@ -148,18 +148,6 @@ export default function IndividualRecordPage() {
                 date: "12/08/2025",
                 color: "#2563eb",
               },
-              {
-                title: "Cio Detectado",
-                description: "Diagnóstico positivo por ultrassom",
-                date: "10/04/2025",
-                color: "#f59e0b",
-              },
-              {
-                title: "Pesagem Registrada",
-                description: "+120kg",
-                date: "10/04/2025",
-                color: "#84cc16",
-              },
             ]}
           />
         </div>
