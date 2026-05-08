@@ -27,7 +27,7 @@ export default function ReproductiveSupportPage() {
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 6,
   });
 
   const { data, pageCount } = useReproductiveSupport(type, pagination);
