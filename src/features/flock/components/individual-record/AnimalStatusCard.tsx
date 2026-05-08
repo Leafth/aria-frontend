@@ -79,8 +79,8 @@ export function AnimalStatusCard({
             />
           </div>
           <div>
-            <p className="text-sm text-gray-500">Status Reprodutivo</p>
-            <p className="font-semibold text-gray-800">Aguardando Cio</p>
+            <p className="text-sm text-gray-500">Status {isActive && "Reprodutivo"} </p>
+            <p className="font-semibold text-gray-800">{isActive ? "Aguardar Cio" : "Morte ou Venda"} </p>
             <p className="text-xs text-gray-400 mt-1">
               Data Prevista: {nextDate}
             </p>
