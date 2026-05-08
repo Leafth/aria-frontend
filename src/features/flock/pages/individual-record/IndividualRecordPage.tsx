@@ -1,6 +1,6 @@
 import { Button, Header } from "@/shared";
 import { EditWeightModal } from "../../components/modals/individual-modal/EditWeightModal";
-import { SquarePen, Pen, Trash2 } from "lucide-react";
+import { SquarePen, Pen, Ban } from "lucide-react";
 import { AnimalStatusCard } from "../../components/individual-record/AnimalStatusCard";
 import { IndividualForm } from "../../components/forms/individual/IndividualForm";
 import { RecentHistoryCard } from "../../components/individual-record/RecentHistoryCard";
@@ -105,7 +105,7 @@ export default function IndividualRecordPage() {
               onSelect={() => setOpenInactiveModal(true)}
               className="cursor-pointer"
             >
-              <Trash2 size={16} />
+              <Ban size={16} />
               Inativar
             </DropdownMenuItem>
           </DropdownMenuContent>
