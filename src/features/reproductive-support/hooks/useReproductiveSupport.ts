@@ -5,10 +5,12 @@ import { useBulls } from "@/features/reproductive-support/hooks/bulls";
 export function useReproductiveSupport(
   type: "bull" | "company",
   pagination: PaginationState,
+  search?: string,
 ) {
   const filters = {
     page: pagination.pageIndex + 1,
     per_page: pagination.pageSize,
+    q: search || undefined,
   };
 
   const companies = useCompanies(filters, {
@@ -18,6 +20,8 @@ export function useReproductiveSupport(
   const bulls = useBulls(filters, {
     enabled: type === "bull",
   });
+
+  const currentQuery = type === "company" ? companies : bulls;
 
   const data =
     type === "company"
@@ -29,5 +33,10 @@ export function useReproductiveSupport(
       ? (companies.data?.meta?.total_pages ?? 0)
       : (bulls.data?.meta?.total_pages ?? 0);
 
-  return { data, pageCount };
+  return {
+    data,
+    pageCount,
+    isLoading: currentQuery.isLoading,
+    isError: currentQuery.isError,
+  };
 }
