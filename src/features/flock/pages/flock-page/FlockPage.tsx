@@ -2,39 +2,80 @@ import { Button, Header } from "@/shared";
 import { CirclePlus, Search } from "lucide-react";
 import { ItemsFilter } from "../../components/cards-filter/ItemsFilter";
 import { FlockCard } from "../../components/flock-card/FlockCard";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ModalForm } from "../../components/modals/ModalForm";
 import { Input } from "@/components/ui/input";
-import { useCows } from "../../hooks/useCow";
+
 import { filterToPhase } from "../../utils/filterToPhase";
 import { cowToFlockCard } from "../../utils/cowToFlockCard";
+import { useInfiniteCows } from "../../hooks/useInfiniteCows";
+import { useDebounce } from "@/hooks/useDebounce";
 
 export default function FlockPage() {
   const [filter, setFilter] = useState("Todas");
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  const debouncedSearch = useDebounce(search, 600);
+
   const selectedPhase = filterToPhase(filter);
 
   const activeFilter = filter === "Inativa" ? false : true;
 
-  const { data, isLoading, isError } = useCows({
-    q: search,
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteCows({
+    q: debouncedSearch,
     phase: selectedPhase,
     active: activeFilter,
-    page: 1,
-    per_page: 20,
+    per_page: 10,
   });
 
-  const cows = data?.data ?? [];
+  const cows = data?.pages.flatMap((page) => page.data) ?? [];
   const cards = cows.map(cowToFlockCard);
+
+  const totalCount = data?.pages[0]?.meta.total_count ?? 0;
+
+  useEffect(() => {
+    const element = loadMoreRef.current;
+
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const firstEntry = entries[0];
+
+        if (firstEntry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "200px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.unobserve(element);
+    };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
     <main className="flex flex-col gap-6 p-4 w-full">
       <header className="flex justify-between items-center">
         <Header
           title="Rebanho"
-          description={`${data?.meta.total_count ?? 0} animais cadastrados`}
+          description={`${totalCount} animais cadastrados`}
         />
 
         <Button onClick={() => setOpenModal(true)}>
@@ -83,6 +124,18 @@ export default function FlockPage() {
               colorCard={flock.colorCard}
             />
           ))}
+        </div>
+
+        <div ref={loadMoreRef} className="h-10 flex justify-center">
+          {isFetchingNextPage && (
+            <p className="text-sm text-gray-500">Carregando mais animais...</p>
+          )}
+
+          {!hasNextPage && cards.length > 0 && (
+            <p className="text-sm text-gray-400">
+              Todos os animais foram carregados.
+            </p>
+          )}
         </div>
 
         <ModalForm open={openModal} onClose={() => setOpenModal(false)} />
