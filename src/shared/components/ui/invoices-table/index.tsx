@@ -1,10 +1,10 @@
 import type { ColumnDef, PaginationState } from '@tanstack/react-table';
 import { DataTable } from '../table';
-import { DataTableColumnsVisibilityDropdown } from '../table/DataTableColumnsVisibilityDropdown';
+//import { DataTableColumnsVisibilityDropdown } from '../table/DataTableColumnsVisibilityDropdown';
 import { DataTableContent } from '../table/DataTableContent';
-import { DataTableFacetedFilter } from '../table/DataTableFacetedFilter';
+//import { DataTableFacetedFilter } from '../table/DataTableFacetedFilter';
 import { DataTablePagination } from '../table/DataTablePagination';
-import { DataTableTextFilter } from '../table/DataTableTextFilter';
+//import { DataTableTextFilter } from '../table/DataTableTextFilter';
 
 interface InvoicesTableProps<TData> {
   data: TData[];
@@ -21,7 +21,7 @@ export function InvoicesTable<TData>({
   pageCount,
   pagination,
   onPaginationChange,
-  searchColumn
+  // searchColumn
 }: InvoicesTableProps<TData>) {
 
   return (
@@ -32,7 +32,7 @@ export function InvoicesTable<TData>({
       pagination={pagination}
       onPaginationChange={onPaginationChange}
     >
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+      {/* <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <DataTableTextFilter
           placeholder="Pesquisar..."
           column={searchColumn}
@@ -41,7 +41,7 @@ export function InvoicesTable<TData>({
           <DataTableFacetedFilter column={searchColumn ?? 'name'} />
           <DataTableColumnsVisibilityDropdown />
         </div>
-      </div>
+      </div> */}
 
       <DataTableContent />
 
