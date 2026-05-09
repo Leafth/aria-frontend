@@ -17,7 +17,7 @@ export function FlockCard({
 
   return (
     <div
-      className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-84"
+      className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-78"
       style={{ borderTopColor: colorCard }}
     >
       <div className="flex justify-between items-start">
