@@ -73,7 +73,7 @@ export default function IndividualRecordPage() {
         </p>
       </div>
 
-      <header className="flex justify-between items-center">
+      <header className="flex flex-col gap-4">
         <Header
           title={cow.name}
           description={`Brinco: ${cow.ear_tag} Nasc: ${formatDate(
@@ -83,16 +83,17 @@ export default function IndividualRecordPage() {
           breed={cow.breed}
           page="individual"
         />
+
         {cow.active && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost">
+              <Button variant="ghost" className="w-full sm:w-fit">
                 <SquarePen size={20} />
                 Ações
               </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="start">
               <DropdownMenuItem
                 onSelect={() => setOpenEditModal(true)}
                 className="cursor-pointer"
@@ -113,7 +114,7 @@ export default function IndividualRecordPage() {
         )}
       </header>
 
-      <section>
+      <section className="flex flex-col gap-5">
         <AnimalStatusCard
           nextDate="-"
           weight={`${cow.weight}kg`}
@@ -133,26 +134,32 @@ export default function IndividualRecordPage() {
           isActive={cow.active}
         />
 
-        <div className="flex justify-between mt-5">
-          {cow.active && <IndividualForm />}
+        <div className="flex flex-col gap-5 xl:flex-row">
+          {cow.active && (
+            <div className="w-full xl:flex-1">
+              <IndividualForm />
+            </div>
+          )}
 
-          <RecentHistoryCard
-            items={[
-              {
-                title: "Confirmação de prenhez",
-                description: "Diagnóstico positivo por ultrassom",
-                date: "01/04/2026",
-                color: "#22c55e",
-              },
-              {
-                title: "Inseminação Artificial",
-                description: "Sêmen: Bull Power X1",
-                date: "12/08/2025",
-                color: "#2563eb",
-              },
-            ]}
-            isActive={cow.active}
-          />
+          <div className="w-full xl:flex-1">
+            <RecentHistoryCard
+              items={[
+                {
+                  title: "Confirmação de prenhez",
+                  description: "Diagnóstico positivo por ultrassom",
+                  date: "01/04/2026",
+                  color: "#22c55e",
+                },
+                {
+                  title: "Inseminação Artificial",
+                  description: "Sêmen: Bull Power X1",
+                  date: "12/08/2025",
+                  color: "#2563eb",
+                },
+              ]}
+              isActive={cow.active}
+            />
+          </div>
         </div>
       </section>
       <EditCowModal

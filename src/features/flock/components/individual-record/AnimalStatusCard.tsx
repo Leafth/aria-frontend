@@ -67,41 +67,49 @@ export function AnimalStatusCard({
 
   return (
     <>
-      <div className="w-full bg-white rounded-2xl flex overflow-hidden">
-        <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
+      <div className="w-full bg-white rounded-2xl flex flex-col lg:flex-row overflow-hidden">
+        <div className="flex-1 flex items-center gap-4 p-5 sm:p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
           <div
-            className={`w-14 h-14 flex items-center justify-center rounded-full ${iconBg}`}
+            className={`w-14 h-14 shrink-0 flex items-center justify-center rounded-full ${iconBg}`}
           >
             <img
               src={iconCow}
               alt=""
-              className={`h-7 ${!isActive && "grayscale opacity-50"}`}
+              className={`h-7 ${!isActive ? "grayscale opacity-50" : ""}`}
             />
           </div>
-          <div>
-            <p className="text-sm text-gray-500">Status {isActive && "Reprodutivo"} </p>
-            <p className="font-semibold text-gray-800">{isActive ? "Aguardar Cio" : "Morte ou Venda"} </p>
+
+          <div className="min-w-0">
+            <p className="text-sm text-gray-500">
+              Status {isActive && "Reprodutivo"}
+            </p>
+            <p className="font-semibold text-gray-800">
+              {isActive ? "Aguardar Cio" : "Morte ou Venda"}
+            </p>
             <p className="text-xs text-gray-400 mt-1">
               Data Prevista: {nextDate}
             </p>
           </div>
         </div>
-        <div className="flex-1 flex items-center gap-4 p-6 border-r border-gray-200">
+
+        <div className="flex-1 flex items-center gap-4 p-5 sm:p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
           <div
-            className={`w-14 h-14 flex items-center justify-center rounded-full ${iconBg}`}
+            className={`w-14 h-14 shrink-0 flex items-center justify-center rounded-full ${iconBg}`}
           >
             <Weight className={iconColor} />
           </div>
-          <div className="flex-1">
+
+          <div className="flex-1 min-w-0">
             <p className="text-sm text-gray-500">Peso Atual</p>
             <p className="font-semibold text-gray-800">{weight}</p>
             <p className="text-xs text-gray-400 mt-1">
               Última Pesagem: {lastWeigh}
             </p>
+
             {isActive && (
               <Button
                 variant="ghost"
-                className="h-10 mt-3"
+                className="h-10 mt-3 w-full sm:w-auto"
                 onClick={onRegisterWeight}
               >
                 <CirclePlus size={16} className="font-bold" />
@@ -110,18 +118,20 @@ export function AnimalStatusCard({
             )}
           </div>
         </div>
-        <div className="flex-1 flex items-center gap-4 p-6">
+
+        <div className="flex-1 flex items-center gap-4 p-5 sm:p-6">
           <div
-            className={`w-14 h-14 flex items-center justify-center rounded-full ${iconBg}`}
+            className={`w-14 h-14 shrink-0 flex items-center justify-center rounded-full ${iconBg}`}
           >
             <Sprout className={iconColor} />
           </div>
-          <div className="flex-1">
+
+          <div className="flex-1 min-w-0">
             <p className="text-sm text-gray-500">Fase</p>
             <p className="font-semibold text-gray-800">{phase}</p>
 
             {canChangePhase && isActive && (
-              <div className="mt-3">
+              <div className="mt-3 w-full">
                 <SelectField
                   label="Alterar fase"
                   value=""

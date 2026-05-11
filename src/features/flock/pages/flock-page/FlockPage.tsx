@@ -21,7 +21,6 @@ export default function FlockPage() {
   const debouncedSearch = useDebounce(search, 600);
 
   const selectedPhase = filterToPhase(filter);
-
   const activeFilter = filter === "Inativa" ? false : true;
 
   const {
@@ -71,20 +70,20 @@ export default function FlockPage() {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
-    <main className="flex flex-col gap-6 p-4 w-full">
-      <header className="flex justify-between items-center">
+    <main className="flex flex-col gap-6 p-4 sm:p-6 w-full">
+      <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <Header
           title="Rebanho"
           description={`${totalCount} animais cadastrados`}
         />
 
-        <Button onClick={() => setOpenModal(true)}>
+        <Button onClick={() => setOpenModal(true)} className="w-full md:w-auto">
           <CirclePlus size={20} />
           Cadastrar Animal
         </Button>
       </header>
 
-      <section className="flex flex-col gap-7">
+      <section className="flex flex-col gap-6 md:gap-7">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
 
@@ -110,7 +109,7 @@ export default function FlockPage() {
           <p className="text-sm text-gray-500">Nenhum animal encontrado.</p>
         )}
 
-        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {cards.map((flock) => (
             <FlockCard
               key={flock.id}
@@ -126,13 +125,13 @@ export default function FlockPage() {
           ))}
         </div>
 
-        <div ref={loadMoreRef} className="h-10 flex justify-center">
+        <div ref={loadMoreRef} className="min-h-10 flex justify-center">
           {isFetchingNextPage && (
             <p className="text-sm text-gray-500">Carregando mais animais...</p>
           )}
 
           {!hasNextPage && cards.length > 0 && (
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 text-center">
               Todos os animais foram carregados.
             </p>
           )}

@@ -5,20 +5,19 @@ import { CioForm } from "../sections/CioForm";
 
 export function IndividualForm() {
   const state = "Cio";
-  return (
-    <div className="flex">
-      <article className="bg-white w-120 h-68 rounded-2xl">
-        <header className="flex gap-2 bg-[#10B981]/20 rounded-t-2xl py-2 px-3">
-          <Sparkles size={20} />
-          Próxima ação recomendada
-        </header>
 
+  return (
+    <article className="bg-white w-full rounded-2xl overflow-hidden">
+      <header className="flex items-center gap-2 bg-[#10B981]/20 py-3 px-4 text-sm sm:text-base">
+        <Sparkles size={20} />
+        <span>Próxima ação recomendada</span>
+      </header>
+
+      <div className="p-4 sm:p-6">
         {state === "Cio" && <CioForm />}
         {/* {state === "Coverage" && <CoverageForm />}
         {state === "Childbirth" && <ChildbirthForm />} */}
-      </article>
-      <div className="flex flex-col gap-3">
       </div>
-    </div>
+    </article>
   );
 }
