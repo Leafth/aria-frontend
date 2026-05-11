@@ -73,7 +73,7 @@ export default function IndividualRecordPage() {
         </p>
       </div>
 
-      <header className="flex flex-col gap-4">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <Header
           title={cow.name}
           description={`Brinco: ${cow.ear_tag} Nasc: ${formatDate(
@@ -87,13 +87,13 @@ export default function IndividualRecordPage() {
         {cow.active && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="w-full sm:w-fit">
+              <Button variant="ghost" className="w-35">
                 <SquarePen size={20} />
                 Ações
               </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="start">
+            <DropdownMenuContent align="start" className="w-full sm:w-auto">
               <DropdownMenuItem
                 onSelect={() => setOpenEditModal(true)}
                 className="cursor-pointer"
