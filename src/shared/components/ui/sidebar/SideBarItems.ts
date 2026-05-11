@@ -1,4 +1,4 @@
-import { ChartColumnIncreasing, HeartPulse, Home, RefreshCw, Tags, TestTube } from "lucide-react";
+import { ChartColumnIncreasing, Home, Tags, TestTube } from "lucide-react";
 import type { SidebarSection } from "./SideBar.types";
 
 export const sections: SidebarSection[] = [
@@ -7,13 +7,6 @@ export const sections: SidebarSection[] = [
     items: [
       { label: "Dashboard", icon: Home, path: "/dashboard" },
       { label: "Rebanho", icon: Tags, path: "/flock" },
-    ],
-  },
-  {
-    title: "REPRODUÇÃO",
-    items: [
-      { label: "Ciclo Reprodutivo", icon: RefreshCw, path: "/ciclo" },
-      { label: "Parto e Lactação", icon: HeartPulse, path: "/parto" },
     ],
   },
   {
