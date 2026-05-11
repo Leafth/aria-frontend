@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { HeaderProps } from "./Header.types";
 
 export function Header({
@@ -6,38 +7,58 @@ export function Header({
   active,
   breed,
   page,
+  className,
 }: HeaderProps) {
+  const isIndividual = page === "individual";
+  const isActive = active === "Ativa";
+
   return (
-    <header className="flex flex-col gap-1">
+    <header className={cn("flex flex-col gap-1", className)}>
       <h1 className="flex items-center gap-4 text-xl font-semibold text-text-primary lg:text-2xl">
         {title}
-        {page === "individual" && (
+
+        {isIndividual && active && (
           <div className="flex items-center gap-4">
-            {active === "Ativa" && (
-              <>
-                <div className="flex items-center rounded-md px-4 h-7 bg-green-400">
-                  <p className="text-green-950 text-xs">{active}</p>
-                </div>
-                <div className="flex items-center rounded-md px-4 h-7 bg-orange-300">
-                  <p className="text-orange-600 text-xs">{breed}</p>
-                </div>
-              </>
-            )}
-            {active === "Inativa" && (
-              <>
-                <div className="flex items-center rounded-md px-4 h-7 bg-gray-400">
-                  <p className="text-gray-700 text-xs">{active}</p>
-                </div>
-                <div className="flex items-center rounded-md px-4 h-7 bg-gray-300">
-                  <p className="text-gray-600 text-xs">{breed}</p>
-                </div>
-              </>
+            <div
+              className={cn(
+                "flex items-center rounded-md px-4 h-7",
+                isActive ? "bg-green-400" : "bg-gray-400",
+              )}
+            >
+              <p
+                className={cn(
+                  "text-xs",
+                  isActive ? "text-green-950" : "text-gray-700",
+                )}
+              >
+                {active}
+              </p>
+            </div>
+
+            {breed && (
+              <div
+                className={cn(
+                  "flex items-center rounded-md px-4 h-7",
+                  isActive ? "bg-orange-300" : "bg-gray-300",
+                )}
+              >
+                <p
+                  className={cn(
+                    "text-xs",
+                    isActive ? "text-orange-600" : "text-gray-600",
+                  )}
+                >
+                  {breed}
+                </p>
+              </div>
             )}
           </div>
         )}
       </h1>
 
-      <p className="text-sm text-text-secondary">{description}</p>
+      {description && (
+        <p className="text-sm text-text-secondary">{description}</p>
+      )}
     </header>
   );
 }

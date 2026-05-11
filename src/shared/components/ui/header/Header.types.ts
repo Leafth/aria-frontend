@@ -3,5 +3,6 @@ export interface HeaderProps {
   description: string;
   active?: string;
   breed?: string;
-  page?: string
+  page?: string;
+  className?: string;
 }
