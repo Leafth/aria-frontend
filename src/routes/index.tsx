@@ -10,6 +10,7 @@ import {
   ReproductiveSupportPage,
   FlockPage,
   IndividualRecordPage,
+  FullHistoryPage,
 } from "@/features";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -30,6 +31,10 @@ export function AppRoutes() {
             <Route
               path="/flock/individual/:id"
               element={<IndividualRecordPage />}
+            />
+            <Route
+              path="/flock/individual/full-history/:id"
+              element={<FullHistoryPage />}
             />
             <Route
               path="/reproductive-support"
