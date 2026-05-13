@@ -22,6 +22,7 @@ import { getPhaseLabel } from "../../utils/getPhaseLabel";
 import { getCowStatus } from "../../utils/cowStatus.utils";
 import { formatDate } from "@/utils/formatDate";
 import { recentHistoryMock } from "../../components/individual-record/recent-history/recent-history.mock";
+import { AlertInfo } from "../../components/alert-info/AlertInfo";
 
 export default function IndividualRecordPage() {
   const navigate = useNavigate();
@@ -62,6 +63,17 @@ export default function IndividualRecordPage() {
 
   return (
     <main className="flex flex-col gap-6 p-4 w-full">
+      {!cow.active && (
+        <AlertInfo>
+          <>
+            <p>Animal inativo desde 03/03/2025. Motivo: Venda</p>
+            <p>
+              Esta ficha está em modo somente leitura. O histórico completo está
+              preservado para consulta
+            </p>
+          </>
+        </AlertInfo>
+      )}
       <div>
         <p className="text-gray-500 text-sm">
           <span
