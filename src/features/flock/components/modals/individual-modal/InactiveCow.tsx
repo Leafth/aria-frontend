@@ -1,4 +1,3 @@
-import { AlertTriangle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,6 +7,7 @@ import { Modal } from "@/shared/components/ui/modal";
 import { ToggleField } from "@/shared/components/ui/toggle/ToggleField";
 import { TextareaField } from "@/shared/components/ui/textarea/Textarea";
 import { toast } from "sonner";
+import { AlertInfo } from "../../alert-info/AlertInfo";
 
 const inactiveCowSchema = z.object({
   reason: z.enum(["sale", "death"]),
@@ -109,14 +109,14 @@ export function InactiveCowModal({
           }
         />
 
-        <div className="flex items-center gap-3 rounded-lg bg-orange-100 text-orange-700 p-4">
-          <AlertTriangle size={22} />
-
-          <p className="text-sm">
-            Atenção: Tem certeza que deseja inativar o animal? Essa ação é
-            irreversível.
-          </p>
-        </div>
+        <AlertInfo>
+          <>
+            <p>
+              Atenção: Tem certeza que deseja inativar o animal? Essa ação é
+              irreversível.
+            </p>
+          </>
+        </AlertInfo>
       </div>
     </Modal>
   );
