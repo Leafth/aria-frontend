@@ -8,6 +8,7 @@ import { ToggleField } from "@/shared/components/ui/toggle/ToggleField";
 import { TextareaField } from "@/shared/components/ui/textarea/Textarea";
 import { toast } from "sonner";
 import { AlertInfo } from "../../alert-info/AlertInfo";
+import { AlertTriangle } from "lucide-react";
 
 const inactiveCowSchema = z.object({
   reason: z.enum(["sale", "death"]),
@@ -111,6 +112,7 @@ export function InactiveCowModal({
 
         <AlertInfo>
           <>
+            <AlertTriangle />
             <p>
               Atenção: Tem certeza que deseja inativar o animal? Essa ação é
               irreversível.

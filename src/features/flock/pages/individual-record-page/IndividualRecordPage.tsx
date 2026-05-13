@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AlertTriangle } from "lucide-react";
 
 import { useCowById } from "../../hooks/useCowById";
 import { useState } from "react";
@@ -66,11 +67,14 @@ export default function IndividualRecordPage() {
       {!cow.active && (
         <AlertInfo>
           <>
-            <p>Animal inativo desde 03/03/2025. Motivo: Venda</p>
-            <p>
-              Esta ficha está em modo somente leitura. O histórico completo está
-              preservado para consulta
-            </p>
+            <AlertTriangle />
+            <div>
+              <p>Animal inativo desde 03/03/2025. Motivo: Venda</p>
+              <p>
+                Esta ficha está em modo somente leitura. O histórico completo
+                está preservado para consulta
+              </p>
+            </div>
           </>
         </AlertInfo>
       )}
