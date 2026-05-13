@@ -1,7 +1,8 @@
-import { Calendar, Weight, ArrowRight } from "lucide-react";
+import { Calendar, Weight, ArrowRight, AlertCircle } from "lucide-react";
 
 import { type FlockCardProps } from "./flock-card.type";
 import { useNavigate } from "react-router-dom";
+import { AlertInfo } from "../alert-info/AlertInfo";
 
 export function FlockCard({
   id,
@@ -48,6 +49,22 @@ export function FlockCard({
           <span className="text-[10px] text-gray-500">Peso</span>
         </div>
       </div>
+
+      <div className="flex items-center justify-between text-xs font-medium text-emerald-600">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          <span>Cio Confirmado</span>
+        </div>
+
+        <span>03/02/2026</span>
+      </div>
+
+      <AlertInfo>
+        <>
+          <AlertCircle />
+          <p>Aguardando cobertura</p>
+        </>
+      </AlertInfo>
 
       <div className="flex justify-end items-center text-sm text-gray-600 mt-4 sm:mt-8">
         <button
