@@ -6,14 +6,14 @@ import { useState } from "react";
 export function CoverageForm() {
   const [origin, setOrigin] = useState("local");
   return (
-    <form className="flex flex-col gap-5 p-5">
+    <form className="flex flex-col gap-5">
       <div>
         <h1 className="font-medium text-xl">Registro de Cobertura</h1>
         <p className="text-gray-500 text-sm">
           Registrar Cobertura: Monta Natural ou IA
         </p>
       </div>
-      <InputField label="Número do Brinco*" placeholder="ex: 044" />
+       <InputField label="Data da Cobertura" type="date"/>
       <ToggleField
         label="Tipo de Cobertura"
         value={origin}
