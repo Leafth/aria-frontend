@@ -5,6 +5,7 @@ import { CoverageForm } from "../sections/CoverageForm";
 import { useState } from "react";
 import { PregnancyForm } from "../sections/PregnancyForm";
 import { Button } from "@/components/ui/button";
+import { CioCoverageForm } from "../sections/CioCoverageForm";
 
 export function IndividualForm() {
   const [state, setState] = useState("cio");
@@ -21,6 +22,7 @@ export function IndividualForm() {
         {state === "coverage" && <CoverageForm />}
         {state === "childbirth" && <ChildbirthForm />}
         {state === "pregnancy" && <PregnancyForm />}
+        {state === "cio_coverage" && <CioCoverageForm />}
       </div>
       <div>
         <Button
@@ -46,6 +48,12 @@ export function IndividualForm() {
           className="cursor-pointer opacity-30"
         >
           Prenhez
+        </Button>
+        <Button
+          onClick={() => setState("cio_coverage")}
+          className="cursor-pointer opacity-30"
+        >
+          Cio e cobertura
         </Button>
       </div>
     </article>
