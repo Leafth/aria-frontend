@@ -10,10 +10,6 @@ export function RegisterCoverage() {
     <div className="flex flex-col gap-3 w-86 mt-4">
       <h1 className="font-medium text-xl">Registro de Cobertura</h1>
 
-      <p className="text-gray-500 text-xs">
-        Registrar Cobertura: Monta Natural ou IA
-      </p>
-
       <InputField label="Data da Cobertura" type="date" />
 
       <ToggleField
