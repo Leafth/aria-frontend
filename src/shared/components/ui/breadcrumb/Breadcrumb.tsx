@@ -31,7 +31,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                   {item.label}
                 </button>
               ) : (
-                <span className={isLast ? "text-gray-800 font-medium" : ""}>
+                <span className={isLast ? "text-gray-800 font-semibold" : ""}>
                   {item.label}
                 </span>
               )}
