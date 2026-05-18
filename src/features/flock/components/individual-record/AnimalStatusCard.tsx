@@ -5,6 +5,7 @@ import { SelectField } from "@/shared/components/ui/select/SelectField";
 import type { CowPhase } from "../../types/cow.types";
 import { useState } from "react";
 import { ChangeCowPhaseModal } from "../modals/individual-modal/ChangePhaseConfirmation";
+import { formatDate } from "@/utils/formatDate";
 
 const PHASE_LABELS: Record<string, string> = {
   calf: "Bezerra",
@@ -22,7 +23,6 @@ const PHASE_OPTIONS: Record<string, { label: string; value: string }[]> = {
 };
 
 interface Props {
-  nextDate: string;
   weight: string;
   lastWeigh: string;
   phase: string;
@@ -31,10 +31,12 @@ interface Props {
   onChangePhase: (phase: "calf" | "heifer" | "young") => void;
   isChangingPhase?: boolean;
   isActive?: boolean;
+  statusMessage: string;
+  observation: string | null;
+  phaseSuggestion: string | null;
 }
 
 export function AnimalStatusCard({
-  nextDate,
   weight,
   lastWeigh,
   phase,
@@ -43,6 +45,9 @@ export function AnimalStatusCard({
   onChangePhase,
   isChangingPhase = false,
   isActive = true,
+  statusMessage,
+  observation,
+  phaseSuggestion,
 }: Props) {
   const [pendingPhase, setPendingPhase] = useState<
     "calf" | "heifer" | "young" | null
@@ -83,11 +88,9 @@ export function AnimalStatusCard({
             <p className="text-sm text-gray-500">
               Status {isActive && "Reprodutivo"}
             </p>
-            <p className="font-semibold text-gray-800">
-              {isActive ? "Aguardar Cio" : "Morte ou Venda"}
-            </p>
+            <p className="font-semibold text-gray-800">{statusMessage}</p>
             <p className="text-xs text-gray-400 mt-1">
-              Data Prevista: {nextDate}
+              {observation}
             </p>
           </div>
         </div>
@@ -103,7 +106,7 @@ export function AnimalStatusCard({
             <p className="text-sm text-gray-500">Peso Atual</p>
             <p className="font-semibold text-gray-800">{weight}</p>
             <p className="text-xs text-gray-400 mt-1">
-              Última Pesagem: {lastWeigh}
+              Última Pesagem: {formatDate(lastWeigh)}
             </p>
 
             {isActive && (
@@ -129,7 +132,9 @@ export function AnimalStatusCard({
           <div className="flex-1 min-w-0">
             <p className="text-sm text-gray-500">Fase</p>
             <p className="font-semibold text-gray-800">{phase}</p>
-
+            <p className="text-xs text-gray-400 mt-1">
+              {phaseSuggestion}
+            </p>
             {canChangePhase && isActive && (
               <div className="mt-3 w-full">
                 <SelectField
