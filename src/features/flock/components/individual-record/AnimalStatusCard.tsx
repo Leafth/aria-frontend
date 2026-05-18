@@ -88,10 +88,13 @@ export function AnimalStatusCard({
             <p className="text-sm text-gray-500">
               Status {isActive && "Reprodutivo"}
             </p>
-            <p className="font-semibold text-gray-800">{statusMessage}</p>
-            <p className="text-xs text-gray-400 mt-1">
-              {observation}
-            </p>
+            {!isActive ? <p> ---- </p> : (
+              <>
+                <p className="font-semibold text-gray-800">{statusMessage}</p>
+                <p className="text-xs text-gray-400 mt-1">{observation}</p>
+              </>
+            )}
+            
           </div>
         </div>
 
@@ -132,9 +135,7 @@ export function AnimalStatusCard({
           <div className="flex-1 min-w-0">
             <p className="text-sm text-gray-500">Fase</p>
             <p className="font-semibold text-gray-800">{phase}</p>
-            <p className="text-xs text-gray-400 mt-1">
-              {phaseSuggestion}
-            </p>
+            <p className="text-xs text-gray-400 mt-1">{phaseSuggestion}</p>
             {canChangePhase && isActive && (
               <div className="mt-3 w-full">
                 <SelectField
