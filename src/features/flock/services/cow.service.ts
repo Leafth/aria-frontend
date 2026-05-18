@@ -9,7 +9,13 @@ import type {
   InactivateCowDTO,
   RegisterCowWeightDTO,
   ChangeCowPhaseDTO,
+  RegisterHeatDetectionDTO,
+  RegisterHeatDetectionWithInseminationDTO,
 } from "../types/cow.types";
+
+type RegisterCowEventDTO =
+  | RegisterHeatDetectionDTO
+  | RegisterHeatDetectionWithInseminationDTO;
 
 export async function getCows(params?: CowFilters) {
   const response = await api.get<PaginatedCowsResponse>("/cows", {
@@ -82,6 +88,15 @@ export async function changeCowPhase(id: string, data: ChangeCowPhaseDTO) {
       },
     },
   });
+
+  return response.data;
+}
+
+export async function registerCowEvent(
+  cowId: string,
+  data: RegisterCowEventDTO,
+) {
+  const response = await api.post(`/cows/${cowId}/events`, data);
 
   return response.data;
 }
