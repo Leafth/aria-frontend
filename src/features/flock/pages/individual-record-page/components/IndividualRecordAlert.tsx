@@ -1,9 +1,9 @@
 import { AlertTriangle } from "lucide-react";
 import { AlertInfo } from "../../../components/alert-info/AlertInfo";
-import type { Cow } from "../../../types/cow.types";
+import type { CowDetails } from "../../../types/cow.types";
 
 interface IndividualRecordAlertProps {
-  cow: Cow;
+  cow: CowDetails;
 }
 
 export function IndividualRecordAlert({ cow }: IndividualRecordAlertProps) {

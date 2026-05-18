@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/formatDate";
-import type { Cow } from "../../../types/cow.types";
+import type { CowDetails } from "../../../types/cow.types";
 import { getCowStatus } from "../../../utils/cowStatus.utils";
 import { Button, Header } from "@/shared";
 import {
@@ -11,7 +11,7 @@ import {
 import { Ban, Pen, SquarePen } from "lucide-react";
 
 interface IndividualRecordHeaderProps {
-  cow: Cow;
+  cow: CowDetails;
   onEdit: () => void;
   onInactive: () => void;
 }
