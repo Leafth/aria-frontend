@@ -44,7 +44,7 @@ export function IndividualRecordMainSection({
       <div className="flex flex-col gap-5 xl:flex-row">
         {cow.active && (
           <div className="w-full xl:flex-1">
-            <IndividualForm />
+            <IndividualForm cowId={cow.id}/>
           </div>
         )}
 
