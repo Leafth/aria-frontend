@@ -6,7 +6,11 @@ import { useState } from "react";
 import { PregnancyForm } from "../sections/PregnancyForm";
 import { Button } from "@/components/ui/button";
 
-export function IndividualForm() {
+interface IndividualFormProps {
+  cowId: string;
+}
+
+export function IndividualForm({cowId}: IndividualFormProps) {
   const [state, setState] = useState("cio");
 
   return (
@@ -17,7 +21,7 @@ export function IndividualForm() {
       </header>
 
       <div className="p-4 sm:p-6">
-        {state === "cio" && <CioForm />}
+        {state === "cio" && <CioForm cowId={cowId}/>}
         {state === "coverage" && <CoverageForm />}
         {state === "childbirth" && <ChildbirthForm />}
         {state === "pregnancy" && <PregnancyForm />}
