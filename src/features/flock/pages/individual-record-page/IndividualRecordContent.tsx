@@ -1,4 +1,4 @@
-import type { Cow } from "../../types/cow.types";
+import type { CowDetails } from "../../types/cow.types";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { EditCowModal } from "../../components/modals/individual-modal/EditCowModal";
@@ -11,7 +11,7 @@ import { Breadcrumb } from "@/shared/components/ui/breadcrumb/Breadcrumb";
 import { IndividualRecordAlert } from "./components/IndividualRecordAlert";
 
 interface IndividualRecordContentProps {
-  cow: Cow;
+  cow: CowDetails;
 }
 
 export function IndividualRecordContent({ cow }: IndividualRecordContentProps) {
