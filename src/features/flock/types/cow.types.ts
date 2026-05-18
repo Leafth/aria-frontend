@@ -5,6 +5,22 @@ export type CowPhase =
   | "primiparous"
   | "multiparous";
 
+export type CowReproductiveStatus =
+  | "open"
+  | "in_heat"
+  | "inseminated"
+  | "pregnant"
+  | "calved";
+
+export type RecommendedNextAction =
+  | "heat_detection"
+  | "insemination"
+  | "pregnancy_check"
+  | "calving"
+  | "weighing"
+  | "phase_change"
+  | null;
+
 export type InactivationReason = "sale" | "death";
 
 export interface ChangeCowPhaseDTO {
@@ -22,6 +38,39 @@ export interface Cow {
   active: boolean;
   created_at: string;
   updated_at: string;
+}
+export interface CowDetails {
+  id: string;
+  name: string;
+  ear_tag: string;
+  birth_date: string;
+  breed: string;
+  active: boolean;
+  insights: CowInsights;
+}
+
+export interface CowInsights {
+  reproductive_status: ReproductiveStatusInsight;
+  weight_insight: WeightInsight;
+  phase_insight: PhaseInsight;
+  recommended_next_action: RecommendedNextAction;
+}
+
+export interface ReproductiveStatusInsight {
+  status: CowReproductiveStatus;
+  message: string;
+  observation: string | null;
+  alerts: string[];
+}
+
+export interface WeightInsight {
+  current_weight: string | null;
+  last_weighing_at: string | null;
+}
+
+export interface PhaseInsight {
+  current_phase: CowPhase;
+  message: string | null;
 }
 
 export interface CreateCowDTO {
@@ -83,7 +132,7 @@ export type EventType =
   | "heat_detection_with_insemination"
   | "insemination";
 
-export type InseminationMethod = "natural_mount" | "artificial_insemination";
+export type InseminationMethod = "natural_mating" | "artificial_insemination";
 
 export interface RegisterHeatDetectionDTO {
   event: {
