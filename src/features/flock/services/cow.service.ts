@@ -11,6 +11,7 @@ import type {
   ChangeCowPhaseDTO,
   RegisterHeatDetectionDTO,
   RegisterHeatDetectionWithInseminationDTO,
+  CowDetails,
 } from "../types/cow.types";
 
 type RegisterCowEventDTO =
@@ -26,7 +27,7 @@ export async function getCows(params?: CowFilters) {
 }
 
 export async function getCowById(id: string) {
-  const response = await api.get<Cow>(`/cows/${id}`);
+  const response = await api.get<CowDetails>(`/cows/${id}`);
 
   return response.data;
 }
