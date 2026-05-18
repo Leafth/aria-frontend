@@ -77,3 +77,33 @@ export interface PaginatedCowsResponse {
     total_count: number;
   };
 }
+
+export type EventType =
+  | "heat_detection"
+  | "heat_detection_with_insemination"
+  | "insemination";
+
+export type InseminationMethod = "natural_mount" | "artificial_insemination";
+
+export interface RegisterHeatDetectionDTO {
+  event: {
+    event_type: "heat_detection";
+    occurred_at: string;
+    data?: {
+      observation?: string;
+    };
+  };
+}
+
+export interface RegisterHeatDetectionWithInseminationDTO {
+  event: {
+    event_type: "heat_detection_with_insemination";
+    heat_occurred_at: string;
+    insemination_occurred_at: string;
+    data: {
+      method: InseminationMethod;
+      bull_id: string;
+      heat_observation?: string;
+    };
+  };
+}
