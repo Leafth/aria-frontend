@@ -27,6 +27,8 @@ export interface ChangeCowPhaseDTO {
   phase: "calf" | "heifer" | "young";
 }
 
+export type AlertLevel = "warning" | "danger";
+
 export interface Cow {
   id: string;
   name: string;
@@ -56,11 +58,17 @@ export interface CowInsights {
   recommended_next_action: RecommendedNextAction;
 }
 
+export interface ReproductiveStatusAlert {
+  level: AlertLevel;
+  code: string;
+  message: string;
+}
+
 export interface ReproductiveStatusInsight {
   status: CowReproductiveStatus;
   message: string;
   observation: string | null;
-  alerts: string[];
+  alerts: ReproductiveStatusAlert;
 }
 
 export interface WeightInsight {
