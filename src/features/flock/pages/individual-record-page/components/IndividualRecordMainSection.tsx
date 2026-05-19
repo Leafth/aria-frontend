@@ -33,6 +33,7 @@ export function IndividualRecordMainSection({
         observation={cow.insights.reproductive_status.observation}
         phaseSuggestion={cow.insights.phase_insight.message}
         isChangingPhase={isChangingPhase}
+        alert={cow.insights.reproductive_status.alerts}
         onChangePhase={async (phase) => {
           await changeCowPhase({
             id: cow.id,
