@@ -130,7 +130,7 @@ export function AnimalStatusCard({
             <p className="text-sm text-gray-500">Peso Atual</p>
             <p className="font-semibold text-gray-800">{weight}</p>
             <p className="text-xs text-gray-400 mt-1">
-              Última Pesagem: {formatDate(lastWeigh)}
+              Última Pesagem: {lastWeigh !== "-" ? formatDate(lastWeigh) : "-"}
             </p>
 
             {isActive && (
