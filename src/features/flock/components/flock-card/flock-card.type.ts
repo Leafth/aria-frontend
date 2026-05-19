@@ -1,3 +1,5 @@
+import type { CowListAlert } from "../../types/cow.types";
+
 export interface FlockCardProps {
   id: string;
   name: string;
@@ -7,4 +9,10 @@ export interface FlockCardProps {
   age: string;
   weight: string;
   colorCard: string;
+
+  active: boolean;
+  statusMessage?: string;
+  statusDate?: string | null;
+  alert?: CowListAlert | null;
+  inactiveReason?: string;
 }
