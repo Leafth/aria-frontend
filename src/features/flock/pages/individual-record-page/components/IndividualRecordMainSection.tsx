@@ -52,7 +52,10 @@ export function IndividualRecordMainSection({
       <div className="flex flex-col gap-5 sm:flex-row">
         {cow.active && (
           <div className="w-full xl:flex-1">
-            <IndividualForm cowId={cow.id} />
+            <IndividualForm
+              cowId={cow.id}
+              recommendedNextAction={cow.insights.recommended_next_action}
+            />
           </div>
         )}
 
