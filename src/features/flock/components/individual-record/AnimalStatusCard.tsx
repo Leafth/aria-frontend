@@ -89,18 +89,16 @@ export function AnimalStatusCard({
 
           <div className="min-w-0">
             <p className="text-sm text-gray-500">
-              {alert?.level
-                ? "Alerta"
-                : `Status ${isActive ? "Reprodutivo" : ""}`}
+             Status {`${isActive ? "Reprodutivo" : ""}`}
             </p>
 
             {alert?.level ? (
-              <>
-                <p className={`font-semibold ${getAlertClasses(alert.level)}`}>
-                  {alert.level} <AlertTriangle size={16} />
-                </p>
-                <p className="text-xs text-gray-400 mt-1">{alert.message}</p>
-              </>
+              <p
+                className={`font-semibold flex items-center gap-1 ${getAlertClasses(alert.level)}`}
+              >
+                {alert.message}
+                <AlertTriangle size={16} />
+              </p>
             ) : (
               <>
                 <p className="font-semibold text-gray-800">{statusMessage}</p>
