@@ -2,16 +2,18 @@ import { Sparkles } from "lucide-react";
 import { CioForm } from "../sections/CioForm";
 import { ChildbirthForm } from "../sections/ChildbirthForm";
 import { CoverageForm } from "../sections/CoverageForm";
-import { useState } from "react";
 import { PregnancyForm } from "../sections/PregnancyForm";
-import { Button } from "@/components/ui/button";
+import type { RecommendedNextAction } from "@/features/flock/types/cow.types";
 
 interface IndividualFormProps {
   cowId: string;
+  recommendedNextAction: RecommendedNextAction;
 }
 
-export function IndividualForm({cowId}: IndividualFormProps) {
-  const [state, setState] = useState("cio");
+export function IndividualForm({
+  cowId,
+  recommendedNextAction,
+}: IndividualFormProps) {
 
   return (
     <article className="bg-white w-full rounded-2xl overflow-hidden">
@@ -21,36 +23,27 @@ export function IndividualForm({cowId}: IndividualFormProps) {
       </header>
 
       <div className="p-4 sm:p-6">
-        {state === "cio" && <CioForm cowId={cowId}/>}
-        {state === "coverage" && <CoverageForm />}
-        {state === "childbirth" && <ChildbirthForm />}
-        {state === "pregnancy" && <PregnancyForm />}
-      </div>
-      <div>
-        <Button
-          onClick={() => setState("cio")}
-          className="cursor-pointer opacity-30"
-        >
-          Cio
-        </Button>
-        <Button
-          onClick={() => setState("coverage")}
-          className="cursor-pointer opacity-30"
-        >
-          Cobertura
-        </Button>
-        <Button
-          onClick={() => setState("childbirth")}
-          className="cursor-pointer opacity-30"
-        >
-          Parto
-        </Button>
-        <Button
-          onClick={() => setState("pregnancy")}
-          className="cursor-pointer opacity-30"
-        >
-          Prenhez
-        </Button>
+        {recommendedNextAction === "heat_detection" && (
+          <CioForm cowId={cowId} />
+        )}
+
+        {recommendedNextAction === "insemination" && (
+          <CoverageForm cowId={cowId}/>
+        )}
+
+        {recommendedNextAction === "pregnancy_check" && (
+          <PregnancyForm />
+        )}
+
+        {recommendedNextAction === "calving" && (
+          <ChildbirthForm />
+        )}
+
+        {!recommendedNextAction && (
+          <p className="text-sm text-gray-500">
+            Nenhuma ação recomendada no momento.
+          </p>
+        )}
       </div>
     </article>
   );
