@@ -32,7 +32,7 @@ export function IndividualForm({
         )}
 
         {recommendedNextAction === "pregnancy_check" && (
-          <PregnancyForm />
+          <PregnancyForm cowId={cowId}/>
         )}
 
         {recommendedNextAction === "calving" && (
