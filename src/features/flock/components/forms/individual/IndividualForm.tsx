@@ -36,7 +36,7 @@ export function IndividualForm({
         )}
 
         {recommendedNextAction === "calving" && (
-          <ChildbirthForm />
+          <ChildbirthForm cowId={cowId}/>
         )}
 
         {!recommendedNextAction && (
