@@ -3,14 +3,15 @@ export type CowPhase =
   | "heifer"
   | "young"
   | "primiparous"
-  | "multiparous";
+  | "multiparous"
 
 export type CowReproductiveStatus =
   | "open"
   | "in_heat"
   | "inseminated"
   | "pregnant"
-  | "calved";
+  | "calved"
+  | "postpartum";
 
 export type RecommendedNextAction =
   | "heat_detection"
@@ -27,7 +28,7 @@ export interface ChangeCowPhaseDTO {
   phase: "calf" | "heifer" | "young";
 }
 
-export type AlertLevel = "warning" | "danger";
+export type AlertLevel = "info" | "warning" | "danger";
 
 export type PregnancyResult = "positive" | "negative";
 
@@ -37,11 +38,39 @@ export interface Cow {
   ear_tag: string;
   birth_date: string;
   breed: string;
-  weight: number;
+  weight: string;
   phase: CowPhase;
+  reproductive_status: CowReproductiveStatus;
   active: boolean;
-  created_at: string;
-  updated_at: string;
+  insights?: CowListInsights;
+  inactive_status?: CowInactiveStatus;
+}
+
+export interface CowListAlert {
+  level: AlertLevel;
+  code: string;
+  message: string;
+}
+
+export interface CowListStatusInsight {
+  code: CowReproductiveStatus;
+  message: string;
+  occurred_at: string | null;
+}
+
+export interface CowListInsights {
+  status?: CowListStatusInsight;
+  alerts?: CowListAlert[];
+}
+
+export interface CowInactiveStatus {
+  inactivated_at: string;
+  inactivated_reason: InactivationReason;
+}
+
+export interface CowInactiveStatus {
+  inactivated_at: string;
+  inactivated_reason: InactivationReason;
 }
 export interface CowDetails {
   id: string;
@@ -51,6 +80,7 @@ export interface CowDetails {
   breed: string;
   active: boolean;
   insights: CowInsights;
+  inactive_status?: CowInactiveStatus | null;
 }
 
 export interface CowInsights {
