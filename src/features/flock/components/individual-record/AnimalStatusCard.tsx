@@ -1,11 +1,12 @@
 import { Button } from "@/shared";
-import { Weight, Sprout, CirclePlus } from "lucide-react";
+import { Weight, Sprout, CirclePlus, AlertTriangle } from "lucide-react";
 import iconCow from "@/assets/icons/iconCow.svg";
 import { SelectField } from "@/shared/components/ui/select/SelectField";
-import type { CowPhase } from "../../types/cow.types";
+import type { CowPhase, ReproductiveStatusAlert } from "../../types/cow.types";
 import { useState } from "react";
 import { ChangeCowPhaseModal } from "../modals/individual-modal/ChangePhaseConfirmation";
 import { formatDate } from "@/utils/formatDate";
+import { getAlertClasses } from "../../utils/getAlertClass";
 
 const PHASE_LABELS: Record<string, string> = {
   calf: "Bezerra",
@@ -34,6 +35,7 @@ interface Props {
   statusMessage: string;
   observation: string | null;
   phaseSuggestion: string | null;
+  alert: ReproductiveStatusAlert | null;
 }
 
 export function AnimalStatusCard({
@@ -48,6 +50,7 @@ export function AnimalStatusCard({
   statusMessage,
   observation,
   phaseSuggestion,
+  alert,
 }: Props) {
   const [pendingPhase, setPendingPhase] = useState<
     "calf" | "heifer" | "young" | null
@@ -86,15 +89,27 @@ export function AnimalStatusCard({
 
           <div className="min-w-0">
             <p className="text-sm text-gray-500">
-              Status {isActive && "Reprodutivo"}
+              {alert?.level
+                ? "Alerta"
+                : `Status ${isActive ? "Reprodutivo" : ""}`}
             </p>
-            {!isActive ? <p> ---- </p> : (
+
+            {alert?.level ? (
+              <>
+                <p className={`font-semibold ${getAlertClasses(alert.level)}`}>
+                  {alert.level} <AlertTriangle size={16} />
+                </p>
+                <p className="text-xs text-gray-400 mt-1">{alert.message}</p>
+              </>
+            ) : (
               <>
                 <p className="font-semibold text-gray-800">{statusMessage}</p>
-                <p className="text-xs text-gray-400 mt-1">{observation}</p>
+
+                {observation && (
+                  <p className="text-xs text-gray-400 mt-1">{observation}</p>
+                )}
               </>
             )}
-            
           </div>
         </div>
 
