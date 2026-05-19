@@ -29,6 +29,8 @@ export interface ChangeCowPhaseDTO {
 
 export type AlertLevel = "warning" | "danger";
 
+export type PregnancyResult = "positive" | "negative";
+
 export interface Cow {
   id: string;
   name: string;
@@ -78,6 +80,16 @@ export interface RegisterInseminationDTO {
     data: {
       method: InseminationMethod;
       bull_id: string;
+    };
+  };
+}
+
+export interface RegisterPregnancyCheckDTO {
+  event: {
+    event_type: "pregnancy_check";
+    occurred_at: string;
+    data: {
+      result: PregnancyResult;
     };
   };
 }
@@ -148,7 +160,8 @@ export interface PaginatedCowsResponse {
 export type EventType =
   | "heat_detection"
   | "heat_detection_with_insemination"
-  | "insemination";
+  | "insemination"
+  | "pregnancy_check";
 
 export type InseminationMethod = "natural_mating" | "artificial_insemination";
 
