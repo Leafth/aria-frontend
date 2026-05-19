@@ -71,6 +71,16 @@ export interface ReproductiveStatusInsight {
   alerts: ReproductiveStatusAlert[];
 }
 
+export interface RegisterInseminationDTO {
+  event: {
+    event_type: "insemination";
+    occurred_at: string;
+    data: {
+      method: InseminationMethod;
+      bull_id: string;
+    };
+  };
+}
 export interface WeightInsight {
   current_weight: string | null;
   last_weighing_at: string | null;
