@@ -1,4 +1,4 @@
-import { Calendar, Weight, ArrowRight, AlertCircle } from "lucide-react";
+import { Calendar, Weight, ArrowRight, AlertCircle, Info  } from "lucide-react";
 
 import { type FlockCardProps } from "./flock-card.type";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +16,13 @@ export function FlockCard({
   active,
   statusMessage,
   statusDate,
-  alert,
+  alerts,
   inactiveReason,
 }: FlockCardProps) {
   const navigate = useNavigate();
   return (
     <div
-      className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-full sm:w-72"
+      className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-full sm:w-72 h-full"
       style={{ borderTopColor: colorCard }}
     >
       <div className="flex justify-between items-start gap-3">
@@ -74,16 +74,23 @@ export function FlockCard({
         </div>
       )}
 
-      {alert && (
-        <AlertInfo level={alert.level}>
-          <>
-            <AlertCircle size={20} />
-            <p>{alert.message}</p>
-          </>
-        </AlertInfo>
+      {alerts.length > 0 && (
+        <div className="flex flex-col gap-2">
+          {alerts.map((alert) => (
+            <AlertInfo
+              key={`${alert.code}-${alert.message}`}
+              level={alert.level}
+            >
+              <>
+                {alert.level === "info" ? <Info size={20} /> : <AlertCircle size={20} />}
+                <p>{alert.message}</p>
+              </>
+            </AlertInfo>
+          ))}
+        </div>
       )}
 
-      <div className="flex justify-end items-center text-sm text-gray-600 mt-4 sm:mt-8">
+      <div className="mt-auto flex justify-end items-center text-sm text-gray-600 pt-4">
         <button
           type="button"
           className="flex items-center gap-1 cursor-pointer hover:text-black"
