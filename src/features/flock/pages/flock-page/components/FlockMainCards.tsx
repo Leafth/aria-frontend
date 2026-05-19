@@ -24,7 +24,7 @@ export function FlockMainCards({ cards }: FlockMainCardsProps) {
           active={flock.active}
           statusMessage={flock.statusMessage}
           statusDate={flock.statusDate}
-          alert={flock.alert}
+          alerts={flock.alerts}
           inactiveReason={flock.inactiveReason}
         />
       ))}
