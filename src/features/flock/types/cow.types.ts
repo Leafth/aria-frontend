@@ -68,7 +68,7 @@ export interface ReproductiveStatusInsight {
   status: CowReproductiveStatus;
   message: string;
   observation: string | null;
-  alerts: ReproductiveStatusAlert;
+  alerts: ReproductiveStatusAlert[];
 }
 
 export interface WeightInsight {

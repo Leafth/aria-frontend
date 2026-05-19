@@ -21,6 +21,11 @@ export function IndividualRecordMainSection({
   const { mutateAsync: changeCowPhase, isPending: isChangingPhase } =
     useChangeCowPhase();
 
+  const reproductiveAlert =
+    cow.insights.reproductive_status.alerts.length > 0
+      ? cow.insights.reproductive_status.alerts[0]
+      : null;
+
   return (
     <section className="flex flex-col gap-5">
       <AnimalStatusCard
@@ -33,7 +38,7 @@ export function IndividualRecordMainSection({
         observation={cow.insights.reproductive_status.observation}
         phaseSuggestion={cow.insights.phase_insight.message}
         isChangingPhase={isChangingPhase}
-        alert={cow.insights.reproductive_status.alerts}
+        alert={reproductiveAlert}
         onChangePhase={async (phase) => {
           await changeCowPhase({
             id: cow.id,
