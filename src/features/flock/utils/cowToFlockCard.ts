@@ -3,7 +3,22 @@ import { calculateAge } from "./calculateAge";
 import { getPhaseColor } from "./getPhaseColor";
 import { getPhaseLabel } from "./getPhaseLabel";
 
+function formatWeight(weight: string | number) {
+  return `${Number(weight).toFixed(0)}kg`;
+}
+
+function getInactiveReasonLabel(reason?: string) {
+  const labels: Record<string, string> = {
+    death: "Morte",
+    sale: "Venda",
+  };
+
+  return reason ? (labels[reason] ?? reason) : undefined;
+}
+
 export function cowToFlockCard(cow: Cow) {
+  const firstAlert = cow.insights?.alerts?.[0] ?? null;
+
   return {
     id: cow.id,
     name: cow.name,
@@ -11,7 +26,22 @@ export function cowToFlockCard(cow: Cow) {
     breed: cow.breed,
     phase: cow.active ? getPhaseLabel(cow.phase) : "Inativa",
     age: calculateAge(cow.birth_date),
-    weight: `${cow.weight}kg`,
+    weight: formatWeight(cow.weight),
     colorCard: getPhaseColor(cow.phase, cow.active),
+    active: cow.active,
+
+    statusMessage: cow.active
+      ? cow.insights?.status?.message
+      : "Animal inativo",
+
+    statusDate: cow.active
+      ? cow.insights?.status?.occurred_at
+      : cow.inactive_status?.inactivated_at,
+
+    alert: firstAlert,
+
+    inactiveReason: getInactiveReasonLabel(
+      cow.inactive_status?.inactivated_reason,
+    ),
   };
 }
