@@ -21,6 +21,11 @@ export function FlockMainCards({ cards }: FlockMainCardsProps) {
           age={flock.age}
           weight={flock.weight}
           colorCard={flock.colorCard}
+          active={flock.active}
+          statusMessage={flock.statusMessage}
+          statusDate={flock.statusDate}
+          alert={flock.alert}
+          inactiveReason={flock.inactiveReason}
         />
       ))}
     </div>
