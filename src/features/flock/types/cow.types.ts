@@ -93,6 +93,17 @@ export interface RegisterPregnancyCheckDTO {
     };
   };
 }
+
+export interface RegisterCalvingDTO {
+  event: {
+    event_type: "calving";
+    occurred_at: string;
+    data?: {
+      observation?: string;
+    };
+  };
+}
+
 export interface WeightInsight {
   current_weight: string | null;
   last_weighing_at: string | null;
@@ -161,7 +172,8 @@ export type EventType =
   | "heat_detection"
   | "heat_detection_with_insemination"
   | "insemination"
-  | "pregnancy_check";
+  | "pregnancy_check"
+  | "calving";
 
 export type InseminationMethod = "natural_mating" | "artificial_insemination";
 
