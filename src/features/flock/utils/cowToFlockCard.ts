@@ -17,8 +17,6 @@ function getInactiveReasonLabel(reason?: string) {
 }
 
 export function cowToFlockCard(cow: Cow) {
-  const firstAlert = cow.insights?.alerts?.[0] ?? null;
-
   return {
     id: cow.id,
     name: cow.name,
@@ -38,7 +36,7 @@ export function cowToFlockCard(cow: Cow) {
       ? cow.insights?.status?.occurred_at
       : cow.inactive_status?.inactivated_at,
 
-    alert: firstAlert,
+    alerts: cow.insights?.alerts ?? [],
 
     inactiveReason: getInactiveReasonLabel(
       cow.inactive_status?.inactivated_reason,
