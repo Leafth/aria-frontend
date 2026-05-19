@@ -13,9 +13,13 @@ export function FlockCard({
   age,
   weight,
   colorCard,
+  active,
+  statusMessage,
+  statusDate,
+  alert,
+  inactiveReason,
 }: FlockCardProps) {
   const navigate = useNavigate();
-
   return (
     <div
       className="bg-white rounded-2xl border-t-8 shadow-md p-4 flex flex-col gap-4 w-full sm:w-72"
@@ -50,21 +54,34 @@ export function FlockCard({
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-xs font-medium text-emerald-600">
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          <span>Cio Confirmado</span>
+      {active ? (
+        <div className="flex items-center justify-between text-xs font-medium text-emerald-600">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span>{statusMessage ?? "Status não informado"}</span>
+          </div>
+
+          {statusDate && <span>{statusDate}</span>}
         </div>
+      ) : (
+        <div className="flex items-center justify-between text-xs font-medium text-gray-500">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-gray-500" />
+            <span>Inativa{inactiveReason ? ` por ${inactiveReason}` : ""}</span>
+          </div>
 
-        <span>03/02/2026</span>
-      </div>
+          {statusDate && <span>{statusDate}</span>}
+        </div>
+      )}
 
-      <AlertInfo>
-        <>
-          <AlertCircle />
-          <p>Aguardando cobertura</p>
-        </>
-      </AlertInfo>
+      {alert && (
+        <AlertInfo level={alert.level}>
+          <>
+            <AlertCircle size={20} />
+            <p>{alert.message}</p>
+          </>
+        </AlertInfo>
+      )}
 
       <div className="flex justify-end items-center text-sm text-gray-600 mt-4 sm:mt-8">
         <button
