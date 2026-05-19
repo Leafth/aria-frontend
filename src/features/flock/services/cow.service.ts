@@ -13,12 +13,14 @@ import type {
   RegisterHeatDetectionWithInseminationDTO,
   CowDetails,
   RegisterInseminationDTO,
+  RegisterPregnancyCheckDTO,
 } from "../types/cow.types";
 
 type RegisterCowEventDTO =
   | RegisterHeatDetectionDTO
   | RegisterHeatDetectionWithInseminationDTO
-  | RegisterInseminationDTO;
+  | RegisterInseminationDTO
+  | RegisterPregnancyCheckDTO;
 
 export async function getCows(params?: CowFilters) {
   const response = await api.get<PaginatedCowsResponse>("/cows", {
