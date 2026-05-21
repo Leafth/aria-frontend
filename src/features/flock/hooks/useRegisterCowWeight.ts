@@ -5,6 +5,8 @@ import { registerCowWeight } from "../services/cow.service";
 import type { RegisterCowWeightDTO } from "../types/cow.types";
 import type { EditWeightFormData } from "../schemas/editWeight.schema";
 import { toast } from "sonner";
+import { formatDateTimeLocalToBackend } from "@/utils/formatDateTimeLocalToBackend";
+import { getCurrentDateTimeLocal } from "@/utils/dateTime";
 
 interface RegisterCowWeightParams {
   id: string;
@@ -53,11 +55,14 @@ export function useRegisterCowWeightForm({
       id,
       data: {
         weight: Number(data.weight),
-        occurred_at: data.occurred_at,
+        occurred_at: formatDateTimeLocalToBackend(data.occurred_at),
       },
     });
 
-    reset();
+    reset({
+      weight: "",
+      occurred_at: getCurrentDateTimeLocal(),
+    });
     onClose();
     toast.success("Novo peso registrado com sucesso");
   };
