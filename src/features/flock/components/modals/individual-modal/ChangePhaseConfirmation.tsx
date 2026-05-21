@@ -37,7 +37,7 @@ export function ChangeCowPhaseModal({
     >
       <div className="flex flex-col justify-center items-center gap-6 my-6">
         <p className="text-center text-gray-700">
-          Tem certeza que mudar a fase da vaca?
+          Tem certeza que quer mudar a fase da vaca?
         </p>
 
         <div className="flex items-center gap-4">
