@@ -1,21 +1,22 @@
 import { z } from "zod";
-import { getTodayDateString } from "@/utils/getTodayDateString";
+
+function isFutureDateTime(value: string) {
+  if (!value) return false;
+
+  const selectedDate = new Date(value);
+  const now = new Date();
+
+  return selectedDate.getTime() > now.getTime();
+}
 
 export const editWeightSchema = z.object({
-  weight: z
-    .string()
-    .min(1, "Peso é obrigatório")
-    .refine((value) => !isNaN(Number(value)), {
-      message: "Peso deve ser um número",
-    })
-    .refine((value) => Number(value) > 0, {
-      message: "Peso deve ser maior que zero",
-    }),
+  weight: z.string().min(1, "Peso é obrigatório"),
+
   occurred_at: z
     .string()
-    .min(1, "Data é obrigatória")
-    .refine((value) => value <= getTodayDateString(), {
-      message: "A data da pesagem não pode ser futura",
+    .min(1, "Data e horário da pesagem são obrigatórios")
+    .refine((value) => !isFutureDateTime(value), {
+      message: "A data e horário da pesagem não podem ser futuros",
     }),
 });
 
