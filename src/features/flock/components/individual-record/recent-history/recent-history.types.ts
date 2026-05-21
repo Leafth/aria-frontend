@@ -1,4 +1,11 @@
-export type HistoryType = "Peso" | "Cio" | "Cobertura" | "Prenhez" | "Parto";
+export type HistoryType =
+  | "Peso"
+  | "Cio"
+  | "Cobertura"
+  | "Prenhez"
+  | "Parto"
+  | "Inativação"
+  | "Fase";
 
 export interface HistoryItem {
   title: string;
