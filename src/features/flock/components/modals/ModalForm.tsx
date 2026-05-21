@@ -13,6 +13,7 @@ import {
 import type { ModalFormProps } from "./types/modal-form.types";
 import { useCreateCowForm } from "../../hooks/useCreateCow";
 import { maskEarTag, maskWeight } from "@/utils/masks";
+import { getCurrentDateLocal } from "@/utils/dateTime";
 
 export function ModalForm({ open, onClose }: ModalFormProps) {
   const {
@@ -28,7 +29,7 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
     defaultValues: {
       name: "",
       code: "",
-      birthDate: "",
+      birthDate: getCurrentDateLocal(),
       breed: "",
       initialWeight: "",
       phase: "",
