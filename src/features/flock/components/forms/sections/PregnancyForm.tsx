@@ -59,7 +59,7 @@ export function PregnancyForm({ cowId }: PregnancyFormProps) {
       <div>
         <h1 className="font-medium text-xl">Confirmar Prenhez</h1>
         <p className="text-gray-500 text-sm">
-          Registrar resultado de prenhez via ultrassom.
+          Registrar resultado de prenhez.
         </p>
       </div>
 
