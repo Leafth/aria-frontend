@@ -2,11 +2,11 @@ import { Breadcrumb } from "@/shared/components/ui/breadcrumb/Breadcrumb";
 import { useNavigate } from "react-router-dom";
 import type { CowDetails } from "../../types/cow.types";
 import { FullHistoryMainSection } from "./components/FullHistoryMainSection";
-import { useCowHistory } from "../../hooks/useCowHistory";
 import { cowHistoryToHistoryItem } from "../../sections/cow-history-item";
 import { Header } from "@/shared";
 import { formatDate } from "@/utils/formatDate";
 import { getCowStatus } from "../../utils/cowStatus.utils";
+import { useInfiniteCowHistory } from "../../hooks/useInfiniteCowHistory";
 
 interface FullHistoryContentProps {
   cow: CowDetails;
@@ -19,11 +19,17 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
     data: historyData,
     isLoading,
     isError,
-  } = useCowHistory(cow.id, {
-    per_page: 50,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteCowHistory(cow.id, {
+    per_page: 10,
   });
 
-  const historyItems = historyData?.data.map(cowHistoryToHistoryItem) ?? [];
+  const historyItems =
+    historyData?.pages.flatMap((page) =>
+      page.data.map(cowHistoryToHistoryItem),
+    ) ?? [];
 
   return (
     <main className="flex flex-col gap-6 p-4 w-full">
@@ -55,6 +61,9 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
         items={historyItems}
         isLoading={isLoading}
         isError={isError}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
       />
     </main>
   );
