@@ -11,7 +11,7 @@ export function RecentHistoryCard({
 
   return (
     <div className="w-full bg-white rounded-2xl p-5 sm:p-6 flex flex-col gap-4">
-      <h2 className="text-lg font-semibold text-gray-800">Histórico Recente</h2>
+      <h2 className="text-lg font-semibold text-gray-800">Histórico Completo</h2>
 
       <HistoryList items={visibleItems} />
 
