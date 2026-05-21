@@ -11,22 +11,24 @@ import { cioFormToPayload } from "../../../sections/cio.mapper";
 import { useBulls } from "../../../../reproductive-support/hooks/bulls/useBulls";
 import { bullToSelectOption } from "../../../sections/bull-select-option.mapper";
 import { toast } from "sonner";
-import { getCurrentDateTimeLocal } from "@/utils/dateTime";
+import {
+  getCurrentDateTimeLocal,
+  subtractHoursFromCurrentDateTimeLocal,
+} from "@/utils/dateTime";
 
 interface CioFormProps {
   cowId: string;
 }
 
 export function CioForm({ cowId }: CioFormProps) {
-  const currentDateTime = getCurrentDateTimeLocal();
 
   const form = useForm<CioFormData>({
     resolver: zodResolver(cioFormSchema),
     defaultValues: {
       hasCoverage: "no_coverage",
-      heatOccurredAt: currentDateTime,
+      heatOccurredAt: subtractHoursFromCurrentDateTimeLocal(10),
       heatObservation: "",
-      inseminationOccurredAt: "",
+      inseminationOccurredAt: getCurrentDateTimeLocal(),
       method: "artificial_insemination",
       bullId: "",
     },
@@ -47,34 +49,34 @@ export function CioForm({ cowId }: CioFormProps) {
   const bullOptions = bullsData?.data.map(bullToSelectOption) ?? [];
 
   async function onSubmit(data: CioFormData) {
-  try {
-    const payload = cioFormToPayload(data);
+    try {
+      const payload = cioFormToPayload(data);
 
-    console.log("FORM DATA:", data);
-    console.log("PAYLOAD:", payload);
+      console.log("FORM DATA:", data);
+      console.log("PAYLOAD:", payload);
 
-    await mutateAsync({
-      cowId,
-      data: payload,
-    });
+      await mutateAsync({
+        cowId,
+        data: payload,
+      });
 
-    toast.success(
-      data.hasCoverage === "yes_coverage"
-        ? "Cio e cobertura registrados com sucesso."
-        : "Cio registrado com sucesso.",
-    );
+      toast.success(
+        data.hasCoverage === "yes_coverage"
+          ? "Cio e cobertura registrados com sucesso."
+          : "Cio registrado com sucesso.",
+      );
 
-    form.reset();
-  } catch (error) {
-    console.error("ERRO AO REGISTRAR CIO:", error);
+      form.reset();
+    } catch (error) {
+      console.error("ERRO AO REGISTRAR CIO:", error);
 
-    toast.error(
-      data.hasCoverage === "yes_coverage"
-        ? "Não foi possível registrar o cio e a cobertura."
-        : "Não foi possível registrar o cio.",
-    );
+      toast.error(
+        data.hasCoverage === "yes_coverage"
+          ? "Não foi possível registrar o cio e a cobertura."
+          : "Não foi possível registrar o cio.",
+      );
+    }
   }
-}
 
   return (
     <form
