@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/shared";
 import { RecentHistoryCard } from "../../../components/individual-record/recent-history/RecentHistoryCard";
 import type { HistoryItem } from "../../../components/individual-record/recent-history/recent-history.types";
@@ -6,6 +5,8 @@ import type { HistoryFilterValue } from "@/features/flock/components/individual-
 import { HistoryFilter } from "@/features/flock/components/individual-record/recent-history/HistoryFilter";
 
 interface FullHistoryMainSectionProps {
+  filter: HistoryFilterValue;
+  onFilterChange: (value: HistoryFilterValue) => void;
   items: HistoryItem[];
   isLoading: boolean;
   isError: boolean;
@@ -15,6 +16,8 @@ interface FullHistoryMainSectionProps {
 }
 
 export function FullHistoryMainSection({
+  filter,
+  onFilterChange,
   items,
   isLoading,
   isError,
@@ -22,14 +25,9 @@ export function FullHistoryMainSection({
   hasNextPage,
   isFetchingNextPage,
 }: FullHistoryMainSectionProps) {
-  const [filter, setFilter] = useState<HistoryFilterValue>("Todas");
-
-  const filteredItems =
-    filter === "Todas" ? items : items.filter((item) => item.type === filter);
-
   return (
     <section className="flex flex-col gap-5">
-      <HistoryFilter value={filter} onChange={setFilter} />
+      <HistoryFilter value={filter} onChange={onFilterChange} />
 
       {isLoading && (
         <p className="text-sm text-gray-500">Carregando histórico...</p>
@@ -39,17 +37,14 @@ export function FullHistoryMainSection({
         <p className="text-sm text-red-500">Erro ao carregar histórico.</p>
       )}
 
-      {!isLoading && !isError && filteredItems.length === 0 && (
+      {!isLoading && !isError && items.length === 0 && (
         <p className="text-sm text-gray-500">
           Nenhum evento encontrado para esse filtro.
         </p>
       )}
 
-      {!isLoading && !isError && filteredItems.length > 0 && (
-        <RecentHistoryCard
-          items={filteredItems}
-          showViewAllButton={false}
-        />
+      {!isLoading && !isError && items.length > 0 && (
+        <RecentHistoryCard items={items} showViewAllButton={false} />
       )}
 
       {hasNextPage && (
