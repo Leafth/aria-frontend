@@ -3,7 +3,7 @@ export type CowPhase =
   | "heifer"
   | "young"
   | "primiparous"
-  | "multiparous"
+  | "multiparous";
 
 export type CowReproductiveStatus =
   | "open"
@@ -258,7 +258,17 @@ export interface PaginatedCowHistoryResponse {
   };
 }
 
+export type CowHistoryEventType =
+  | "inactivation"
+  | "calving"
+  | "pregnancy_check"
+  | "insemination"
+  | "heat_detection"
+  | "weighing"
+  | "phase_change";
+
 export interface CowHistoryFilters {
   page?: number;
   per_page?: number;
+  event_type?: CowHistoryEventType;
 }
