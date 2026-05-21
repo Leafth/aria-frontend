@@ -1,36 +1,46 @@
 import { useState } from "react";
-import { HistoryFilter } from "../../../components/individual-record/recent-history/HistoryFilter";
-import type { HistoryFilterValue } from "../../../components/individual-record/recent-history/HistoryFilter.mock";
 import { RecentHistoryCard } from "../../../components/individual-record/recent-history/RecentHistoryCard";
-import type { Cow } from "../../../types/cow.types";
-import { recentHistoryMock } from "../../../components/individual-record/recent-history/recent-history.mock";
+import type { HistoryItem } from "../../../components/individual-record/recent-history/recent-history.types";
+import type { HistoryFilterValue } from "@/features/flock/components/individual-record/recent-history/HistoryFilter.mock";
+import { HistoryFilter } from "@/features/flock/components/individual-record/recent-history/HistoryFilter";
 
 interface FullHistoryMainSectionProps {
-  cow: Cow;
+  items: HistoryItem[];
+  isLoading: boolean;
+  isError: boolean;
 }
 
-export function FullHistoryMainSection({ cow }: FullHistoryMainSectionProps) {
-  const [historyFilter, setHistoryFilter] =
-    useState<HistoryFilterValue>("Todas");
+export function FullHistoryMainSection({
+  items,
+  isLoading,
+  isError,
+}: FullHistoryMainSectionProps) {
+  const [filter, setFilter] = useState<HistoryFilterValue>("Todas");
 
-  const filteredHistory =
-    historyFilter === "Todas"
-      ? recentHistoryMock
-      : recentHistoryMock.filter((item) => item.type === historyFilter);
+  const filteredItems =
+    filter === "Todas" ? items : items.filter((item) => item.type === filter);
 
   return (
     <section className="flex flex-col gap-5">
-      <HistoryFilter value={historyFilter} onChange={setHistoryFilter} />
+      <HistoryFilter value={filter} onChange={setFilter} />
 
-      <div className="flex flex-col gap-5 xl:flex-row">
-        <div className="w-full xl:flex-1">
-          <RecentHistoryCard
-            items={filteredHistory}
-            isActive={cow.active}
-            showViewAllButton={false}
-          />
-        </div>
-      </div>
+      {isLoading && (
+        <p className="text-sm text-gray-500">Carregando histórico...</p>
+      )}
+
+      {isError && (
+        <p className="text-sm text-red-500">Erro ao carregar histórico.</p>
+      )}
+
+      {!isLoading && !isError && filteredItems.length === 0 && (
+        <p className="text-sm text-gray-500">
+          Nenhum evento encontrado para esse filtro.
+        </p>
+      )}
+
+      {!isLoading && !isError && filteredItems.length > 0 && (
+        <RecentHistoryCard items={filteredItems} showViewAllButton={false} />
+      )}
     </section>
   );
 }
