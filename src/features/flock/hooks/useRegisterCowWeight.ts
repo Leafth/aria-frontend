@@ -32,6 +32,10 @@ export function useRegisterCowWeight() {
       queryClient.invalidateQueries({
         queryKey: ["cow", variables.id],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["cow-history", variables.id],
+      });
     },
   });
 }

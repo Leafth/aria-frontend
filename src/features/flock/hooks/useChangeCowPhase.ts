@@ -24,6 +24,10 @@ export function useChangeCowPhase() {
       queryClient.invalidateQueries({
         queryKey: ["cow", variables.id],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["cow-history", variables.id],
+      });
       toast.success("Fase do animal alterada com sucesso");
     },
   });
