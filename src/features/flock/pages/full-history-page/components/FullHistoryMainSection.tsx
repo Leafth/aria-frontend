@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button } from "@/shared";
 import { RecentHistoryCard } from "../../../components/individual-record/recent-history/RecentHistoryCard";
 import type { HistoryItem } from "../../../components/individual-record/recent-history/recent-history.types";
 import type { HistoryFilterValue } from "@/features/flock/components/individual-record/recent-history/HistoryFilter.mock";
@@ -8,12 +9,18 @@ interface FullHistoryMainSectionProps {
   items: HistoryItem[];
   isLoading: boolean;
   isError: boolean;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
 }
 
 export function FullHistoryMainSection({
   items,
   isLoading,
   isError,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
 }: FullHistoryMainSectionProps) {
   const [filter, setFilter] = useState<HistoryFilterValue>("Todas");
 
@@ -39,7 +46,27 @@ export function FullHistoryMainSection({
       )}
 
       {!isLoading && !isError && filteredItems.length > 0 && (
-        <RecentHistoryCard items={filteredItems} showViewAllButton={false} />
+        <RecentHistoryCard
+          items={filteredItems}
+          showViewAllButton={false}
+        />
+      )}
+
+      {hasNextPage && (
+        <Button
+          variant="ghost"
+          className="w-full"
+          onClick={() => fetchNextPage()}
+          disabled={isFetchingNextPage}
+        >
+          {isFetchingNextPage ? "Carregando..." : "Carregar mais..."}
+        </Button>
+      )}
+
+      {!hasNextPage && items.length > 0 && (
+        <p className="text-sm text-gray-400 text-center">
+          Todos os eventos foram carregados.
+        </p>
       )}
     </section>
   );
