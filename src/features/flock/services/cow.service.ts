@@ -107,3 +107,17 @@ export async function registerCowEvent(
 
   return response.data;
 }
+
+import type {
+  PaginatedCowHistoryResponse,
+  CowHistoryFilters,
+} from "../types/cow.types";
+
+export async function getCowHistory(cowId: string, params?: CowHistoryFilters) {
+  const response = await api.get<PaginatedCowHistoryResponse>(
+    `/cows/${cowId}/events`,
+    { params },
+  );
+
+  return response.data;
+}
