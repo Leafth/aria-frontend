@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Breadcrumb } from "@/shared/components/ui/breadcrumb/Breadcrumb";
 import { useNavigate } from "react-router-dom";
 import type { CowDetails } from "../../types/cow.types";
@@ -7,6 +8,8 @@ import { Header } from "@/shared";
 import { formatDate } from "@/utils/formatDate";
 import { getCowStatus } from "../../utils/cowStatus.utils";
 import { useInfiniteCowHistory } from "../../hooks/useInfiniteCowHistory";
+import type { HistoryFilterValue } from "../../components/individual-record/recent-history/HistoryFilter.mock";
+import { historyFilterToEventType } from "../../sections/history-filter-event-type.mapper";
 
 interface FullHistoryContentProps {
   cow: CowDetails;
@@ -14,6 +17,9 @@ interface FullHistoryContentProps {
 
 export function FullHistoryContent({ cow }: FullHistoryContentProps) {
   const navigate = useNavigate();
+  const [filter, setFilter] = useState<HistoryFilterValue>("Todas");
+
+  const eventType = historyFilterToEventType(filter);
 
   const {
     data: historyData,
@@ -24,6 +30,7 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
     isFetchingNextPage,
   } = useInfiniteCowHistory(cow.id, {
     per_page: 10,
+    event_type: eventType,
   });
 
   const historyItems =
@@ -48,6 +55,7 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
           },
         ]}
       />
+
       <Header
         title={cow.name}
         description={`Brinco: ${cow.ear_tag} Nasc: ${formatDate(
@@ -57,7 +65,10 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
         breed={cow.breed}
         page="individual"
       />
+
       <FullHistoryMainSection
+        filter={filter}
+        onFilterChange={setFilter}
         items={historyItems}
         isLoading={isLoading}
         isError={isError}
