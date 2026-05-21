@@ -229,3 +229,36 @@ export interface RegisterHeatDetectionWithInseminationDTO {
     };
   };
 }
+
+export type CowEventType =
+  | "inactivation"
+  | "calving"
+  | "pregnancy_check"
+  | "insemination"
+  | "heat_detection"
+  | "weighing"
+  | "phase_change";
+
+export interface CowHistoryEvent {
+  id: string;
+  event_type: CowEventType;
+  title: string;
+  occurred_at: string;
+  observation: string | null;
+}
+
+export interface PaginatedCowHistoryResponse {
+  data: CowHistoryEvent[];
+  meta: {
+    current_page: number;
+    next_page: number | null;
+    prev_page: number | null;
+    total_pages: number;
+    total_count: number;
+  };
+}
+
+export interface CowHistoryFilters {
+  page?: number;
+  per_page?: number;
+}
