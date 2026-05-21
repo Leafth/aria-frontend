@@ -67,7 +67,7 @@ export function useUpdateCowForm({
       reset();
       onClose();
 
-      toast.success("Dados da vaca atualizados com sucesso");
+      toast.success("Dados da matriz atualizados com sucesso");
     } catch (error) {
       const axiosError = error as AxiosError<ApiErrorResponse>;
 
@@ -79,11 +79,11 @@ export function useUpdateCowForm({
           return;
         }
 
-        toast.error("Não foi possível atualizar os dados da vaca");
+        toast.error("Não foi possível atualizar os dados da matriz");
         return;
       }
 
-      toast.error("Erro inesperado ao atualizar os dados da vaca");
+      toast.error("Erro inesperado ao atualizar os dados da matriz");
       console.error(error);
     }
   };

@@ -63,7 +63,7 @@ export function InactiveCowModal({
     });
 
     handleClose();
-    toast.success("Vaca inativada com sucesso");
+    toast.success("Matriz inativada com sucesso");
   };
 
   return (

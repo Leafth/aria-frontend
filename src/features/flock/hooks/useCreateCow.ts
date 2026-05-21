@@ -48,7 +48,7 @@ export function useCreateCowForm({
 
       reset();
       onClose();
-      toast.success("Vaca cadastrada com sucesso");
+      toast.success("Matriz cadastrada com sucesso");
     } catch (error) {
       const axiosError = error as AxiosError<ApiErrorResponse>;
 

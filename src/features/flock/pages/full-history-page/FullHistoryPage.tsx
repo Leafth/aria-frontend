@@ -11,7 +11,7 @@ export default function FullHistoryPage() {
   if (isLoading) {
     return (
       <main className="flex flex-col gap-6 p-4 w-full">
-        <p className="text-sm text-gray-500">Carregando dados da vaca...</p>
+        <p className="text-sm text-gray-500">Carregando dados da matriz...</p>
       </main>
     );
   }
@@ -20,7 +20,7 @@ export default function FullHistoryPage() {
     return (
       <main className="flex flex-col gap-6 p-4 w-full">
         <p className="text-sm text-red-500">
-          Erro ao carregar os dados da vaca.
+          Erro ao carregar os dados da matriz.
         </p>
 
         <Button onClick={() => navigate("/flock")}>
