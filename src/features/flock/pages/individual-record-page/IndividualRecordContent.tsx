@@ -9,6 +9,7 @@ import { IndividualRecordMainSection } from "./components/IndividualRecordMainSe
 import { IndividualRecordHeader } from "./components/IndividualRecordHeader";
 import { Breadcrumb } from "@/shared/components/ui/breadcrumb/Breadcrumb";
 import { IndividualRecordAlert } from "./components/IndividualRecordAlert";
+import { ConfirmDeleteModal } from "../../components/modals/individual-modal/ConfirmDeleteModal";
 
 interface IndividualRecordContentProps {
   cow: CowDetails;
@@ -20,6 +21,7 @@ export function IndividualRecordContent({ cow }: IndividualRecordContentProps) {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openInactiveModal, setOpenInactiveModal] = useState(false);
   const [openWeightModal, setOpenWeightModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const { mutateAsync: inactivateCow, isPending: isInactivating } =
     useInactivateCow();
@@ -44,6 +46,7 @@ export function IndividualRecordContent({ cow }: IndividualRecordContentProps) {
         cow={cow}
         onEdit={() => setOpenEditModal(true)}
         onInactive={() => setOpenInactiveModal(true)}
+        onDelete={() => setOpenDeleteModal(true)}
       />
 
       <IndividualRecordMainSection
@@ -77,6 +80,12 @@ export function IndividualRecordContent({ cow }: IndividualRecordContentProps) {
         open={openWeightModal}
         onClose={() => setOpenWeightModal(false)}
         cowId={cow.id}
+      />
+      <ConfirmDeleteModal
+        open={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        itemName={cow.name}
+        cow={cow}
       />
     </main>
   );
