@@ -70,7 +70,7 @@ export function InactiveCowModal({
     <Modal
       open={open}
       onClose={handleClose}
-      title="Inativar Animal"
+      title="Inativar Matriz"
       className="max-w-xl"
       footerContent={
         <Button
@@ -114,7 +114,7 @@ export function InactiveCowModal({
           <>
             <AlertTriangle />
             <p>
-              Atenção: Tem certeza que deseja inativar o animal? Essa ação é
+              Atenção: Tem certeza que deseja inativar a matriz? Essa ação é
               irreversível.
             </p>
           </>

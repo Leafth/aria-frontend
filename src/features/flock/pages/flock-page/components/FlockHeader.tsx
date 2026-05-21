@@ -16,7 +16,7 @@ export function FlockHeader({ totalCount, openModal }: FlockHeaderProps) {
 
       <Button onClick={openModal} className="w-full md:w-auto">
         <CirclePlus size={20} />
-        Cadastrar Animal
+        Cadastrar Matriz
       </Button>
     </header>
   );

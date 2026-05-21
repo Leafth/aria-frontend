@@ -18,7 +18,7 @@ export function FlockListState({
   }
 
   if (isEmpty) {
-    return <p className="text-sm text-gray-500">Nenhum animal encontrado.</p>;
+    return <p className="text-sm text-gray-500">Nenhuma matriz encontrado.</p>;
   }
 
   return null;

@@ -53,7 +53,7 @@ export function EditCowModal({
         reset(initialData ?? undefined);
         onClose();
       }}
-      title="Editar Dados do Animal"
+      title="Editar Dados da Matriz"
       footerContent={
         <Button
           className="w-full"

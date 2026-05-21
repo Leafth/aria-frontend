@@ -30,7 +30,7 @@ export function cowToFlockCard(cow: Cow) {
 
     statusMessage: cow.active
       ? cow.insights?.status?.message
-      : "Animal inativo",
+      : "Matriz inativa",
 
     statusDate: cow.active
       ? cow.insights?.status?.occurred_at

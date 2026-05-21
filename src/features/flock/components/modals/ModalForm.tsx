@@ -61,7 +61,7 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
         reset();
         onClose();
       }}
-      title={"Cadastrar Animal"}
+      title={"Cadastrar Matriz"}
       footerContent={
         <Button
           className="w-full"
@@ -152,12 +152,12 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
         <span className="flex justify-center items-center text-sm h-5 w-5 bg-black rounded-full text-white">
           3
         </span>
-        <label>Fase e Etapa do Animal</label>
+        <label>Fase e Etapa da Matriz</label>
       </div>
 
       <div className="grid grid-cols-2 gap-6">
         <SelectField
-          label="Fase do Animal"
+          label="Fase da Matriz"
           value={phase}
           onChange={(value) =>
             setValue("phase", value, { shouldValidate: true })
@@ -173,7 +173,7 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
         />
 
         <SelectField
-          label="Etapa do Animal"
+          label="Etapa da Matriz"
           options={[
             { label: "Padrão", value: "padrao" },
             { label: "Registrar Cio", value: "cio_registrado" },

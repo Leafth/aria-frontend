@@ -86,7 +86,7 @@ export function CioForm({ cowId }: CioFormProps) {
       <div>
         <h1 className="font-medium text-xl">Registrar Cio</h1>
         <p className="text-gray-500 text-sm">
-          Registre o cio do animal e, se necessário, informe a cobertura.
+          Registre o cio da matriz e, se necessário, informe a cobertura.
         </p>
       </div>
 

@@ -21,7 +21,7 @@ export function IndividualRecordAlert({ cow }: IndividualRecordAlertProps) {
         <AlertTriangle />
         <div>
           <p>
-            Animal inativo
+            Matriz inativo
             {inactivatedAt && ` desde ${inactivatedAt}`}. Motivo:{" "}
             {getInactivationReasonLabel(reason)}
           </p>
