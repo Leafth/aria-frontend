@@ -37,7 +37,7 @@ export function ChangeCowPhaseModal({
     >
       <div className="flex flex-col justify-center items-center gap-6 my-6">
         <p className="text-center text-gray-700">
-          Tem certeza que deseja alterar a fase matriz?
+          Tem certeza que deseja alterar a fase da matriz?
         </p>
 
         <div className="flex items-center gap-4">
