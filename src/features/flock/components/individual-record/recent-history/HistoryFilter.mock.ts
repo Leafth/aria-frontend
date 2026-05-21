@@ -14,4 +14,6 @@ export const historyFilters: HistoryFilterItem[] = [
   { name: "Cobertura", color: "#2dd4bf" },
   { name: "Prenhez", color: "#1d4ed8" },
   { name: "Parto", color: "#f97316" },
+  { name: "Inativação", color: "#71717A" },
+  { name: "Fase", color: "#10B981" },
 ];
