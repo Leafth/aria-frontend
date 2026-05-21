@@ -6,7 +6,7 @@ export function getPhaseLabel(phase: CowPhase) {
     heifer: "Garrota",
     young: "Novilha",
     primiparous: "Primípara",
-    multiparous: "Multiparta",
+    multiparous: "Multípara",
   };
 
   return labels[phase];

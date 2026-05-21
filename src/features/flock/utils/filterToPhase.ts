@@ -6,7 +6,7 @@ export function filterToPhase(filter: string): CowPhase | undefined {
     Garrota: "heifer",
     Novilha: "young",
     Primípara: "primiparous",
-    Multiparta: "multiparous",
+    Multípara: "multiparous",
   };
 
   return phases[filter];

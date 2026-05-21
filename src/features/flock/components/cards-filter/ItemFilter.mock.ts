@@ -9,6 +9,6 @@ export const filterFlocks: ColorItem[] = [
   { name: "Garrota", color: "#622BD0" },
   { name: "Novilha", color: "#28C2B0" },
   { name: "Primípara", color: "#0004FF" },
-  { name: "Multiparta", color: "#FF7700" },
+  { name: "Multípara", color: "#FF7700" },
   { name: "Inativa", color: "#71717A" },
 ];
