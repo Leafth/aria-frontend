@@ -10,6 +10,7 @@ import {
 import type { EditWeightModalProps } from "./types/cow.types";
 import { useRegisterCowWeightForm } from "@/features/flock/hooks/useRegisterCowWeight";
 import { maskWeight } from "@/utils/masks";
+import { getCurrentDateTimeLocal } from "@/utils/dateTime";
 
 export function EditWeightModal({
   open,
@@ -25,7 +26,7 @@ export function EditWeightModal({
     resolver: zodResolver(editWeightSchema),
     defaultValues: {
       weight: "",
-      occurred_at: "",
+      occurred_at: getCurrentDateTimeLocal(),
     },
   });
 
@@ -76,8 +77,8 @@ export function EditWeightModal({
         />
 
         <InputField
-          label="Data da Pesagem"
-          type="date"
+          label="Data e horário da pesagem"
+          type="datetime-local"
           {...register("occurred_at")}
           error={errors.occurred_at?.message}
         />
