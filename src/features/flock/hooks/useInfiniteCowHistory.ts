@@ -17,9 +17,7 @@ export function useInfiniteCowHistory(
 
     initialPageParam: 1,
 
-    getNextPageParam: (lastPage) => {
-      return lastPage.meta.next_page;
-    },
+    getNextPageParam: (lastPage) => lastPage.meta.next_page,
 
     enabled: Boolean(cowId),
   });
