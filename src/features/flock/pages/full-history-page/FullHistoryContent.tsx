@@ -4,6 +4,9 @@ import type { CowDetails } from "../../types/cow.types";
 import { FullHistoryMainSection } from "./components/FullHistoryMainSection";
 import { useCowHistory } from "../../hooks/useCowHistory";
 import { cowHistoryToHistoryItem } from "../../sections/cow-history-item";
+import { Header } from "@/shared";
+import { formatDate } from "@/utils/formatDate";
+import { getCowStatus } from "../../utils/cowStatus.utils";
 
 interface FullHistoryContentProps {
   cow: CowDetails;
@@ -38,6 +41,15 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
             label: "Histórico",
           },
         ]}
+      />
+      <Header
+        title={cow.name}
+        description={`Brinco: ${cow.ear_tag} Nasc: ${formatDate(
+          cow.birth_date,
+        )}`}
+        active={getCowStatus(cow.active)}
+        breed={cow.breed}
+        page="individual"
       />
       <FullHistoryMainSection
         items={historyItems}
