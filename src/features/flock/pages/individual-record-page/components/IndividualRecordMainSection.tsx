@@ -4,8 +4,9 @@ import { AnimalStatusCard } from "../../../components/individual-record/AnimalSt
 import { RecentHistoryCard } from "../../../components/individual-record/recent-history/RecentHistoryCard";
 import type { CowDetails } from "../../../types/cow.types";
 import { getPhaseLabel } from "../../../utils/getPhaseLabel";
-import { recentHistoryMock } from "../../../components/individual-record/recent-history/recent-history.mock";
 import { useChangeCowPhase } from "../../../hooks/useChangeCowPhase";
+import { useCowHistory } from "@/features/flock/hooks/useCowHistory";
+import { cowHistoryToHistoryItem } from "@/features/flock/sections/cow-history-item";
 
 interface IndividualRecordMainSectionProps {
   cow: CowDetails;
@@ -25,6 +26,15 @@ export function IndividualRecordMainSection({
     cow.insights.reproductive_status.alerts.length > 0
       ? cow.insights.reproductive_status.alerts[0]
       : null;
+  const {
+    data: historyData,
+    isLoading: isLoadingHistory,
+    isError: isHistoryError,
+  } = useCowHistory(cow.id, {
+    per_page: 2,
+  });
+
+  const historyItems = historyData?.data.map(cowHistoryToHistoryItem) ?? [];
 
   return (
     <section className="flex flex-col gap-5">
@@ -60,14 +70,24 @@ export function IndividualRecordMainSection({
         )}
 
         <div className="w-full xl:flex-1">
-          <RecentHistoryCard
-            items={recentHistoryMock}
-            isActive={cow.active}
-            onViewAll={() =>
-              navigate(`/flock/individual/full-history/${cow.id}`)
-            }
-            showViewAllButton={true}
-          />
+          {isLoadingHistory && (
+            <p className="text-sm text-gray-500">Carregando histórico...</p>
+          )}
+
+          {isHistoryError && (
+            <p className="text-sm text-red-500">Erro ao carregar histórico.</p>
+          )}
+
+          {!isLoadingHistory && !isHistoryError && (
+            <RecentHistoryCard
+              items={historyItems}
+              isActive={cow.active}
+              onViewAll={() =>
+                navigate(`/flock/individual/full-history/${cow.id}`)
+              }
+              showViewAllButton={true}
+            />
+          )}
         </div>
       </div>
     </section>
