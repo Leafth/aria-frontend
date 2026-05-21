@@ -25,6 +25,10 @@ export function useRegisterCowEvent() {
       queryClient.invalidateQueries({
         queryKey: ["events", variables.cowId],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["cow-history", variables.cowId],
+      });
     },
   });
 }
