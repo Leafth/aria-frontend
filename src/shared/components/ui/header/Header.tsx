@@ -39,13 +39,13 @@ export function Header({
               <div
                 className={cn(
                   "flex items-center rounded-md px-4 h-7",
-                  isActive ? "bg-orange-300" : "bg-gray-300",
+                  isActive ? "bg-sky-300" : "bg-gray-300",
                 )}
               >
                 <p
                   className={cn(
                     "text-xs",
-                    isActive ? "text-orange-600" : "text-gray-600",
+                    isActive ? "text-sky-900" : "text-gray-600",
                   )}
                 >
                   {breed}
