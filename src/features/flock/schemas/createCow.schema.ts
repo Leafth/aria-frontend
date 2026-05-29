@@ -13,7 +13,14 @@ export const createCowSchema = z.object({
       message: "A data de nascimento não pode ser futura",
     }),
 
-  breed: z.string().min(1, "Raça é obrigatória"),
+  breed: z
+    .object({
+      breed_id: z.string().optional(),
+      breed_name: z.string().optional(),
+    })
+    .refine((value) => value.breed_id || value.breed_name?.trim(), {
+      message: "Raça é obrigatória",
+    }),
 
   initialWeight: z
     .string()
