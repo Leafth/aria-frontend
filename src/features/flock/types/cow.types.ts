@@ -180,6 +180,7 @@ export interface CowFilters {
   birth_from?: string;
   birth_to?: string;
   weight_from?: number;
+  reproductive_status?: CowReproductiveStatus;
   weight_to?: number;
   phase?: CowPhase;
   active?: boolean;
