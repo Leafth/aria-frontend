@@ -151,6 +151,7 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
               control={control}
               render={({ field }) => (
                 <Combobox
+                  label="Raça"
                   placeholder="Digite a raça"
                   options={breeds}
                   value={field.value}

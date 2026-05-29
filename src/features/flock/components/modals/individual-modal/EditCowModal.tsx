@@ -1,6 +1,6 @@
 import { Button, InputField, Modal } from "@/shared";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -11,6 +11,8 @@ import {
 import type { EditCowModalProps } from "./types/cow.types";
 import { useUpdateCowForm } from "../../../hooks/useUpdateCow";
 import { maskEarTag } from "@/utils/masks";
+import { Combobox } from "@/shared/components/ui/combobox";
+import { useBreeds } from "@/features/reproductive-support/hooks/useBreed";
 
 export function EditCowModal({
   open,
@@ -23,13 +25,17 @@ export function EditCowModal({
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    control,
   } = useForm<EditCowFormData>({
     resolver: zodResolver(editCowSchema),
     defaultValues: {
       name: "",
       code: "",
       birthDate: "",
-      breed: "",
+      breed: {
+        breed_id: undefined,
+        breed_name: "",
+      },
     },
   });
 
@@ -44,6 +50,8 @@ export function EditCowModal({
       reset(initialData);
     }
   }, [open, initialData, reset]);
+
+  const { data: breeds = [] } = useBreeds();
 
   return (
     <Modal
@@ -115,11 +123,19 @@ export function EditCowModal({
             error={errors.birthDate?.message}
           />
 
-          <InputField
-            label="Raça"
-            placeholder="ex: Holandesa"
-            {...register("breed")}
-            error={errors.breed?.message}
+          <Controller
+            name="breed"
+            control={control}
+            render={({ field }) => (
+              <Combobox
+              label="Raça"
+                placeholder="Digite a raça"
+                options={breeds}
+                value={field.value}
+                onChange={field.onChange}
+                error={errors.breed?.message}
+              />
+            )}
           />
         </div>
       </div>

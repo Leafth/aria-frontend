@@ -150,6 +150,7 @@ export function BullModalForm({ open, onClose, initialData }: Props) {
           control={control}
           render={({ field }) => (
             <Combobox
+            label="Raça*"
               placeholder="Digite a raça"
               options={breeds}
               value={field.value}
