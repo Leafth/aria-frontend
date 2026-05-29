@@ -24,6 +24,8 @@ type ApiErrorResponse = {
     name?: string[];
     birth_date?: string[];
     breed?: string[];
+    breed_id?: string[];
+    breed_name?: string[];
   };
 };
 
@@ -41,6 +43,10 @@ export function useUpdateCow() {
       queryClient.invalidateQueries({
         queryKey: ["cow", variables.id],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["breeds"],
+      });
     },
   });
 }
@@ -54,13 +60,23 @@ export function useUpdateCowForm({
 
   const onSubmit = async (data: EditCowFormData) => {
     try {
+      const breedPayload = data.breed.breed_id
+        ? {
+            breed_id: data.breed.breed_id,
+            breed_name: undefined,
+          }
+        : {
+            breed_id: undefined,
+            breed_name: data.breed.breed_name?.trim(),
+          };
+
       await updateCowMutation({
         id,
         data: {
           name: data.name,
           ear_tag: data.code,
           birth_date: data.birthDate,
-          breed: data.breed,
+          ...breedPayload,
         },
       });
 
@@ -76,6 +92,11 @@ export function useUpdateCowForm({
 
         if (apiErrors?.ear_tag) {
           toast.error("Falha: Número do brinco já existe");
+          return;
+        }
+
+        if (apiErrors?.breed_id || apiErrors?.breed_name || apiErrors?.breed) {
+          toast.error("Falha ao atualizar a raça da matriz");
           return;
         }
 
