@@ -7,16 +7,39 @@ export interface CompanyDTO {
 export type BullOrigin = "local" | "company";
 
 export interface BullDTO {
-  id: number;
+  id: string;
   name: string;
-  breed: string;
+  breed_id: string;
+  breed_name?: string;
+  breed?: {
+    id: string;
+    name: string;
+  };
   origin: BullOrigin;
   ear_tag: string | null;
   company_id: string | null;
   company?: {
-    id: number;
+    id: string;
     name: string;
   } | null;
+}
+
+export interface CreateBullDTO {
+  name: string;
+  origin: BullOrigin;
+  ear_tag?: string | null;
+  company_id?: string | null;
+  breed_id?: string;
+  breed_name?: string;
+}
+
+export interface UpdateBullDTO {
+  name: string;
+  origin: BullOrigin;
+  ear_tag?: string | null;
+  company_id?: string | null;
+  breed_id?: string;
+  breed_name?: string;
 }
 
 export interface BullParams {
