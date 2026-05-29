@@ -11,7 +11,7 @@ export const comboboxStyles = {
   inputError: "border-red-400 focus:border-red-400",
 
   dropdown:
-    "absolute left-0 bottom-full z-[9999] mb-[-22px] w-full max-h-[132px] overflow-y-auto overscroll-contain rounded-xl border border-gray-200 bg-gray-100 p-2 ",
+  "absolute left-0 bottom-full z-[9999] mb-1 w-full max-h-[132px] overflow-y-auto overscroll-contain rounded-xl border border-gray-200 bg-gray-100 p-2",
 
   optionsList: "flex flex-col gap-1",
 
