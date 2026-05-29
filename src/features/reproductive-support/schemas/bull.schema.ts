@@ -3,9 +3,20 @@ import { z } from "zod";
 export const bullSchema = z
   .object({
     name: z.string().min(1, "Nome é obrigatório"),
-    breed: z.string().min(1, "Raça é obrigatória"),
+
+    breed: z
+      .object({
+        breed_id: z.string().optional(),
+        breed_name: z.string().optional(),
+      })
+      .refine((value) => value.breed_id || value.breed_name?.trim(), {
+        message: "Raça é obrigatória",
+      }),
+
     origin: z.enum(["local", "company"]),
+
     ear_tag: z.string().optional(),
+
     company_id: z.string().optional(),
   })
   .refine(
@@ -13,6 +24,7 @@ export const bullSchema = z
       if (data.origin === "local") {
         return !!data.ear_tag;
       }
+
       return true;
     },
     {
@@ -25,6 +37,7 @@ export const bullSchema = z
       if (data.origin === "company") {
         return !!data.company_id;
       }
+
       return true;
     },
     {
