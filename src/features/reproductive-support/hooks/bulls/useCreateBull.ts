@@ -10,12 +10,13 @@ export function useCreateBull(onSuccessClose?: () => void) {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bulls"] });
+      queryClient.invalidateQueries({ queryKey: ["breeds"] });
       toast.success("Touro cadastrado com sucesso");
       onSuccessClose?.();
     },
 
     onError: () => {
-      toast.error("Falha: Número do brinco já existe");
+      toast.error("Erro ao cadastrar touro");
     },
   });
 }
