@@ -62,7 +62,10 @@ export function IndividualRecordContent({ cow }: IndividualRecordContentProps) {
           name: cow.name,
           code: cow.ear_tag,
           birthDate: cow.birth_date,
-          breed: cow.breed,
+          breed: {
+            breed_id: undefined,
+            breed_name: cow.breed,
+          },
         }}
       />
       <InactiveCowModal
