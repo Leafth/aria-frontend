@@ -148,17 +148,19 @@ export interface CreateCowDTO {
   name: string;
   ear_tag: string;
   birth_date: string;
-  breed: string;
   weight: number;
   phase: CowPhase;
-  active: boolean;
+  active?: boolean;
+  breed_id?: string;
+  breed_name?: string;
 }
 
 export interface UpdateCowDTO {
   name?: string;
   ear_tag?: string;
   birth_date?: string;
-  breed?: string;
+  breed_id?: string;
+  breed_name?: string;
 }
 
 export interface InactivateCowDTO {
