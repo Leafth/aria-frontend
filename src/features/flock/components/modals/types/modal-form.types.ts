@@ -12,5 +12,7 @@ export type ApiErrorResponse = {
     weight?: string[];
     phase?: string[];
     active?: string[];
+    breed_id?: string[];
+    breed_name?: string[];
   };
 };
