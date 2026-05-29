@@ -87,17 +87,14 @@ export function ModalFilter({
       open={open}
       onClose={onClose}
       title="Filtros"
-      className="max-w-3xl h-130"
+      className="max-w-2xl"
       footerContent={
-        <>
-          <Button
-            type="button"
-            className="mt-2 h-14 w-full rounded-xl bg-[#002b35] text-white hover:bg-[#003946]"
-            onClick={onApply}
-          >
-            Aplicar Filtros
-          </Button>
-        </>
+        <Button
+          className="w-full"
+          onClick={onApply}
+        >
+          Aplicar Filtros
+        </Button>
       }
     >
       <div className="flex flex-col gap-5 px-2 pb-2">
