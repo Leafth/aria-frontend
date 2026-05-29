@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { CircleX } from "lucide-react";
+
 import type { ComboboxProps, Option } from "./combobox.types";
 import { comboboxStyles as styles } from "./combobox.styles";
 
@@ -118,63 +120,72 @@ export function Combobox({
       ref={wrapperRef}
       className={`${styles.container} ${isOpen ? styles.containerOpen : ""}`}
     >
-      {label && <label className={styles.label}>{label}</label>}
+      <div className={styles.inputWrapper}>
+        <input
+          type="text"
+          value={inputValue}
+          disabled={disabled}
+          placeholder={placeholder}
+          onFocus={() => setIsOpen(true)}
+          onChange={(event) => handleInputChange(event.target.value)}
+          className={`${styles.input} ${error ? styles.inputError : ""}`}
+        />
 
-      <input
-        type="text"
-        value={inputValue}
-        disabled={disabled}
-        placeholder={placeholder}
-        onFocus={() => setIsOpen(true)}
-        onChange={(event) => handleInputChange(event.target.value)}
-        className={`${styles.input} ${error ? styles.inputError : ""}`}
-      />
+        {label && <label className={styles.label}>{label}</label>}
 
-      {isOpen && !disabled && (
-        <div
-          className={styles.dropdown}
-          onWheel={(event) => event.stopPropagation()}
-        >
-          <div className={styles.optionsList}>
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
+        {isOpen && !disabled && (
+          <div
+            className={styles.dropdown}
+            onWheel={(event) => event.stopPropagation()}
+          >
+            <div className={styles.optionsList}>
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    className={styles.option}
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                      handleSelectOption(option);
+                    }}
+                  >
+                    {option.name}
+                  </button>
+                ))
+              ) : (
+                <div className={styles.emptyOption}>
+                  Nenhuma raça encontrada
+                </div>
+              )}
+            </div>
+
+            {shouldShowNewOption && (
+              <>
+                <div className={styles.divider} />
+
                 <button
-                  key={option.id}
                   type="button"
-                  className={styles.option}
+                  className={styles.newOption}
                   onMouseDown={(event) => {
                     event.preventDefault();
-                    handleSelectOption(option);
+                    handleUseNewBreed();
                   }}
                 >
-                  {option.name}
+                  Usar nova raça: <strong>{inputValue.trim()}</strong>
                 </button>
-              ))
-            ) : (
-              <div className={styles.emptyOption}>Nenhuma raça encontrada</div>
+              </>
             )}
           </div>
+        )}
+      </div>
 
-          {shouldShowNewOption && (
-            <>
-              <div className={styles.divider} />
-
-              <button
-                type="button"
-                className={styles.newOption}
-                onMouseDown={(event) => {
-                  event.preventDefault();
-                  handleUseNewBreed();
-                }}
-              >
-                Usar nova raça: <strong>{inputValue.trim()}</strong>
-              </button>
-            </>
-          )}
-        </div>
+      {error && (
+        <span className={styles.errorWrapper}>
+          <CircleX className={styles.errorIcon} />
+          <p>{error}</p>
+        </span>
       )}
-
-      {error && <span className={styles.error}>{error}</span>}
     </div>
   );
 }
