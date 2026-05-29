@@ -3,7 +3,7 @@ import type { ComboboxProps, Option } from "./combobox.types";
 import { comboboxStyles as styles } from "./combobox.styles";
 
 export function Combobox({
-  label = "Raça",
+  label = "",
   placeholder = "Digite a raça",
   options,
   value,
