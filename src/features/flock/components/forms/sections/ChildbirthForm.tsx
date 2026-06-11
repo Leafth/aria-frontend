@@ -1,5 +1,7 @@
 import { Button, InputField } from "@/shared";
 import { TextareaField } from "@/shared/components/ui/textarea/Textarea";
+import { ToggleField } from "@/shared/components/ui/toggle/ToggleField";
+import { getCurrentDateTimeLocal } from "@/utils/dateTime";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,7 +12,6 @@ import {
   type ChildbirthFormData,
 } from "../../../schemas/childbirth.schema";
 import { childbirthFormToPayload } from "../../../sections/childbirth.mapper";
-import { getCurrentDateTimeLocal } from "@/utils/dateTime";
 
 interface ChildbirthFormProps {
   cowId: string;
@@ -20,12 +21,17 @@ export function ChildbirthForm({ cowId }: ChildbirthFormProps) {
   const form = useForm<ChildbirthFormData>({
     resolver: zodResolver(childbirthFormSchema),
     defaultValues: {
+      action: "calving",
       occurredAt: getCurrentDateTimeLocal(),
       observation: "",
     },
   });
 
   const { mutateAsync, isPending } = useRegisterCowEvent();
+
+  const action = form.watch("action");
+
+  const isCalving = action === "calving";
 
   async function onSubmit(data: ChildbirthFormData) {
     try {
@@ -36,14 +42,23 @@ export function ChildbirthForm({ cowId }: ChildbirthFormProps) {
         data: payload,
       });
 
-      toast.success("Parto registrado com sucesso.");
+      toast.success(
+        isCalving
+          ? "Parto registrado com sucesso."
+          : "Interrupção de prenhez registrada com sucesso.",
+      );
 
       form.reset({
+        action: "calving",
         occurredAt: getCurrentDateTimeLocal(),
         observation: "",
       });
     } catch {
-      toast.error("Não foi possível registrar o parto.");
+      toast.error(
+        isCalving
+          ? "Não foi possível registrar o parto."
+          : "Não foi possível registrar a interrupção de prenhez.",
+      );
     }
   }
 
@@ -52,15 +67,43 @@ export function ChildbirthForm({ cowId }: ChildbirthFormProps) {
       onSubmit={form.handleSubmit(onSubmit)}
       className="flex flex-col gap-5"
     >
+      <Controller
+        control={form.control}
+        name="action"
+        render={({ field }) => (
+          <ToggleField
+            label="Tipo de registro"
+            value={field.value}
+            onChange={field.onChange}
+            options={[
+              { label: "Registrar parto", value: "calving" },
+              {
+                label: "Interromper prenhez",
+                value: "pregnancy_interruption",
+              },
+            ]}
+          />
+        )}
+      />
+
       <div>
-        <h1 className="font-medium text-xl">Registrar Parto</h1>
+        <h1 className="font-medium text-xl">
+          {isCalving ? "Registrar Parto" : "Interromper Prenhez"}
+        </h1>
+
         <p className="text-gray-500 text-sm">
-          Registrar os dados do parto realizado.
+          {isCalving
+            ? "Registrar os dados do parto realizado."
+            : "Registrar a interrupção da prenhez."}
         </p>
       </div>
 
       <InputField
-        label="Data e horário do parto*"
+        label={
+          isCalving
+            ? "Data e horário do parto*"
+            : "Data e horário da interrupção*"
+        }
         type="datetime-local"
         {...form.register("occurredAt")}
         error={form.formState.errors.occurredAt?.message}
@@ -72,7 +115,11 @@ export function ChildbirthForm({ cowId }: ChildbirthFormProps) {
         render={({ field }) => (
           <TextareaField
             label="Observações (opcional)"
-            placeholder="Adicione informações relevantes sobre o parto..."
+            placeholder={
+              isCalving
+                ? "Adicione informações relevantes sobre o parto..."
+                : "Adicione informações relevantes sobre a interrupção..."
+            }
             value={field.value ?? ""}
             onChange={field.onChange}
             error={form.formState.errors.observation?.message}
@@ -81,7 +128,11 @@ export function ChildbirthForm({ cowId }: ChildbirthFormProps) {
       />
 
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Salvando..." : "Confirmar Parto"}
+        {isPending
+          ? "Salvando..."
+          : isCalving
+            ? "Confirmar Parto"
+            : "Confirmar Interrupção"}
       </Button>
     </form>
   );
