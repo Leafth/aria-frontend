@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const childbirthFormSchema = z.object({
-  occurredAt: z.string().min(1, "Informe a data e horário do parto"),
+  action: z.enum(["calving", "pregnancy_interruption"]),
+  occurredAt: z.string().min(1, "Informe a data e horário"),
   observation: z.string().optional(),
 });
 
