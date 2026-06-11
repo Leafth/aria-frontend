@@ -31,12 +31,16 @@ const STAGE_OPTIONS: {
     value: "in_heat",
   },
   {
-    label: "Em Cobertura",
+    label: "Cobertura Realizada",
     value: "inseminated",
   },
   {
-    label: "Em Prenhez",
+    label: "Prenha",
     value: "pregnant",
+  },
+  {
+    label: "Pós-Parto",
+    value: "postpartum",
   },
 ];
 
@@ -89,10 +93,7 @@ export function ModalFilter({
       title="Filtros"
       className="max-w-2xl"
       footerContent={
-        <Button
-          className="w-full"
-          onClick={onApply}
-        >
+        <Button className="w-full" onClick={onApply}>
           Aplicar Filtros
         </Button>
       }
