@@ -6,6 +6,7 @@ export function Header({
   description,
   active,
   breed,
+  days_since_last_calving,
   page,
   className,
 }: HeaderProps) {
@@ -49,6 +50,24 @@ export function Header({
                   )}
                 >
                   {breed}
+                </p>
+              </div>
+            )}
+
+            {days_since_last_calving != null && (
+              <div
+                className={cn(
+                  "flex items-center rounded-md px-4 h-7",
+                  isActive ? "bg-zinc-100" : "bg-gray-300",
+                )}
+              >
+                <p
+                  className={cn(
+                    "text-xs",
+                    isActive ? "text-zinc-800" : "text-gray-600",
+                  )}
+                >
+                  {`${days_since_last_calving} Dias em Lactação (DEL)`}
                 </p>
               </div>
             )}

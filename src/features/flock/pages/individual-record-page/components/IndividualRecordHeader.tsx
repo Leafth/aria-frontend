@@ -32,6 +32,7 @@ export function IndividualRecordHeader({
         )}`}
         active={getCowStatus(cow.active)}
         breed={cow.breed}
+        days_since_last_calving={cow.insights.days_since_last_calving}
         page="individual"
       />
 

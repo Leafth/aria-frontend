@@ -88,6 +88,7 @@ export interface CowInsights {
   weight_insight: WeightInsight;
   phase_insight: PhaseInsight;
   recommended_next_action: RecommendedNextAction;
+  days_since_last_calving: number;
 }
 
 export interface ReproductiveStatusAlert {

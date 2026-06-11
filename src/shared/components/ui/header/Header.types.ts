@@ -3,6 +3,7 @@ export interface HeaderProps {
   description: string;
   active?: string;
   breed?: string;
+  days_since_last_calving?: number;
   page?: string;
   className?: string;
 }
