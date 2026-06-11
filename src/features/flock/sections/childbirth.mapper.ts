@@ -1,17 +1,37 @@
-import { formatDateTimeLocalToBackend } from "@/utils/formatDateTimeLocalToBackend";
-import type { RegisterCalvingDTO } from "../types/cow.types";
+import type {
+  RegisterCalvingDTO,
+  RegisterPregnancyInterruptionDTO,
+} from "../types/cow.types";
 import type { ChildbirthFormData } from "../schemas/childbirth.schema";
 
 export function childbirthFormToPayload(
   data: ChildbirthFormData,
-): RegisterCalvingDTO {
+): RegisterCalvingDTO | RegisterPregnancyInterruptionDTO {
+  const observation = data.observation?.trim();
+
+  if (data.action === "pregnancy_interruption") {
+    return {
+      event: {
+        event_type: "pregnancy_interruption",
+        occurred_at: data.occurredAt,
+        data: observation
+          ? {
+              observation,
+            }
+          : undefined,
+      },
+    };
+  }
+
   return {
     event: {
       event_type: "calving",
-      occurred_at: formatDateTimeLocalToBackend(data.occurredAt),
-      data: {
-        observation: data.observation || undefined,
-      },
+      occurred_at: data.occurredAt,
+      data: observation
+        ? {
+            observation,
+          }
+        : undefined,
     },
   };
 }
