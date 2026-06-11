@@ -207,7 +207,8 @@ export type EventType =
   | "heat_detection_with_insemination"
   | "insemination"
   | "pregnancy_check"
-  | "calving";
+  | "calving"
+  | "pregnancy_interruption";
 
 export type InseminationMethod = "natural_mating" | "artificial_insemination";
 
@@ -237,6 +238,7 @@ export interface RegisterHeatDetectionWithInseminationDTO {
 export type CowEventType =
   | "inactivation"
   | "calving"
+  | "pregnancy_interruption"
   | "pregnancy_check"
   | "insemination"
   | "heat_detection"
@@ -265,6 +267,7 @@ export interface PaginatedCowHistoryResponse {
 export type CowHistoryEventType =
   | "inactivation"
   | "calving"
+  | "pregnancy_interruption"
   | "pregnancy_check"
   | "insemination"
   | "heat_detection"
@@ -275,4 +278,14 @@ export interface CowHistoryFilters {
   page?: number;
   per_page?: number;
   event_type?: CowHistoryEventType;
+}
+
+export interface RegisterPregnancyInterruptionDTO {
+  event: {
+    event_type: "pregnancy_interruption";
+    occurred_at?: string;
+    data?: {
+      observation?: string;
+    };
+  };
 }
