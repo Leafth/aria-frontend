@@ -13,6 +13,7 @@ const historyTypeByEventType: Record<
   insemination: "Cobertura",
   pregnancy_check: "Prenhez",
   calving: "Parto",
+  pregnancy_interruption: "Interrupção",
   inactivation: "Inativação",
   phase_change: "Fase",
 };
@@ -23,6 +24,7 @@ const historyColorByType: Record<HistoryType, string> = {
   Cobertura: "#2dd4bf",
   Prenhez: "#1d4ed8",
   Parto: "#f97316",
+  Interrupção: "#dc2626",
   Inativação: "#71717A",
   Fase: "#10B981",
 };
