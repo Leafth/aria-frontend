@@ -206,19 +206,6 @@ export function ModalForm({ open, onClose }: ModalFormProps) {
                 { label: "Multípara", value: "multiparous" },
               ]}
             />
-
-            <SelectField
-              label="Etapa da Matriz"
-              value={stage}
-              onChange={(value) => setValue("stage", value)}
-              options={[
-                { label: "Padrão", value: "padrao" },
-                { label: "Registrar Cio", value: "cio_registrado" },
-                { label: "Registrar Cobertura", value: "cobertura_registrada" },
-                { label: "Confirmar Prenhez", value: "prenhez" },
-                { label: "Registrar Parto", value: "parto_registrado" },
-              ]}
-            />
           </div>
         </section>
 
