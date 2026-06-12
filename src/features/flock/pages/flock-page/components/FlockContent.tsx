@@ -30,6 +30,7 @@ const EMPTY_FILTERS: ModalFilterValues = {
   weight_from: undefined,
   weight_to: undefined,
   reproductive_status: undefined,
+  breed_id: undefined,
 };
 
 export function FlockContent() {
@@ -58,7 +59,8 @@ export function FlockContent() {
     appliedFilters.birth_to ||
     appliedFilters.weight_from ||
     appliedFilters.weight_to ||
-    appliedFilters.reproductive_status,
+    appliedFilters.reproductive_status ||
+    appliedFilters.breed_id,
   );
 
   const {
@@ -85,6 +87,8 @@ export function FlockContent() {
       : undefined,
 
     reproductive_status: appliedFilters.reproductive_status,
+
+    breed_id: appliedFilters.breed_id,
 
     sort_by: sortBy,
     sort_dir: sortBy ? sortDir : undefined,
