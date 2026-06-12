@@ -7,11 +7,11 @@ export function buildCowHistoryFilters(
   const params: CowHistoryFilters = {};
 
   if (filters.startDate) {
-    params.start_date = filters.startDate;
+    params.occurred_from = filters.startDate;
   }
 
   if (filters.endDate) {
-    params.end_date = filters.endDate;
+    params.occurred_to = filters.endDate;
   }
 
   if (filters.main === "weighing") {

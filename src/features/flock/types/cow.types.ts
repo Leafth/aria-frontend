@@ -280,8 +280,8 @@ export interface CowHistoryFilters {
   per_page?: number;
   event_type?: string;
   reproductive?: boolean;
-  start_date?: string;
-  end_date?: string;
+  occurred_from?: string;
+  occurred_to?: string;
 }
 
 export interface RegisterPregnancyInterruptionDTO {
