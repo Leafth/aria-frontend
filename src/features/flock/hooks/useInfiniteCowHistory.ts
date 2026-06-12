@@ -3,22 +3,20 @@ import { getCowHistory } from "../services/cow.service";
 import type { CowHistoryFilters } from "../types/cow.types";
 
 export function useInfiniteCowHistory(
-  cowId?: string,
-  params?: Omit<CowHistoryFilters, "page">,
+  cowId: string,
+  filters?: CowHistoryFilters,
 ) {
   return useInfiniteQuery({
-    queryKey: ["cow-history", cowId, params],
+    queryKey: ["cow-history", cowId, filters],
 
-    queryFn: ({ pageParam }) =>
-      getCowHistory(cowId!, {
-        ...params,
+    queryFn: ({ pageParam = 1 }) =>
+      getCowHistory(cowId, {
+        ...filters,
         page: pageParam,
       }),
 
     initialPageParam: 1,
 
     getNextPageParam: (lastPage) => lastPage.meta.next_page,
-
-    enabled: Boolean(cowId),
   });
 }
