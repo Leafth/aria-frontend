@@ -1,13 +1,14 @@
 import { X } from "lucide-react";
 import { Button, InputField, Modal } from "@/shared";
 import type { CowReproductiveStatus } from "../../types/cow.types";
-
+import { useBreeds } from "@/features/reproductive-support/hooks/useBreed";
 export interface ModalFilterValues {
   birth_from?: string;
   birth_to?: string;
   weight_from?: string;
   weight_to?: string;
   reproductive_status?: CowReproductiveStatus;
+  breed_id?: string;
 }
 
 interface ModalFilterProps {
@@ -82,6 +83,8 @@ export function ModalFilter({
       weight_to: undefined,
     });
   }
+
+  const { data: breeds = [] } = useBreeds();
 
   const hasBirthDateFilter = Boolean(filters.birth_from || filters.birth_to);
   const hasWeightFilter = Boolean(filters.weight_from || filters.weight_to);
@@ -188,6 +191,38 @@ export function ModalFilter({
             <button
               type="button"
               onClick={clearWeightFilter}
+              className="flex w-fit items-center gap-2 rounded-xl bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:bg-gray-300 cursor-pointer"
+            >
+              Limpar Filtro
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </section>
+        <section className="flex flex-col gap-3">
+          <h3 className="text-base font-semibold text-gray-800">Raça</h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            <select
+              value={filters.breed_id ?? ""}
+              onChange={(event) =>
+                updateFilter("breed_id", event.target.value || undefined)
+              }
+              className="h-12 w-full rounded-xl border border-gray-300 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-support-teal"
+            >
+              <option value="">Selecione</option>
+
+              {breeds.map((breed) => (
+                <option key={breed.id} value={breed.id}>
+                  {breed.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {filters.breed_id && (
+            <button
+              type="button"
+              onClick={() => updateFilter("breed_id", undefined)}
               className="flex w-fit items-center gap-2 rounded-xl bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-800 transition hover:bg-gray-300 cursor-pointer"
             >
               Limpar Filtro
