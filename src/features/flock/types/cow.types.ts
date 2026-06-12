@@ -277,7 +277,10 @@ export type CowHistoryEventType =
 export interface CowHistoryFilters {
   page?: number;
   per_page?: number;
-  event_type?: CowHistoryEventType;
+  event_type?: string;
+  reproductive?: boolean;
+  start_date?: string;
+  end_date?: string;
 }
 
 export interface RegisterPregnancyInterruptionDTO {
