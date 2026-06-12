@@ -183,6 +183,7 @@ export interface CowFilters {
   weight_from?: number;
   reproductive_status?: CowReproductiveStatus;
   weight_to?: number;
+  breed_id?: string;
   phase?: CowPhase;
   active?: boolean;
   created_from?: string;
