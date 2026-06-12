@@ -8,8 +8,8 @@ import { Header } from "@/shared";
 import { formatDate } from "@/utils/formatDate";
 import { getCowStatus } from "../../utils/cowStatus.utils";
 import { useInfiniteCowHistory } from "../../hooks/useInfiniteCowHistory";
-import type { HistoryFilterValue } from "../../components/individual-record/recent-history/HistoryFilter.mock";
-import { historyFilterToEventType } from "../../sections/history-filter-event-type.mapper";
+import type { HistoryFiltersValue } from "../../components/individual-record/recent-history/HistoryFilter.mock";
+import { buildCowHistoryFilters } from "../../sections/build-cow-history-filters";
 
 interface FullHistoryContentProps {
   cow: CowDetails;
@@ -17,9 +17,15 @@ interface FullHistoryContentProps {
 
 export function FullHistoryContent({ cow }: FullHistoryContentProps) {
   const navigate = useNavigate();
-  const [filter, setFilter] = useState<HistoryFilterValue>("Todas");
 
-  const eventType = historyFilterToEventType(filter);
+  const [filter, setFilter] = useState<HistoryFiltersValue>({
+    main: "all",
+    startDate: "",
+    endDate: "",
+    reproductiveEvents: [],
+  });
+
+  const historyFilters = buildCowHistoryFilters(filter);
 
   const {
     data: historyData,
@@ -30,7 +36,7 @@ export function FullHistoryContent({ cow }: FullHistoryContentProps) {
     isFetchingNextPage,
   } = useInfiniteCowHistory(cow.id, {
     per_page: 10,
-    event_type: eventType,
+    ...historyFilters,
   });
 
   const historyItems =

@@ -1,12 +1,11 @@
 import { Button } from "@/shared";
 import { RecentHistoryCard } from "../../../components/individual-record/recent-history/RecentHistoryCard";
 import type { HistoryItem } from "../../../components/individual-record/recent-history/recent-history.types";
-import type { HistoryFilterValue } from "@/features/flock/components/individual-record/recent-history/HistoryFilter.mock";
+import type { HistoryFiltersValue } from "@/features/flock/components/individual-record/recent-history/HistoryFilter.mock";
 import { HistoryFilter } from "@/features/flock/components/individual-record/recent-history/HistoryFilter";
-
 interface FullHistoryMainSectionProps {
-  filter: HistoryFilterValue;
-  onFilterChange: (value: HistoryFilterValue) => void;
+  filter: HistoryFiltersValue;
+  onFilterChange: (value: HistoryFiltersValue) => void;
   items: HistoryItem[];
   isLoading: boolean;
   isError: boolean;
