@@ -43,7 +43,7 @@ export function HistoryFilter({ value, onChange }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-150">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-180 my-2">
         <InputField
           label="Data inicial"
           type="date"
@@ -51,6 +51,7 @@ export function HistoryFilter({ value, onChange }: Props) {
           onChange={(event) =>
             handleDateChange("startDate", event.target.value)
           }
+          className="cursor-pointer"
         />
 
         <InputField
@@ -58,6 +59,7 @@ export function HistoryFilter({ value, onChange }: Props) {
           type="date"
           value={value.endDate}
           onChange={(event) => handleDateChange("endDate", event.target.value)}
+          className="cursor-pointer"
         />
       </div>
 

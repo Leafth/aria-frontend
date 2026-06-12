@@ -207,7 +207,7 @@ export function ModalFilter({
               onChange={(event) =>
                 updateFilter("breed_id", event.target.value || undefined)
               }
-              className="h-12 w-full rounded-xl border border-gray-300 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-support-teal"
+              className="h-12 w-full rounded-xl border border-gray-300 bg-white px-3 text-sm text-gray-700 outline-none transition focus:border-support-teal cursor-pointer"
             >
               <option value="">Selecione</option>
 
