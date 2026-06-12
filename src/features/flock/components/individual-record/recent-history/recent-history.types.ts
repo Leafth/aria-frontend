@@ -4,6 +4,7 @@ export type HistoryType =
   | "Cobertura"
   | "Prenhez"
   | "Parto"
+  | "Interrupção"
   | "Inativação"
   | "Fase";
 
