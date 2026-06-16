@@ -1,0 +1,1 @@
+export { LastEventsCard } from "./LastEventsCard";
