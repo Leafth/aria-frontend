@@ -6,7 +6,7 @@ import {
   ResetPasswordPage,
 } from "@/features/auth/pages";
 import {
-  DashboardPage,
+  HomePage,
   ReproductiveSupportPage,
   FlockPage,
   IndividualRecordPage,
@@ -26,7 +26,7 @@ export function AppRoutes() {
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/flock" element={<FlockPage />} />
             <Route
               path="/flock/individual/:id"

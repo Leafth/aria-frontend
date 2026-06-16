@@ -20,7 +20,7 @@ export function useLoginForm() {
     try {
       await login(data);
 
-      navigate("/dashboard");
+      navigate("/home");
     } catch (err: any) {
       toast.error(
         err?.response?.data?.error || "Email ou senha inválidos"
