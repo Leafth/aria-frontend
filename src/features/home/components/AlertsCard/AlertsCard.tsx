@@ -1,0 +1,47 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card } from "../Card";
+import { AlertItem } from "./AlertItem";
+import type { AlertMock } from "../../mock/alerts.mock";
+
+interface AlertsCardProps {
+  data: AlertMock[];
+}
+
+export function AlertsCard({ data }: AlertsCardProps) {
+  const navigate = useNavigate();
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleAlerts = showAll ? data : data.slice(0, 2);
+  const hasAlerts = data.length > 0;
+  const hasMoreThanTwoAlerts = data.length > 2;
+
+  return (
+    <Card title="Alertas do sistema">
+      <main className="flex flex-col gap-5">
+        {!hasAlerts && (
+          <p className="text-sm text-gray-400">Não há alertas no momento.</p>
+        )}
+
+        {visibleAlerts.map((alert) => (
+          <AlertItem
+            key={alert.id}
+            title={alert.title}
+            color={alert.color}
+            onGoToCowRecord={() => navigate(`/flock/individual/${alert.cowId}`)}
+          />
+        ))}
+
+        {hasMoreThanTwoAlerts && (
+          <button
+            type="button"
+            onClick={() => setShowAll((current) => !current)}
+            className="self-center text-sm font-semibold text-gray-700 transition hover:text-gray-950 cursor-pointer"
+          >
+            {showAll ? "Mostrar menos" : "Mostrar mais..."}
+          </button>
+        )}
+      </main>
+    </Card>
+  );
+}
