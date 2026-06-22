@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { AlertViewItem } from "../../types/home-view.types";
+import type { AlertsCardProps } from "./types";
 import { Card } from "../Card";
 import { AlertItem } from "./AlertItem";
-
-interface AlertsCardProps {
-  data: AlertViewItem[];
-}
 
 export function AlertsCard({ data }: AlertsCardProps) {
   const navigate = useNavigate();

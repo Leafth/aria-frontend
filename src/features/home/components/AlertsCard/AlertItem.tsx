@@ -1,12 +1,5 @@
 import { ChevronRight, CircleAlert } from "lucide-react";
-
-interface AlertItemProps {
-  title: string;
-  bgColorClass: string;
-  borderColorClass: string;
-  iconColorClass: string;
-  onGoToCowRecord: () => void;
-}
+import type { AlertItemProps } from "./types";
 
 export function AlertItem({
   title,

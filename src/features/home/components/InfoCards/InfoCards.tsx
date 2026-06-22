@@ -1,13 +1,4 @@
-interface InfoCardItem {
-  id: string;
-  value: number;
-  title: string;
-  description?: string;
-}
-
-interface InfoCardsProps {
-  data: InfoCardItem[];
-}
+import type { InfoCardsProps } from "./types";
 
 export function InfoCards({ data }: InfoCardsProps) {
   return (
