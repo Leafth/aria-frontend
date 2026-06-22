@@ -1,8 +1,8 @@
-import type { LastEventMock } from "../../mock/last-events.mock";
+import type { LastEventItem } from "../../types/home-view.types";
 import { Card } from "../Card";
 
 interface LastEventsCardProps {
-  data: LastEventMock[];
+  data: LastEventItem[];
 }
 
 export function LastEventsCard({ data }: LastEventsCardProps) {
