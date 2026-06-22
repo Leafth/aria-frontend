@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { AlertViewItem } from "../../types/home-view.types";
 import { Card } from "../Card";
 import { AlertItem } from "./AlertItem";
-import type { AlertMock } from "../../mock/alerts.mock";
 
 interface AlertsCardProps {
-  data: AlertMock[];
+  data: AlertViewItem[];
 }
 
 export function AlertsCard({ data }: AlertsCardProps) {
@@ -27,7 +27,9 @@ export function AlertsCard({ data }: AlertsCardProps) {
           <AlertItem
             key={alert.id}
             title={alert.title}
-            color={alert.color}
+            bgColorClass={alert.bgColorClass}
+            borderColorClass={alert.borderColorClass}
+            iconColorClass={alert.iconColorClass}
             onGoToCowRecord={() => navigate(`/flock/individual/${alert.cowId}`)}
           />
         ))}
@@ -36,7 +38,7 @@ export function AlertsCard({ data }: AlertsCardProps) {
           <button
             type="button"
             onClick={() => setShowAll((current) => !current)}
-            className="self-center text-sm font-semibold text-gray-700 transition hover:text-gray-950 cursor-pointer"
+            className="self-center cursor-pointer text-sm font-semibold text-gray-700 transition hover:text-gray-950"
           >
             {showAll ? "Mostrar menos" : "Mostrar mais..."}
           </button>
