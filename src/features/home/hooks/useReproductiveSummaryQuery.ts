@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { homeDashboardApi } from "../services/home.service";
-import { mapReproductiveSummaryToInfoCards } from "../mappers/reproductive.mapper";
+import { homeApi } from "../services";
+import { mapReproductiveSummaryToInfoCards } from "../mappers";
 
 export function useReproductiveSummaryQuery() {
   return useQuery({
     queryKey: ["home", "reproductive-summary"],
-    queryFn: homeDashboardApi.getReproductiveSummary,
+    queryFn: homeApi.getReproductiveSummary,
     select: mapReproductiveSummaryToInfoCards,
     staleTime: 1000 * 60,
   });

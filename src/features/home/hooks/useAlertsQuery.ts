@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { homeDashboardApi } from "../services/home.service";
-import { mapAlertsToView } from "../mappers/alert.mapper";
+import { homeApi } from "../services";
+import { mapAlertsToView } from "../mappers";
 
 export function useAlertsQuery() {
   return useQuery({
     queryKey: ["home", "alerts"],
-    queryFn: homeDashboardApi.getAlerts,
+    queryFn: homeApi.getAlerts,
     select: mapAlertsToView,
     staleTime: 1000 * 60,
   });

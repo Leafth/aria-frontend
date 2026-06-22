@@ -1,7 +1,4 @@
-// src/features/home/mappers/alert.mapper.ts
-
-import type { AlertApi } from "../types/home-service.types";
-import type { AlertViewItem } from "../types/home-view.types";
+import type { AlertViewItem, AlertApi } from "../types";
 
 const ALERT_LEVEL_STYLES = {
   warning: {

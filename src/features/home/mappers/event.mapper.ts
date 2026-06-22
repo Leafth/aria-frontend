@@ -1,5 +1,7 @@
-import type { EventsResponseApi } from "../types/home-service.types";
-import type { LastEventItem } from "../types/home-view.types";
+import type {
+  LastEventItem,
+  EventsResponseApi,
+} from "../types";
 
 const EVENT_TITLE_BY_TYPE: Record<string, string> = {
   pregnancy_check: "Diagnóstico de Prenhez",

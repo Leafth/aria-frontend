@@ -1,7 +1,10 @@
-import { LastEventsCard, PhaseDistruibutionCard } from "../../components";
-import { AlertsCard } from "../../components/AlertsCard/AlertsCard";
-import { InfoCards } from "../../components/InfoCards";
-import { useHome } from "../../hooks/useHome";
+import {
+  LastEventsCard,
+  PhaseDistruibutionCard,
+  AlertsCard,
+  InfoCards,
+} from "../../components";
+import { useHome } from "../../hooks";
 
 export function HomeMainSection() {
   const {

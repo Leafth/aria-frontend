@@ -4,9 +4,9 @@ import type {
   EventsResponseApi,
   PhaseSummaryApi,
   ReproductiveSummaryApi,
-} from "../types/home-service.types";
+} from "../types";
 
-export const homeDashboardApi = {
+export const homeApi = {
   getReproductiveSummary: async () => {
     const response = await api.get<ReproductiveSummaryApi>(
       "/dashboard/reproductive-summary",

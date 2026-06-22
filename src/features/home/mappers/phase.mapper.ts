@@ -1,5 +1,4 @@
-import type { PhaseSummaryApi } from "../types/home-service.types";
-import type { PhaseDistributionItem } from "../types/home-view.types";
+import type { PhaseDistributionItem, PhaseSummaryApi } from "../types";
 
 const PHASE_META = {
   calf: {

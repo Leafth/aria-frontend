@@ -1,4 +1,4 @@
-import type { LastEventItem } from "../../types/home-view.types";
+import type { LastEventItem } from "../../types";
 import { Card } from "../Card";
 
 interface LastEventsCardProps {

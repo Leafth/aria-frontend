@@ -1,5 +1,4 @@
-import type { ReproductiveSummaryApi } from "../types/home-service.types";
-import type { InfoCardItem } from "../types/home-view.types";
+import type { InfoCardItem, ReproductiveSummaryApi } from "../types";
 
 export function mapReproductiveSummaryToInfoCards(
   data: ReproductiveSummaryApi,

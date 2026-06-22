@@ -1,5 +1,5 @@
 import { ProgressBar } from "@/shared";
-import type { PhaseDistributionItem } from "../../types/home-view.types";
+import type { PhaseDistributionItem } from "../../types";
 import { Card } from "../Card";
 
 interface PhaseDistruibutionCardProps {

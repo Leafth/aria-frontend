@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { homeDashboardApi } from "../services/home.service";
-import { mapPhaseSummaryToDistribution } from "../mappers/phase.mapper";
+import { homeApi } from "../services";
+import { mapPhaseSummaryToDistribution } from "../mappers";
 
 export function usePhaseSummaryQuery() {
   return useQuery({
     queryKey: ["home", "phase-summary"],
-    queryFn: homeDashboardApi.getPhaseSummary,
+    queryFn: homeApi.getPhaseSummary,
     select: mapPhaseSummaryToDistribution,
     staleTime: 1000 * 60,
   });
