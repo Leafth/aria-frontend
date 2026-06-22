@@ -1,15 +1,32 @@
 import { ProgressBar } from "@/shared";
+import type { PhaseDistributionItem } from "../../types/home-view.types";
 import { Card } from "../Card";
 
-export function PhaseDistruibutionCard() {
+interface PhaseDistruibutionCardProps {
+  data: PhaseDistributionItem[];
+}
+
+export function PhaseDistruibutionCard({ data }: PhaseDistruibutionCardProps) {
+  const hasData = data.length > 0;
+
   return (
     <Card title="Distribuição por Fase">
       <main className="flex flex-col gap-5">
-        <ProgressBar label="Bezerra" totalCows={20} value={10} color="#B300A9"/>
-        <ProgressBar label="Garrota" totalCows={20} value={18.75} color="#6100D0"/>
-        <ProgressBar label="Novilha" totalCows={20} value={27.5} color="#00A5C2"/>
-        <ProgressBar label="Primípara" totalCows={20} value={37.5} color="#003AFF"/>
-        <ProgressBar label="Multípara" totalCows={20} value={6.25} color="#FF7700"/>
+        {!hasData && (
+          <p className="text-sm text-gray-400">
+            Não há dados de fase no momento.
+          </p>
+        )}
+
+        {data.map((item) => (
+          <ProgressBar
+            key={item.id}
+            label={item.label}
+            totalCows={item.count}
+            value={item.value}
+            color={item.color}
+          />
+        ))}
       </main>
     </Card>
   );
