@@ -6,12 +6,12 @@ const PHASE_META = {
     color: "#B300A9",
     order: 1,
   },
-  young: {
+  heifer: {
     label: "Garrota",
     color: "#6100D0",
     order: 2,
   },
-  heifer: {
+  young: {
     label: "Novilha",
     color: "#00A5C2",
     order: 3,
