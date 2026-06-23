@@ -3,6 +3,8 @@ import type { AlertItemProps } from "./types";
 
 export function AlertItem({
   title,
+  cowName,
+  earTag,
   bgColorClass,
   borderColorClass,
   iconColorClass,
@@ -15,7 +17,7 @@ export function AlertItem({
       <div className="flex min-w-0 items-center gap-4">
         <CircleAlert className={`h-5 w-5 shrink-0 ${iconColorClass}`} />
 
-        <p className="truncate text-xs font-semibold text-gray-800">{title}</p>
+        <p className="truncate text-xs font-semibold text-gray-800">{`${cowName}(BRC-${earTag}): ${title}`}</p>
       </div>
 
       <button

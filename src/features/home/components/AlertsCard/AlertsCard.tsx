@@ -23,6 +23,8 @@ export function AlertsCard({ data }: AlertsCardProps) {
           <AlertItem
             key={alert.id}
             title={alert.title}
+            cowName={alert.cowName}
+            earTag={alert.earTag}
             bgColorClass={alert.bgColorClass}
             borderColorClass={alert.borderColorClass}
             iconColorClass={alert.iconColorClass}
