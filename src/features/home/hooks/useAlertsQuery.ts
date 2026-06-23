@@ -7,6 +7,5 @@ export function useAlertsQuery() {
     queryKey: ["home", "alerts"],
     queryFn: homeApi.getAlerts,
     select: mapAlertsToView,
-    staleTime: 1000 * 60,
   });
 }

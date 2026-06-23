@@ -7,6 +7,5 @@ export function useLastEventsQuery(perPage = 5) {
     queryKey: ["home", "last-events", perPage],
     queryFn: () => homeApi.getLastEvents(perPage),
     select: mapEventsToView,
-    staleTime: 1000 * 60,
   });
 }

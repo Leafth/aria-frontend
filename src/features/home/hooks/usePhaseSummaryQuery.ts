@@ -7,6 +7,5 @@ export function usePhaseSummaryQuery() {
     queryKey: ["home", "phase-summary"],
     queryFn: homeApi.getPhaseSummary,
     select: mapPhaseSummaryToDistribution,
-    staleTime: 1000 * 60,
   });
 }

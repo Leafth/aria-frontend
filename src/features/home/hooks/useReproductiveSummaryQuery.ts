@@ -7,6 +7,5 @@ export function useReproductiveSummaryQuery() {
     queryKey: ["home", "reproductive-summary"],
     queryFn: homeApi.getReproductiveSummary,
     select: mapReproductiveSummaryToInfoCards,
-    staleTime: 1000 * 60,
   });
 }
