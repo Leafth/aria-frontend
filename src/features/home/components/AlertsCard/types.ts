@@ -6,6 +6,8 @@ export interface AlertsCardProps {
 
 export interface AlertItemProps {
   title: string;
+  cowName: string;
+  earTag: string;
   bgColorClass: string;
   borderColorClass: string;
   iconColorClass: string;
