@@ -1,17 +1,4 @@
-export interface ReportTableMetric {
-  value: number;
-  label: string;
-}
-
-export interface ReportIndicatorRow {
-  id: string;
-  indicator: string;
-  successes: ReportTableMetric;
-  failures: ReportTableMetric;
-  total: ReportTableMetric;
-  rate: number;
-  variation: number;
-}
+import type { ReportIndicatorRow } from "../../types/reports-view.types";
 
 export interface ReportsIndicatorsTableProps {
   data: ReportIndicatorRow[];
