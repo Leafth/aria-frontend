@@ -1,2 +1,5 @@
 export * from "./period-filter"
 export * from "./reports-indicators-table"
+export * from "./reports-donut-chart"
+export * from "./chart-bar-mixed"
+export * from "./chart-line-multiple"
