@@ -1,3 +1,4 @@
+import { TrendingDown, TrendingUp } from "lucide-react";
 import type { ReportsIndicatorsTableProps } from "./types";
 
 function formatPercentage(value: number) {
@@ -25,7 +26,9 @@ function VariationBadge({ value }: { value: number }) {
           : "bg-red-100 text-red-500"
       }`}
     >
-      <span>{isPositive ? "↗" : "↘"}</span>
+      <span>
+        {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+      </span>
       {formatVariation(value)}
     </span>
   );
