@@ -1,38 +1,6 @@
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { formatPercentage } from "../../utils/formatPercentage";
 import type { ReportsIndicatorsTableProps } from "./types";
-
-function formatPercentage(value: number) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "percent",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(value / 100);
-}
-
-function formatVariation(value: number) {
-  const signal = value > 0 ? "+" : "";
-
-  return `${signal}${formatPercentage(value)}`;
-}
-
-function VariationBadge({ value }: { value: number }) {
-  const isPositive = value >= 0;
-
-  return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium ${
-        isPositive
-          ? "bg-emerald-100 text-emerald-600"
-          : "bg-red-100 text-red-500"
-      }`}
-    >
-      <span>
-        {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-      </span>
-      {formatVariation(value)}
-    </span>
-  );
-}
+import { VariationBadge } from "./VariationBadge";
 
 export function ReportsIndicatorsTable({ data }: ReportsIndicatorsTableProps) {
   return (
