@@ -9,6 +9,7 @@ import {
   FlockPage,
   IndividualRecordPage,
   FullHistoryPage,
+  ReportPage,
 } from "@/features";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -37,6 +38,10 @@ export function AppRoutes() {
             <Route
               path="/reproductive-support"
               element={<ReproductiveSupportPage />}
+            />
+            <Route
+              path="/reports"
+              element={<ReportPage />}
             />
           </Route>
         </Route>

@@ -22,7 +22,7 @@ export const sections: SidebarSection[] = [
   {
     title: "ANÁLISES",
     items: [
-      { label: "Relatórios", icon: ChartColumnIncreasing, path: "/relatorios" },
+      { label: "Relatórios", icon: ChartColumnIncreasing, path: "/reports" },
     ],
   },
 ];
