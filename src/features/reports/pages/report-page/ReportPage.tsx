@@ -1,3 +1,5 @@
+import { ReportContent } from "./components/ReportContent";
+
 export default function ReportPage() {
-  return <><p>hello reports!</p></>;
+  return <ReportContent />;
 }
