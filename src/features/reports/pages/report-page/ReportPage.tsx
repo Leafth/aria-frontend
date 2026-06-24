@@ -1,4 +1,4 @@
-import { ReportContent } from "./components/ReportContent";
+import { ReportContent } from "./components";
 
 export default function ReportPage() {
   return <ReportContent />;

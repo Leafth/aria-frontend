@@ -1,10 +1,9 @@
 import {
-  ReportsIndicatorsTable,
-  ChartPieInteractive,
   ChartBarMixed,
   ChartLineMultiple,
+  ChartPieInteractive,
+  ReportsIndicatorsTable,
 } from "@/features/reports/components";
-
 import { ReportHeader } from "./ReportHeader";
 import { reportsTableMock } from "@/features/reports/mock/ReportsTableMock";
 
