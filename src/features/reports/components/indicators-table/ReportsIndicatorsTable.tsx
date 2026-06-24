@@ -6,7 +6,7 @@ export function ReportsIndicatorsTable({ data }: ReportsIndicatorsTableProps) {
   return (
     <div className="w-full overflow-hidden rounded-lg bg-white px-6 py-6">
       <div className="w-full overflow-x-auto">
-        <table className="w-full min-w-212.5` border-collapse">
+        <table className="w-full min-w-212.5 border-collapse">
           <thead>
             <tr className="border-b border-gray-200">
               <th className="px-5 pb-7 text-left text-sm font-medium text-gray-500">
@@ -36,7 +36,7 @@ export function ReportsIndicatorsTable({ data }: ReportsIndicatorsTableProps) {
                 key={item.id}
                 className="border-b border-gray-100 last:border-b-0"
               >
-                <td className="px-5 py-8 text-sm font-medium leading-5 text-gray-950">
+                <td className="whitespace-pre-line px-5 py-8 text-sm font-medium leading-5 text-gray-950">
                   {item.indicator}
                 </td>
 

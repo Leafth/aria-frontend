@@ -1,7 +1,15 @@
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { formatVariation } from "../../utils/formatVariation";
 
-export function VariationBadge({ value }: { value: number }) {
+export function VariationBadge({ value }: { value: number | null }) {
+  if (value === null) {
+    return (
+      <span className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
+        Sem comparação
+      </span>
+    );
+  }
+
   const isPositive = value >= 0;
 
   return (
@@ -12,9 +20,7 @@ export function VariationBadge({ value }: { value: number }) {
           : "bg-red-100 text-red-500"
       }`}
     >
-      <span>
-        {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-      </span>
+      {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
       {formatVariation(value)}
     </span>
   );
