@@ -10,6 +10,7 @@ import { ReportContentState } from "@/features/reports/reports-content-stage/Rep
 import type { ReportPeriod } from "@/features/reports/components/period-filter/types";
 import { useState } from "react";
 import { useReportFunnelQuery } from "@/features/reports/hooks/useReportFunnelQuery";
+import { useReportRatesEvolutionQuery } from "@/features/reports/hooks/useReportRatesEvolutionQuery";
 
 export function ReportContent() {
   const [period, setPeriod] = useState<ReportPeriod>("7d");
@@ -25,6 +26,12 @@ export function ReportContent() {
     isLoading: isLoadingFunnel,
     isError: isFunnelError,
   } = useReportFunnelQuery(period);
+
+  const {
+    data: ratesEvolutionData,
+    isLoading: isLoadingRatesEvolution,
+    isError: isRatesEvolutionError,
+  } = useReportRatesEvolutionQuery();
 
   return (
     <main className="flex w-full flex-col gap-6 p-4">
@@ -70,8 +77,13 @@ export function ReportContent() {
       <ReportContentState isLoading={isLoadingFunnel} isError={isFunnelError}>
         <ChartBarMixed data={funnelData ?? []} />
       </ReportContentState>
-      
-      <ChartLineMultiple />
+
+      <ReportContentState
+        isLoading={isLoadingRatesEvolution}
+        isError={isRatesEvolutionError}
+      >
+        <ChartLineMultiple data={ratesEvolutionData ?? []} />
+      </ReportContentState>
     </main>
   );
 }
