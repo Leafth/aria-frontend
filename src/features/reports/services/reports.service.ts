@@ -6,6 +6,7 @@ import type {
   GetReproductiveIndicatorsParams,
   ReportFunnelApi,
   ReportIndicatorsResponseApi,
+  ReportRatesEvolutionResponseApi,
 } from "../types/reports-api.types";
 
 export const reportsService = {
@@ -25,11 +26,16 @@ export const reportsService = {
   getReproductiveFunnel: async ({
     period,
   }: GetReproductiveIndicatorsParams) => {
-    const response = await api.get<ReportFunnelApi>(
-      "/dashboard/event-counts",
-      {
-        params: mapReportPeriodToParams(period),
-      },
+    const response = await api.get<ReportFunnelApi>("/dashboard/event-counts", {
+      params: mapReportPeriodToParams(period),
+    });
+
+    return response.data;
+  },
+
+  getReproductiveRatesEvolution: async () => {
+    const response = await api.get<ReportRatesEvolutionResponseApi>(
+      "/dashboard/reproductive-rates-evolution",
     );
 
     return response.data;
