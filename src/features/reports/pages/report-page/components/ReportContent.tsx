@@ -5,15 +5,22 @@ import {
   ReportsIndicatorsTable,
 } from "@/features/reports/components";
 import { ReportHeader } from "./ReportHeader";
-import { reportsTableMock } from "@/features/reports/mock/ReportsTableMock";
+import { useReportIndicatorsQuery } from "@/features/reports/hooks/useReportIndicatorsQuery";
+import { ReportContentState } from "@/features/reports/reports-content-stage/ReportsContentStage";
 
 export function ReportContent() {
+  const {
+    data: indicatorsData,
+    isLoading,
+    isError,
+  } = useReportIndicatorsQuery();
+
   return (
     <main className="flex w-full flex-col gap-6 p-4">
       <ReportHeader />
-
-      <ReportsIndicatorsTable data={reportsTableMock} />
-
+      <ReportContentState isLoading={isLoading} isError={isError}>
+        <ReportsIndicatorsTable data={indicatorsData?.table ?? []} />
+      </ReportContentState>
       <section className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2">
         <ChartPieInteractive
           title="Taxa de Diagnóstico"
