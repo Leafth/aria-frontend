@@ -26,3 +26,10 @@ export interface ReportIndicatorsView {
   table: ReportIndicatorRow[];
   pieOptions: SuccessPieOption[];
 }
+
+export interface FunnelItem {
+  label: string;
+  value: number;
+  barWidth: string;
+  color: string;
+}
