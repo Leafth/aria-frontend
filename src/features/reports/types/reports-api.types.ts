@@ -30,3 +30,12 @@ export interface ReportFunnelApi {
   pregnancy_check_positive: number;
   pregnancy_check_negative: number;
 }
+
+export interface ReportRatesEvolutionApi {
+  month: string;
+  insemination_success: number;
+  heat_coverage: number;
+  pregnancy_success: number;
+}
+
+export type ReportRatesEvolutionResponseApi = ReportRatesEvolutionApi[];

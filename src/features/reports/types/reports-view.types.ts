@@ -33,3 +33,10 @@ export interface FunnelItem {
   barWidth: string;
   color: string;
 }
+
+export interface RatesEvolutionChartItem {
+  month: string;
+  inseminacao: number;
+  cobertura: number;
+  prenhez: number;
+}
