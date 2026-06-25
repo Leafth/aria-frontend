@@ -1,21 +1,22 @@
-import {
-  PeriodFilter,
-  type PeriodFilterValue,
-} from "@/features/reports/components";
+import { PeriodFilter } from "@/features/reports/components";
+import type { ReportPeriod } from "@/features/reports/components/period-filter/types";
 import { Header } from "@/shared";
-import { useState } from "react";
 
-export function ReportHeader() {
-  const [period, setPeriod] = useState<PeriodFilterValue>("7d");
+interface ReportHeaderProps {
+  period: ReportPeriod;
+  onPeriodChange: (period: ReportPeriod) => void;
+}
 
+export function ReportHeader({ period, onPeriodChange }: ReportHeaderProps) {
   return (
     <header>
       <Header
         title="Relatórios"
         description="Indicadores de desempenho reprodutivo do rebanho"
       />
+
       <div className="mt-4">
-        <PeriodFilter value={period} onChange={setPeriod} />
+        <PeriodFilter value={period} onChange={onPeriodChange} />
       </div>
     </header>
   );
