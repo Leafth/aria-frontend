@@ -8,62 +8,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface FunnelItem {
-  label: string;
-  value: number;
-  percentage: number;
-  color: string;
-}
+import type { FunnelItem } from "@/features/reports/types/reports-view.types";
 
 interface ChartBarMixedProps {
   title?: string;
   subtitle?: string;
-  data?: FunnelItem[];
+  data: FunnelItem[];
 }
-
-const defaultData: FunnelItem[] = [
-  {
-    label: "Cios",
-    value: 32,
-    percentage: 100,
-    color: "#E2BE83",
-  },
-  {
-    label: "Coberturas",
-    value: 25,
-    percentage: 91,
-    color: "#248F80",
-  },
-  {
-    label: "Diagnósticos",
-    value: 20,
-    percentage: 82,
-    color: "#70BF72",
-  },
-  {
-    label: "Confirmações",
-    value: 15,
-    percentage: 66,
-    color: "#247D0D",
-  },
-  {
-    label: "Partos",
-    value: 8,
-    percentage: 58,
-    color: "#D19BC8",
-  },
-  {
-    label: "Interrupções",
-    value: 3,
-    percentage: 53,
-    color: "#E7353D",
-  },
-];
 
 export function ChartBarMixed({
   title = "Funil Reprodutivo",
   subtitle = "Ciclo Atual",
-  data = defaultData,
+  data,
 }: ChartBarMixedProps) {
   return (
     <Card className="w-full border border-gray-200 bg-white shadow-sm">
@@ -89,7 +45,7 @@ export function ChartBarMixed({
               <div
                 className="h-full rounded-lg"
                 style={{
-                  width: `${item.percentage}%`,
+                  width: item.barWidth,
                   backgroundColor: item.color,
                 }}
               />
