@@ -1,3 +1,5 @@
+import type { ReportPeriod } from "../components/period-filter/types";
+
 export type ReportIndicatorCode =
   | "insemination_success"
   | "heat_coverage"
@@ -10,6 +12,9 @@ export interface ReportIndicatorApi {
   total: number;
   rate: number;
   variation: number | null;
+}
+export interface GetReproductiveIndicatorsParams {
+  period: ReportPeriod;
 }
 
 export type ReportIndicatorsResponseApi = ReportIndicatorApi[];
