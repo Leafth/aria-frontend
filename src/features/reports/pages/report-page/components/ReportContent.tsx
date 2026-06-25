@@ -9,6 +9,7 @@ import { useReportIndicatorsQuery } from "@/features/reports/hooks/useReportIndi
 import { ReportContentState } from "@/features/reports/reports-content-stage/ReportsContentStage";
 import type { ReportPeriod } from "@/features/reports/components/period-filter/types";
 import { useState } from "react";
+import { useReportFunnelQuery } from "@/features/reports/hooks/useReportFunnelQuery";
 
 export function ReportContent() {
   const [period, setPeriod] = useState<ReportPeriod>("7d");
@@ -18,6 +19,12 @@ export function ReportContent() {
     isLoading,
     isError,
   } = useReportIndicatorsQuery(period);
+
+  const {
+    data: funnelData,
+    isLoading: isLoadingFunnel,
+    isError: isFunnelError,
+  } = useReportFunnelQuery(period);
 
   return (
     <main className="flex w-full flex-col gap-6 p-4">
@@ -60,7 +67,10 @@ export function ReportContent() {
         />
       </section>
 
-      <ChartBarMixed />
+      <ReportContentState isLoading={isLoadingFunnel} isError={isFunnelError}>
+        <ChartBarMixed data={funnelData ?? []} />
+      </ReportContentState>
+      
       <ChartLineMultiple />
     </main>
   );
