@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { ReportHeader } from "../pages/report-page/components";
 
 interface ReportContentStateProps {
   isLoading: boolean;
@@ -15,8 +14,6 @@ export function ReportContentState({
   if (isLoading) {
     return (
       <main className="flex w-full flex-col gap-6 p-4">
-        <ReportHeader />
-
         <div className="rounded-lg bg-white p-6">
           <p className="text-sm text-gray-500">Carregando indicadores...</p>
         </div>
@@ -27,8 +24,6 @@ export function ReportContentState({
   if (isError) {
     return (
       <main className="flex w-full flex-col gap-6 p-4">
-        <ReportHeader />
-
         <div className="rounded-lg bg-white p-6">
           <p className="text-sm text-red-500">
             Não foi possível carregar os indicadores.
