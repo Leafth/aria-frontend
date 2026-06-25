@@ -20,44 +20,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const chartData = [
-  {
-    month: "Jan",
-    inseminacao: 53,
-    cobertura: 70,
-    prenhez: 28,
-  },
-  {
-    month: "Feb",
-    inseminacao: 72,
-    cobertura: 87,
-    prenhez: 60,
-  },
-  {
-    month: "Mar",
-    inseminacao: 58,
-    cobertura: 75,
-    prenhez: 47,
-  },
-  {
-    month: "Apr",
-    inseminacao: 70,
-    cobertura: 52,
-    prenhez: 58,
-  },
-  {
-    month: "May",
-    inseminacao: 60,
-    cobertura: 72,
-    prenhez: 49,
-  },
-  {
-    month: "Jun",
-    inseminacao: 63,
-    cobertura: 74,
-    prenhez: 52,
-  },
-];
+import type { RatesEvolutionChartItem } from "@/features/reports/types/reports-view.types";
+
+type SelectedRate = "all" | "inseminacao" | "cobertura" | "prenhez";
+
+interface ChartLineMultipleProps {
+  data: RatesEvolutionChartItem[];
+  title?: string;
+  subtitle?: string;
+}
 
 const chartConfig = {
   inseminacao: {
@@ -74,27 +45,42 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartLineMultiple() {
-  const [selectedMetric, setSelectedMetric] = React.useState("inseminacoes");
+export function ChartLineMultiple({
+  data,
+  title = "Evolução das Taxas (%)",
+  subtitle = "Últimos 12 meses",
+}: ChartLineMultipleProps) {
+  const [selectedRate, setSelectedRate] = React.useState<SelectedRate>("all");
+
+  const showInseminacao =
+    selectedRate === "all" || selectedRate === "inseminacao";
+
+  const showCobertura = selectedRate === "all" || selectedRate === "cobertura";
+
+  const showPrenhez = selectedRate === "all" || selectedRate === "prenhez";
 
   return (
     <Card className="w-full border border-gray-200 bg-white shadow-sm">
       <CardHeader className="grid grid-cols-[1fr_auto_auto] items-center gap-10 px-7 pt-7 pb-2">
         <CardTitle className="text-base font-semibold text-gray-900">
-          Evolução das Taxas (%)
+          {title}
         </CardTitle>
 
-        <span className="text-sm text-gray-400">Últimos 6 meses</span>
+        <span className="text-sm text-gray-400">{subtitle}</span>
 
-        <Select value={selectedMetric} onValueChange={setSelectedMetric}>
+        <Select
+          value={selectedRate}
+          onValueChange={(value) => setSelectedRate(value as SelectedRate)}
+        >
           <SelectTrigger className="h-10 w-40 rounded-lg border-gray-200 bg-white text-sm">
             <SelectValue />
           </SelectTrigger>
 
-          <SelectContent align="end" className="rounded-xl">
-            <SelectItem value="inseminacoes">Inseminações</SelectItem>
-            <SelectItem value="coberturas">Coberturas</SelectItem>
-            <SelectItem value="prenhez">Prenhez</SelectItem>
+          <SelectContent align="end" className="rounded-xl cursor-pointer">
+            <SelectItem value="all" className="cursor-pointer">Todas</SelectItem>
+            <SelectItem value="inseminacao" className="cursor-pointer">Inseminação</SelectItem>
+            <SelectItem value="cobertura" className="cursor-pointer">Cobertura</SelectItem>
+            <SelectItem value="prenhez" className="cursor-pointer">Prenhez</SelectItem>
           </SelectContent>
         </Select>
       </CardHeader>
@@ -103,7 +89,7 @@ export function ChartLineMultiple() {
         <ChartContainer config={chartConfig} className="h-70 w-full">
           <LineChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             margin={{
               top: 16,
               right: 10,
@@ -115,8 +101,8 @@ export function ChartLineMultiple() {
 
             <YAxis
               type="number"
-              domain={[25, 90]}
-              ticks={[25, 53, 68, 76, 90]}
+              domain={[0, 100]}
+              ticks={[0, 25, 50, 75, 100]}
               tickLine={false}
               axisLine={false}
               tickMargin={12}
@@ -133,29 +119,35 @@ export function ChartLineMultiple() {
 
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
-            <Line
-              dataKey="inseminacao"
-              type="natural"
-              stroke="var(--color-inseminacao)"
-              strokeWidth={2}
-              dot={false}
-            />
+            {showInseminacao && (
+              <Line
+                dataKey="inseminacao"
+                type="natural"
+                stroke="var(--color-inseminacao)"
+                strokeWidth={2}
+                dot={false}
+              />
+            )}
 
-            <Line
-              dataKey="cobertura"
-              type="natural"
-              stroke="var(--color-cobertura)"
-              strokeWidth={2}
-              dot={false}
-            />
+            {showCobertura && (
+              <Line
+                dataKey="cobertura"
+                type="natural"
+                stroke="var(--color-cobertura)"
+                strokeWidth={2}
+                dot={false}
+              />
+            )}
 
-            <Line
-              dataKey="prenhez"
-              type="natural"
-              stroke="var(--color-prenhez)"
-              strokeWidth={2}
-              dot={false}
-            />
+            {showPrenhez && (
+              <Line
+                dataKey="prenhez"
+                type="natural"
+                stroke="var(--color-prenhez)"
+                strokeWidth={2}
+                dot={false}
+              />
+            )}
 
             <ChartLegend
               content={<ChartLegendContent />}
