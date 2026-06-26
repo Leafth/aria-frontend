@@ -1,3 +1,5 @@
+import type { DonutChartOption } from "../components/charts/reports-donut/types";
+
 export interface ReportTableMetric {
   value: number;
   label: string;
@@ -13,20 +15,6 @@ export interface ReportIndicatorRow {
   variation: number | null;
 }
 
-export interface SuccessPieOption {
-  value: string;
-  label: string;
-  confirmedLabel: string;
-  deniedLabel: string;
-  confirmedValue: number;
-  deniedValue: number;
-}
-
-export interface ReportIndicatorsView {
-  table: ReportIndicatorRow[];
-  pieOptions: SuccessPieOption[];
-}
-
 export interface FunnelItem {
   label: string;
   value: number;
@@ -39,4 +27,9 @@ export interface RatesEvolutionChartItem {
   inseminacao: number;
   cobertura: number;
   prenhez: number;
+}
+
+export interface ReportIndicatorsView {
+  table: ReportIndicatorRow[];
+  successRateOptions: DonutChartOption[];
 }
