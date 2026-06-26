@@ -39,3 +39,29 @@ export interface ReportRatesEvolutionApi {
 }
 
 export type ReportRatesEvolutionResponseApi = ReportRatesEvolutionApi[];
+
+export interface InseminationDistributionApi {
+  total: number;
+  method: InseminationMethodApi[];
+  bull: InseminationBullApi[];
+  company: InseminationCompanyApi[];
+}
+
+export interface InseminationMethodApi {
+  method: "natural_mating" | "artificial_insemination" | string;
+  total: number;
+  rate: number;
+}
+
+export interface InseminationBullApi {
+  bull_id: string;
+  bull_name: string;
+  total: number;
+  rate: number;
+}
+
+export interface InseminationCompanyApi {
+  company: string;
+  total: number;
+  rate: number;
+}
