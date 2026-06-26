@@ -2,13 +2,13 @@ export interface DonutChartSlice {
   id: string;
   label: string;
   value: number;
-  color: string;
+  color?: string;
 }
 
 export interface DonutChartLegendItem {
   id: string;
   label: string;
-  color: string;
+  color?: string;
   value?: string | number;
   description?: string;
   subDescription?: string;
