@@ -30,9 +30,10 @@ import { getChartColor } from "../../utils/chart-colors";
 
 interface ChartPieInteractiveProps {
   title: string;
-  description: string;
+  description?: string;
   options: DonutChartOption[];
   defaultValue?: string;
+  highlightFirstSlice?: boolean;
 }
 
 const chartConfig = {
@@ -43,9 +44,9 @@ const chartConfig = {
 
 export function ChartPieInteractive({
   title,
-  description,
   options,
   defaultValue,
+  highlightFirstSlice = false,
 }: ChartPieInteractiveProps) {
   const id = React.useId();
 
@@ -73,7 +74,7 @@ export function ChartPieInteractive({
 
   const renderPieShape = React.useCallback(
     ({ index, outerRadius = 0, ...props }: PieSectorShapeProps) => {
-      if (index === 0) {
+      if (highlightFirstSlice && index === 0) {
         return (
           <g>
             <Sector {...props} outerRadius={outerRadius + 8} />
@@ -88,7 +89,7 @@ export function ChartPieInteractive({
 
       return <Sector {...props} outerRadius={outerRadius} />;
     },
-    [],
+    [highlightFirstSlice],
   );
 
   const selectedOption =
@@ -127,10 +128,6 @@ export function ChartPieInteractive({
           <CardTitle className="text-base font-semibold text-gray-900">
             {title}
           </CardTitle>
-
-          <CardDescription className="text-sm text-gray-500">
-            {description}
-          </CardDescription>
         </div>
 
         <Select value={selectedValue} onValueChange={setSelectedValue}>
@@ -145,16 +142,7 @@ export function ChartPieInteractive({
                 value={option.value}
                 className="rounded-lg"
               >
-                <div className="flex items-center gap-2">
-                  <span
-                    className="h-3 w-3 rounded-sm"
-                    style={{
-                      backgroundColor:
-                        option.slices[0]?.color ?? getChartColor(0),
-                    }}
-                  />
-                  {option.label}
-                </div>
+                <div className="flex items-center gap-2">{option.label}</div>
               </SelectItem>
             ))}
           </SelectContent>

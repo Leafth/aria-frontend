@@ -55,6 +55,7 @@ export function ReportContent() {
             description="Indicadores reprodutivos"
             defaultValue="pregnancy_success"
             options={indicatorsData?.successRateOptions ?? []}
+            highlightFirstSlice
           />
         </ReportContentState>
         <ReportContentState
@@ -62,7 +63,7 @@ export function ReportContent() {
           isError={isInseminationError}
         >
           <ChartPieInteractive
-            title="Inseminações"
+            title="Distribuição de Inseminações"
             description="January - June 2024"
             defaultValue="method"
             options={inseminationOptions ?? []}
