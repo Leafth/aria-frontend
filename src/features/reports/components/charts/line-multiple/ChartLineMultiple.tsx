@@ -86,12 +86,12 @@ export function ChartLineMultiple({
       </CardHeader>
 
       <CardContent className="px-7 pb-6">
-        <ChartContainer config={chartConfig} className="h-70 w-full">
+        <ChartContainer config={chartConfig} className="h-80 w-full">
           <LineChart
             accessibilityLayer
             data={data}
             margin={{
-              top: 16,
+              top: 30,
               right: 10,
               left: -18,
               bottom: 18,
