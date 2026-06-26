@@ -11,6 +11,7 @@ import type { ReportPeriod } from "@/features/reports/components/period-filter/t
 import { useState } from "react";
 import { useReportFunnelQuery } from "@/features/reports/hooks/useReportFunnelQuery";
 import { useReportRatesEvolutionQuery } from "@/features/reports/hooks/useReportRatesEvolutionQuery";
+import { useInseminationDistributionQuery } from "@/features/reports/hooks/useInseminationDistributionQuery";
 
 export function ReportContent() {
   const [period, setPeriod] = useState<ReportPeriod>("7d");
@@ -33,6 +34,12 @@ export function ReportContent() {
     isError: isRatesEvolutionError,
   } = useReportRatesEvolutionQuery();
 
+  const {
+    data: inseminationOptions,
+    isLoading: isLoadingInsemination,
+    isError: isInseminationError,
+  } = useInseminationDistributionQuery(period);
+
   return (
     <main className="flex w-full flex-col gap-6 p-4">
       <ReportHeader period={period} onPeriodChange={setPeriod} />
@@ -42,7 +49,18 @@ export function ReportContent() {
       </ReportContentState>
 
       <section className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2">
-        <ChartPieInteractive
+        <ReportContentState
+          isLoading={isLoadingInsemination}
+          isError={isInseminationError}
+        >
+          <ChartPieInteractive
+            title="Inseminações"
+            description="January - June 2024"
+            defaultValue="method"
+            options={inseminationOptions ?? []}
+          />
+        </ReportContentState>
+        {/* <ChartPieInteractive
           title="Taxa de Diagnóstico"
           description="Últimos 30 dias"
           defaultValue="diagnosis"
@@ -56,22 +74,7 @@ export function ReportContent() {
               deniedValue: 5,
             },
           ]}
-        />
-        <ChartPieInteractive
-          title="Taxa de Diagnóstico"
-          description="Últimos 30 dias"
-          defaultValue="diagnosis"
-          options={[
-            {
-              value: "diagnosis",
-              label: "Diagnóstico",
-              confirmedLabel: "Positivos",
-              deniedLabel: "Negativos",
-              confirmedValue: 20,
-              deniedValue: 5,
-            },
-          ]}
-        />
+        /> */}
       </section>
 
       <ReportContentState isLoading={isLoadingFunnel} isError={isFunnelError}>
