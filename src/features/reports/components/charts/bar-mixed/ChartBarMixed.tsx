@@ -1,9 +1,6 @@
-import { TrendingUp } from "lucide-react";
-
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -57,17 +54,6 @@ export function ChartBarMixed({
           </div>
         ))}
       </CardContent>
-
-      <CardFooter className="mt-5 flex-col items-start gap-2 px-7 pb-6 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none text-gray-900">
-          Trending up by 5.2% this month
-          <TrendingUp className="h-4 w-4" />
-        </div>
-
-        <div className="leading-none text-gray-500">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
     </Card>
   );
 }
