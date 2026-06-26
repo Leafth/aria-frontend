@@ -4,7 +4,7 @@ import { VariationBadge } from "./VariationBadge";
 
 export function ReportsIndicatorsTable({ data }: ReportsIndicatorsTableProps) {
   return (
-    <div className="w-full overflow-hidden rounded-lg bg-white px-6 py-6">
+    <div className="w-full overflow-hidden rounded-lg bg-white px-6 py-6 border border-gray-200 shadow-sm">
       <div className="w-full overflow-x-auto">
         <table className="w-full min-w-212.5 border-collapse">
           <thead>
