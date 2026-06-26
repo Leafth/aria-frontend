@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select";
 
 import type { DonutChartOption } from "./types";
+import { getChartColor } from "../../utils/chart-colors";
 
 interface ChartPieInteractiveProps {
   title: string;
@@ -109,11 +110,11 @@ export function ChartPieInteractive({
     );
   }
 
-  const chartData = selectedOption.slices.map((slice) => ({
+  const chartData = selectedOption.slices.map((slice, index) => ({
     status: slice.id,
     label: slice.label,
     value: slice.value,
-    fill: slice.color,
+    fill: slice.color ?? getChartColor(index),
   }));
 
   return (
@@ -148,7 +149,8 @@ export function ChartPieInteractive({
                   <span
                     className="h-3 w-3 rounded-sm"
                     style={{
-                      backgroundColor: option.slices[0]?.color ?? "#299D8F",
+                      backgroundColor:
+                        option.slices[0]?.color ?? getChartColor(0),
                     }}
                   />
                   {option.label}
@@ -229,8 +231,8 @@ export function ChartPieInteractive({
             )}
           </div>
 
-          <div className="flex flex-col gap-4">
-            {selectedOption.legendItems.map((item) => (
+          <div className="flex max-h-34 flex-col gap-4 overflow-y-auto pr-2">
+            {selectedOption.legendItems.map((item, index) => (
               <div
                 key={item.id}
                 className="flex items-start justify-between gap-6 text-sm"
@@ -238,7 +240,9 @@ export function ChartPieInteractive({
                 <div className="flex items-start gap-3">
                   <span
                     className="mt-1 h-3 w-3 rounded-full"
-                    style={{ backgroundColor: item.color }}
+                    style={{
+                      backgroundColor: item.color ?? getChartColor(index),
+                    }}
                   />
 
                   <div>
