@@ -40,7 +40,7 @@ export function AppRoutes() {
               element={<ReproductiveSupportPage />}
             />
             <Route
-              path="/reports"
+              path="/dashboard"
               element={<ReportPage />}
             />
           </Route>

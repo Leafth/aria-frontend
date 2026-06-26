@@ -11,7 +11,7 @@ export function ReportHeader({ period, onPeriodChange }: ReportHeaderProps) {
   return (
     <header>
       <Header
-        title="Relatórios"
+        title="Dashboard"
         description="Indicadores de desempenho reprodutivo do rebanho"
       />
 
