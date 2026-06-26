@@ -4,6 +4,7 @@ import { mapReportPeriodToParams } from "../mappers/report-period.mapper";
 
 import type {
   GetReproductiveIndicatorsParams,
+  InseminationDistributionApi,
   ReportFunnelApi,
   ReportIndicatorsResponseApi,
   ReportRatesEvolutionResponseApi,
@@ -36,6 +37,19 @@ export const reportsService = {
   getReproductiveRatesEvolution: async () => {
     const response = await api.get<ReportRatesEvolutionResponseApi>(
       "/dashboard/reproductive-rates-evolution",
+    );
+
+    return response.data;
+  },
+
+  getInseminationDistribution: async ({
+    period,
+  }: GetReproductiveIndicatorsParams) => {
+    const response = await api.get<InseminationDistributionApi>(
+      "/dashboard/insemination-distribution",
+      {
+        params: mapReportPeriodToParams(period),
+      },
     );
 
     return response.data;
