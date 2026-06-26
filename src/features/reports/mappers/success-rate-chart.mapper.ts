@@ -1,42 +1,30 @@
 import type { DonutChartOption } from "../components/charts/reports-donut/types";
 import type { ReportIndicatorApi } from "../types/reports-api.types";
-import type {
-  ReportIndicatorsView,
-  ReportIndicatorRow,
-} from "../types/reports-view.types";
 
 const INDICATOR_META = {
   insemination_success: {
-    title: "Sucesso de\nInseminações",
+    optionLabel: "Inseminações",
     successLabel: "Confirmadas",
     failureLabel: "Negadas",
-    totalLabel: "Exames",
-    optionLabel: "Inseminações",
   },
   heat_coverage: {
-    title: "Cios com\nCobertura",
+    optionLabel: "Cobertura",
     successLabel: "Com Cobertura",
     failureLabel: "Sem Cobertura",
-    totalLabel: "Cios",
-    optionLabel: "Cobertura",
   },
   pregnancy_success: {
-    title: "Sucesso de\nPrenhez",
-    successLabel: "Partos",
-    failureLabel: "Interrupções",
-    totalLabel: "Encerradas",
     optionLabel: "Prenhez",
+    successLabel: "Confirmadas",
+    failureLabel: "Negadas",
   },
 } as const;
 
 function getIndicatorMeta(indicator: string) {
   return (
     INDICATOR_META[indicator as keyof typeof INDICATOR_META] ?? {
-      title: indicator,
+      optionLabel: indicator,
       successLabel: "Sucessos",
       failureLabel: "Falhas",
-      totalLabel: "Total",
-      optionLabel: indicator,
     }
   );
 }
@@ -48,34 +36,7 @@ function formatRate(value: number) {
   })}%`;
 }
 
-export function mapReportIndicatorsToTable(
-  data: ReportIndicatorApi[],
-): ReportIndicatorRow[] {
-  return data.map((item) => {
-    const meta = getIndicatorMeta(item.indicator);
-
-    return {
-      id: item.indicator,
-      indicator: meta.title,
-      successes: {
-        value: item.successes,
-        label: meta.successLabel,
-      },
-      failures: {
-        value: item.failures,
-        label: meta.failureLabel,
-      },
-      total: {
-        value: item.total,
-        label: meta.totalLabel,
-      },
-      rate: item.rate,
-      variation: item.variation,
-    };
-  });
-}
-
-export function mapReportIndicatorsToSuccessRateOptions(
+export function mapIndicatorsToSuccessRateChartOptions(
   data: ReportIndicatorApi[],
 ): DonutChartOption[] {
   return data.map((item) => {
@@ -84,13 +45,10 @@ export function mapReportIndicatorsToSuccessRateOptions(
     return {
       value: item.indicator,
       label: meta.optionLabel,
-
       centerValue: formatRate(item.rate),
       centerLabel: "taxa",
-
       legendTitle: "Taxa de Sucesso",
       legendSubtitle: `Total - ${item.total}`,
-
       slices: [
         {
           id: "successes",
@@ -105,7 +63,6 @@ export function mapReportIndicatorsToSuccessRateOptions(
           color: "#EA694A",
         },
       ],
-
       legendItems: [
         {
           id: "successes",
@@ -122,13 +79,4 @@ export function mapReportIndicatorsToSuccessRateOptions(
       ],
     };
   });
-}
-
-export function mapReportIndicators(
-  data: ReportIndicatorApi[],
-): ReportIndicatorsView {
-  return {
-    table: mapReportIndicatorsToTable(data),
-    successRateOptions: mapReportIndicatorsToSuccessRateOptions(data),
-  };
 }
