@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import type { DonutChartOption } from "./types";
 
 interface ChartPieInteractiveProps {
@@ -47,36 +48,28 @@ export function ChartPieInteractive({
 }: ChartPieInteractiveProps) {
   const id = React.useId();
 
-  const [selectedValue, setSelectedValue] = React.useState(
-    defaultValue ?? options[0]?.value,
-  );
+  const [selectedValue, setSelectedValue] = React.useState(defaultValue ?? "");
 
-  const selectedOption =
-    options.find((option) => option.value === selectedValue) ?? options[0];
+  React.useEffect(() => {
+    if (options.length === 0) {
+      return;
+    }
 
-  if (!selectedOption) {
-    return (
-      <Card className="w-full border border-gray-200 bg-white p-5 shadow-sm">
-        <CardHeader>
-          <CardTitle className="text-base font-semibold text-gray-900">
-            {title}
-          </CardTitle>
-          <CardDescription className="text-sm text-gray-500">
-            Nenhum dado disponível.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+    const hasSelectedValue = options.some(
+      (option) => option.value === selectedValue,
     );
-  }
 
-  const chartData = selectedOption.slices.map((slice: { id: any; label: any; value: any; color: any; }) => ({
-    status: slice.id,
-    label: slice.label,
-    value: slice.value,
-    fill: slice.color,
-  }));
+    if (hasSelectedValue) {
+      return;
+    }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+    const defaultOption = options.find(
+      (option) => option.value === defaultValue,
+    );
+
+    setSelectedValue(defaultOption?.value ?? options[0].value);
+  }, [options, defaultValue, selectedValue]);
+
   const renderPieShape = React.useCallback(
     ({ index, outerRadius = 0, ...props }: PieSectorShapeProps) => {
       if (index === 0) {
@@ -96,6 +89,32 @@ export function ChartPieInteractive({
     },
     [],
   );
+
+  const selectedOption =
+    options.find((option) => option.value === selectedValue) ?? options[0];
+
+  if (!selectedOption) {
+    return (
+      <Card className="w-full border border-gray-200 bg-white p-5 shadow-sm">
+        <CardHeader>
+          <CardTitle className="text-base font-semibold text-gray-900">
+            {title}
+          </CardTitle>
+
+          <CardDescription className="text-sm text-gray-500">
+            Nenhum dado disponível.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    );
+  }
+
+  const chartData = selectedOption.slices.map((slice) => ({
+    status: slice.id,
+    label: slice.label,
+    value: slice.value,
+    fill: slice.color,
+  }));
 
   return (
     <Card
@@ -212,7 +231,10 @@ export function ChartPieInteractive({
 
           <div className="flex flex-col gap-4">
             {selectedOption.legendItems.map((item) => (
-              <div key={item.id} className="flex items-start justify-between gap-6 text-sm">
+              <div
+                key={item.id}
+                className="flex items-start justify-between gap-6 text-sm"
+              >
                 <div className="flex items-start gap-3">
                   <span
                     className="mt-1 h-3 w-3 rounded-full"
