@@ -2,16 +2,18 @@ import {
   ChartBarMixed,
   ChartLineMultiple,
   ChartPieInteractive,
+  PeriodFilter,
   ReportsIndicatorsTable,
 } from "@/features/reports/components";
 import { ReportHeader } from "./ReportHeader";
 import { useReportIndicatorsQuery } from "@/features/reports/hooks/useReportIndicatorsQuery";
-import { ReportContentState } from "@/features/reports/reports-content-stage/ReportsContentStage";
+import { ReportContentState } from "@/features/reports/components/reports-content-stage/ReportsContentStage";
 import type { ReportPeriod } from "@/features/reports/components/period-filter/types";
 import { useState } from "react";
 import { useReportFunnelQuery } from "@/features/reports/hooks/useReportFunnelQuery";
 import { useReportRatesEvolutionQuery } from "@/features/reports/hooks/useReportRatesEvolutionQuery";
 import { useInseminationDistributionQuery } from "@/features/reports/hooks/useInseminationDistributionQuery";
+import { useDownloadReproductiveReportMutation } from "@/features/reports/hooks/useDownloadReproductiveReportMutation";
 
 export function ReportContent() {
   const [period, setPeriod] = useState<ReportPeriod>("7d");
@@ -40,9 +42,19 @@ export function ReportContent() {
     isError: isInseminationError,
   } = useInseminationDistributionQuery(period);
 
+  const { mutate: downloadReproductiveReport, isPending: isDownloadingReport } =
+    useDownloadReproductiveReportMutation(period);
+
   return (
     <main className="flex w-full flex-col gap-6 p-4">
-      <ReportHeader period={period} onPeriodChange={setPeriod} />
+      <ReportHeader
+        onDownloadReport={downloadReproductiveReport}
+        isDownloadingReport={isDownloadingReport}
+      />
+
+      <div>
+        <PeriodFilter value={period} onChange={setPeriod} />
+      </div>
 
       <ReportContentState isLoading={isLoading} isError={isError}>
         <ReportsIndicatorsTable data={indicatorsData?.table ?? []} />
