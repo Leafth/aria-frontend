@@ -54,4 +54,13 @@ export const reportsService = {
 
     return response.data;
   },
+
+  getReproductiveReport: async ({ period }: GetReproductiveIndicatorsParams) => {
+    const response = await api.get("/dashboard/reproductive-report", {
+      params: mapReportPeriodToParams(period),
+      responseType: "blob",
+    });
+
+    return response.data as Blob;
+  },
 };
