@@ -1,23 +1,31 @@
-import { PeriodFilter } from "@/features/reports/components";
-import type { ReportPeriod } from "@/features/reports/components/period-filter/types";
-import { Header } from "@/shared";
+import { Button, Header } from "@/shared";
+import { Download } from "lucide-react";
 
 interface ReportHeaderProps {
-  period: ReportPeriod;
-  onPeriodChange: (period: ReportPeriod) => void;
+  onDownloadReport: () => void;
+  isDownloadingReport: boolean;
 }
 
-export function ReportHeader({ period, onPeriodChange }: ReportHeaderProps) {
+export function ReportHeader({
+  onDownloadReport,
+  isDownloadingReport,
+}: ReportHeaderProps) {
   return (
-    <header>
+    <header className="flex justify-between items-center">
       <Header
         title="Dashboard"
         description="Indicadores de desempenho reprodutivo do rebanho"
       />
-
-      <div className="mt-4">
-        <PeriodFilter value={period} onChange={onPeriodChange} />
-      </div>
+      <Button
+        type="button"
+        variant="primary"
+        size="md"
+        icon={<Download size={20}/>}
+        loading={isDownloadingReport}
+        onClick={onDownloadReport}
+      >
+        {isDownloadingReport ? "Gerando relatório..." : "Exportar PDF"}
+      </Button>
     </header>
   );
 }
