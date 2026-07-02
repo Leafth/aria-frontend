@@ -6,7 +6,7 @@ export function useDeleteBull() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: number) => deleteBull(id),
+    mutationFn: (id: string) => deleteBull(id),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["bulls"] });

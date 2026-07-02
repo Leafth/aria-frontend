@@ -2,7 +2,7 @@ import type { InfoCardsProps } from "./types";
 
 export function InfoCards({ data }: InfoCardsProps) {
   return (
-    <section className="grid w-full grid-cols-1 overflow-hidden rounded-lg bg-white shadow-md shadow-gray-200/70 sm:grid-cols-2 lg:grid-cols-5">
+    <section className="grid w-full grid-cols-1 overflow-hidden rounded-lg bg-white shadow-md shadow-gray-200/70 sm:grid-cols-2 lg:grid-cols-6">
       {data.map((item, index) => (
         <div
           key={item.id}

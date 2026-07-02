@@ -1,4 +1,4 @@
-import { Calendar, Weight, ArrowRight, AlertCircle, Info  } from "lucide-react";
+import { Calendar, Weight, ArrowRight, AlertCircle, Info } from "lucide-react";
 
 import { type FlockCardProps } from "./flock-card.type";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ export function FlockCard({
   colorCard,
   active,
   statusMessage,
+  daysInLactation,
   statusDate,
   alerts,
   inactiveReason,
@@ -74,6 +75,18 @@ export function FlockCard({
         </div>
       )}
 
+      {active && typeof daysInLactation === "number" && (
+        <div className="flex items-center justify-between text-xs font-medium text-emerald-600">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span>
+              {daysInLactation} {daysInLactation === 1 ? "Dia" : "Dias"} em
+              Lactação (DEL)
+            </span>
+          </div>
+        </div>
+      )}
+
       {alerts.length > 0 && (
         <div className="flex flex-col gap-2">
           {alerts.map((alert) => (
@@ -82,7 +95,11 @@ export function FlockCard({
               level={alert.level}
             >
               <>
-                {alert.level === "info" ? <Info size={20} /> : <AlertCircle size={20} />}
+                {alert.level === "info" ? (
+                  <Info size={20} />
+                ) : (
+                  <AlertCircle size={20} />
+                )}
                 <p>{alert.message}</p>
               </>
             </AlertInfo>

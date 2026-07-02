@@ -13,6 +13,7 @@ export interface FlockCardProps {
   active: boolean;
   statusMessage?: string;
   statusDate?: string | null;
+  daysInLactation?: number | null;
   alerts: CowListAlert[];
   inactiveReason?: string;
 }

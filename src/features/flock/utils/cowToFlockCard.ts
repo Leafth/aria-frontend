@@ -25,6 +25,7 @@ export function cowToFlockCard(cow: Cow) {
     phase: cow.active ? getPhaseLabel(cow.phase) : "Inativa",
     age: calculateAge(cow.birth_date),
     weight: formatWeight(cow.weight),
+    daysInLactation: cow.insights?.days_since_last_calving ?? null,
     colorCard: getPhaseColor(cow.phase, cow.active),
     active: cow.active,
 

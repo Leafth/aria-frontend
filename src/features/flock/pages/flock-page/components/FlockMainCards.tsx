@@ -23,6 +23,7 @@ export function FlockMainCards({ cards }: FlockMainCardsProps) {
           colorCard={flock.colorCard}
           active={flock.active}
           statusMessage={flock.statusMessage}
+          daysInLactation={flock.daysInLactation}
           statusDate={flock.statusDate}
           alerts={flock.alerts}
           inactiveReason={flock.inactiveReason}
