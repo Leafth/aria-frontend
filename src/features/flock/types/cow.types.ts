@@ -42,6 +42,7 @@ export interface Cow {
   phase: CowPhase;
   reproductive_status: CowReproductiveStatus;
   active: boolean;
+  days_since_last_calving?: number | null;
   insights?: CowListInsights;
   inactive_status?: CowInactiveStatus;
 }
@@ -61,6 +62,7 @@ export interface CowListStatusInsight {
 export interface CowListInsights {
   status?: CowListStatusInsight;
   alerts?: CowListAlert[];
+  days_since_last_calving?: number | null;
 }
 
 export interface CowInactiveStatus {
