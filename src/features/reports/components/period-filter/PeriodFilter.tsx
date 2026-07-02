@@ -12,11 +12,11 @@ interface PeriodFilterProps {
 
 const PERIOD_OPTIONS: PeriodFilterOption[] = [
   {
-    label: "7 dias",
+    label: "Semana",
     value: "7d",
   },
   {
-    label: "30 dias",
+    label: "Mês",
     value: "30d",
   },
   {
