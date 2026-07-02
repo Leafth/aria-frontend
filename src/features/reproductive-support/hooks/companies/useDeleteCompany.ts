@@ -13,7 +13,7 @@ function getDeleteCompanyErrorMessage(error: unknown) {
     }
 
     if (error.response?.status === 409 || error.response?.status === 422) {
-      return "Não é possível excluir esta empresa porque ela possui touros cadastrados.";
+      return "Esta empresa não pode ser excluída porque ainda possui touros cadastrados.";
     }
   }
 
