@@ -77,10 +77,18 @@ export function ChartLineMultiple({
           </SelectTrigger>
 
           <SelectContent align="end" className="rounded-xl cursor-pointer">
-            <SelectItem value="all" className="cursor-pointer">Todas</SelectItem>
-            <SelectItem value="inseminacao" className="cursor-pointer">Inseminação</SelectItem>
-            <SelectItem value="cobertura" className="cursor-pointer">Cobertura</SelectItem>
-            <SelectItem value="prenhez" className="cursor-pointer">Prenhez</SelectItem>
+            <SelectItem value="all" className="cursor-pointer">
+              Todas
+            </SelectItem>
+            <SelectItem value="inseminacao" className="cursor-pointer">
+              Inseminação
+            </SelectItem>
+            <SelectItem value="cobertura" className="cursor-pointer">
+              Cobertura
+            </SelectItem>
+            <SelectItem value="prenhez" className="cursor-pointer">
+              Prenhez
+            </SelectItem>
           </SelectContent>
         </Select>
       </CardHeader>
@@ -122,7 +130,7 @@ export function ChartLineMultiple({
             {showInseminacao && (
               <Line
                 dataKey="inseminacao"
-                type="natural"
+                type="bumpX"
                 stroke="var(--color-inseminacao)"
                 strokeWidth={2}
                 dot={false}
@@ -132,7 +140,7 @@ export function ChartLineMultiple({
             {showCobertura && (
               <Line
                 dataKey="cobertura"
-                type="natural"
+                type="bumpX"
                 stroke="var(--color-cobertura)"
                 strokeWidth={2}
                 dot={false}
@@ -142,7 +150,7 @@ export function ChartLineMultiple({
             {showPrenhez && (
               <Line
                 dataKey="prenhez"
-                type="natural"
+                type="bumpX"
                 stroke="var(--color-prenhez)"
                 strokeWidth={2}
                 dot={false}
