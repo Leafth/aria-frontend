@@ -30,5 +30,10 @@ export function mapReproductiveSummaryToInfoCards(
       value: data.pregnant,
       title: "Prenha",
     },
+    {
+      id: "postpartum",
+      value: data.postpartum,
+      title: "Pós-parto",
+    },
   ];
 }
