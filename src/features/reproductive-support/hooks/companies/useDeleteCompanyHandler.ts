@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import type { CompanyDTO } from "@/features/reproductive-support/types";
 import { useDeleteCompany } from "./useDeleteCompany";
 
@@ -13,8 +14,11 @@ export function useDeleteCompanyHandler() {
   const handleConfirmDelete = async () => {
     if (!selected) return;
 
-    await mutateAsync(selected.id);
-    setSelected(null);
+    try {
+      await mutateAsync(selected.id);
+    } finally {
+      setSelected(null);
+    }
   };
 
   return {
