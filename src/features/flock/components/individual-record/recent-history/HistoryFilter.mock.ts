@@ -21,8 +21,8 @@ export const mainHistoryFilters: {
 }[] = [
   { label: "Todos", value: "all", color: "#E5E7EB" },
   { label: "Reprodução", value: "reproduction", color: "#f97316" },
-  { label: "Peso", value: "weighing", color: "#c026d3" },
-  { label: "Fase", value: "phase", color: "#10B981" },
+  { label: "Pesagem", value: "weighing", color: "#c026d3" },
+  { label: "Mudança de Fase", value: "phase", color: "#10B981" },
 ];
 
 export const reproductiveHistoryFilters: {
