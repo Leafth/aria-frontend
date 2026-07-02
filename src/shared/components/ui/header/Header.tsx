@@ -14,7 +14,7 @@ export function Header({
   const isActive = active === "Ativa";
 
   return (
-    <header className={cn("flex flex-col gap-1", className)}>
+    <header className={cn("flex flex-col gap-4", className)}>
       <h1 className="flex items-center gap-4 text-xl font-semibold text-text-primary lg:text-2xl">
         {title}
 
@@ -23,13 +23,13 @@ export function Header({
             <div
               className={cn(
                 "flex items-center rounded-md px-4 h-7",
-                isActive ? "bg-green-400" : "bg-gray-400",
+                isActive ? "bg-green-400" : "bg-gray-300",
               )}
             >
               <p
                 className={cn(
                   "text-xs",
-                  isActive ? "text-green-950" : "text-gray-700",
+                  isActive ? "text-green-950" : "text-gray-600",
                 )}
               >
                 {active}
@@ -54,17 +54,17 @@ export function Header({
               </div>
             )}
 
-            {days_since_last_calving != null && (
+            {days_since_last_calving && (
               <div
                 className={cn(
                   "flex items-center rounded-md px-4 h-7",
-                  isActive ? "bg-zinc-100" : "bg-gray-300",
+                  isActive ? "bg-amber-100" : "bg-gray-300",
                 )}
               >
                 <p
                   className={cn(
                     "text-xs",
-                    isActive ? "text-zinc-800" : "text-gray-600",
+                    isActive ? "text-amber-800" : "text-gray-600",
                   )}
                 >
                   {`${days_since_last_calving} Dias em Lactação (DEL)`}
@@ -76,7 +76,9 @@ export function Header({
       </h1>
 
       {description && (
-        <p className="text-sm text-text-secondary text-gray-500">{description}</p>
+        <p className="text-sm text-text-secondary text-gray-500">
+          {description}
+        </p>
       )}
     </header>
   );
