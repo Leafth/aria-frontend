@@ -76,12 +76,12 @@ export function FlockCard({
       )}
 
       {active && typeof daysInLactation === "number" && (
-        <div className="flex items-center justify-between text-xs font-medium text-emerald-600">
+        <div className="flex items-center justify-between text-xs font-medium text-amber-600">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="h-2 w-2 rounded-full bg-amber-500" />
             <span>
-              {daysInLactation} {daysInLactation === 1 ? "Dia" : "Dias"} em
-              Lactação (DEL)
+              {daysInLactation} {daysInLactation === 1 ? "dia" : "dias"} em
+              lactação (DEL)
             </span>
           </div>
         </div>
